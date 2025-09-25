@@ -1,0 +1,754 @@
+import relationalStore from '@ohos.data.relationalStore'
+import { Context } from '@ohos.abilityAccessCtrl'
+
+interface WrongQuestion {
+  questionId: number
+  type: string
+  category: string
+  difficulty: string
+  question: string
+  options: Record<string, string>
+  correctAnswer: string
+  explanation: string
+  userAnswer: string
+  wrongCount: number
+  lastWrongTime: string
+  isResolved: boolean
+}
+
+interface AnswerRecord {
+  questionId: number;
+  userAnswer: string;
+  correctAnswer: string;
+  isCorrect: boolean;
+  answerTime: number;
+  questionType: string;
+  category: string;
+  difficulty: string;
+  createdAt: string;
+}
+
+interface FavoriteQuestion {
+  questionId: number;
+  type: string;
+  category: string;
+  difficulty: string;
+  question: string;
+  options: Record<string, string>;
+  answer: string[];
+  explanation: string;
+  favoriteTime: string;
+}
+
+interface UserStats {
+  totalQuestions: number;
+  correctAnswers: number;
+  accuracy: number;
+  streakDays: number;
+  totalStudyTime: number;
+  level: number;
+  experience: number;
+}
+
+export class DatabaseManager {
+  private static instance: DatabaseManager
+  private rdbStore: relationalStore.RdbStore | null = null
+  private readonly DB_NAME = 'cangjie_learning.db'
+  private readonly DB_VERSION = 1
+
+  private constructor() {}
+
+  static getInstance(): DatabaseManager {
+    if (!DatabaseManager.instance) {
+      DatabaseManager.instance = new DatabaseManager()
+    }
+    return DatabaseManager.instance
+  }
+
+  async initDatabase(context: Context): Promise<void> {
+    try {
+      const config: relationalStore.StoreConfig = {
+        name: this.DB_NAME,
+        securityLevel: relationalStore.SecurityLevel.S1
+      }
+
+      this.rdbStore = await relationalStore.getRdbStore(context, config)
+      await this.createTables()
+      console.info('数据库初始化成功')
+    } catch (error) {
+      console.error('数据库初始化失败:', error)
+      throw new Error('数据库初始化失败')
+    }
+  }
+
+  private async createTables(): Promise<void> {
+    if (!this.rdbStore) {
+      throw new Error('数据库未初始化')
+    }
+
+    // 用户统计表
+    const createUserStatsTable = `
+      CREATE TABLE IF NOT EXISTS user_stats (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        total_questions INTEGER DEFAULT 0,
+        correct_answers INTEGER DEFAULT 0,
+        accuracy REAL DEFAULT 0.0,
+        streak_days INTEGER DEFAULT 0,
+        total_study_time INTEGER DEFAULT 0,
+        level INTEGER DEFAULT 1,
+        experience INTEGER DEFAULT 0,
+        last_study_date TEXT,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    // 答题记录表
+    const createAnswerRecordsTable = `
+      CREATE TABLE IF NOT EXISTS answer_records (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        question_id INTEGER NOT NULL,
+        user_answer TEXT NOT NULL,
+        correct_answer TEXT NOT NULL,
+        is_correct INTEGER NOT NULL,
+        answer_time INTEGER NOT NULL,
+        question_type TEXT NOT NULL,
+        category TEXT NOT NULL,
+        difficulty TEXT NOT NULL,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    // 收藏表
+    const createFavoritesTable = `
+      CREATE TABLE IF NOT EXISTS favorites (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        question_id INTEGER NOT NULL UNIQUE,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    // 错题本表
+    const createWrongQuestionsTable = `
+      CREATE TABLE IF NOT EXISTS wrong_questions (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        question_id INTEGER NOT NULL,
+        wrong_count INTEGER DEFAULT 1,
+        last_wrong_date TEXT DEFAULT CURRENT_TIMESTAMP,
+        is_mastered INTEGER DEFAULT 0,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    // 考核记录表
+    const createExamRecordsTable = `
+      CREATE TABLE IF NOT EXISTS exam_records (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        exam_id TEXT NOT NULL,
+        exam_title TEXT NOT NULL,
+        total_questions INTEGER NOT NULL,
+        correct_answers INTEGER NOT NULL,
+        score REAL NOT NULL,
+        time_spent INTEGER NOT NULL,
+        passed INTEGER NOT NULL,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    // 学习路线进度表
+    const createLearningProgressTable = `
+      CREATE TABLE IF NOT EXISTS learning_progress (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        category TEXT NOT NULL UNIQUE,
+        completed_questions INTEGER DEFAULT 0,
+        total_questions INTEGER DEFAULT 0,
+        progress_percentage REAL DEFAULT 0.0,
+        last_study_date TEXT,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    // 成就表
+    const createAchievementsTable = `
+      CREATE TABLE IF NOT EXISTS achievements (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        achievement_id TEXT NOT NULL UNIQUE,
+        achievement_name TEXT NOT NULL,
+        description TEXT NOT NULL,
+        unlocked_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    // 题目笔记表
+    const createQuestionNotesTable = `
+      CREATE TABLE IF NOT EXISTS question_notes (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        question_id INTEGER NOT NULL UNIQUE,
+        note_content TEXT NOT NULL,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    // 每日一题记录表
+    const createDailyQuestionTable = `
+      CREATE TABLE IF NOT EXISTS daily_question_records (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date TEXT NOT NULL UNIQUE,
+        question_id INTEGER NOT NULL,
+        is_completed INTEGER DEFAULT 0,
+        is_correct INTEGER DEFAULT 0,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    try {
+      await this.rdbStore.executeSql(createUserStatsTable)
+      await this.rdbStore.executeSql(createAnswerRecordsTable)
+      await this.rdbStore.executeSql(createFavoritesTable)
+      await this.rdbStore.executeSql(createWrongQuestionsTable)
+      await this.rdbStore.executeSql(createExamRecordsTable)
+      await this.rdbStore.executeSql(createLearningProgressTable)
+      await this.rdbStore.executeSql(createAchievementsTable)
+      await this.rdbStore.executeSql(createQuestionNotesTable)
+      await this.rdbStore.executeSql(createDailyQuestionTable)
+
+      // 初始化用户统计数据
+      await this.initUserStats()
+      
+      console.info('数据库表创建成功')
+    } catch (error) {
+      console.error('创建数据库表失败:', error)
+      throw new Error('创建数据库表失败')
+    }
+  }
+
+  private async initUserStats(): Promise<void> {
+    if (!this.rdbStore) return
+
+    try {
+      const resultSet = await this.rdbStore.querySql('SELECT COUNT(*) as count FROM user_stats')
+      if (resultSet.goToFirstRow()) {
+        const count = resultSet.getLong(0)
+        if (count === 0) {
+          await this.rdbStore.executeSql(`
+            INSERT INTO user_stats (total_questions, correct_answers, accuracy, streak_days, total_study_time, level, experience)
+            VALUES (0, 0, 0.0, 0, 0, 1, 0)
+          `)
+        }
+      }
+      resultSet.close()
+    } catch (error) {
+      console.error('初始化用户统计失败:', error)
+    }
+  }
+
+  // 获取用户统计数据
+  async getUserStats(): Promise<UserStats> {
+    if (!this.rdbStore) {
+      throw new Error('数据库未初始化')
+    }
+
+    try {
+      const resultSet = await this.rdbStore.querySql('SELECT * FROM user_stats LIMIT 1')
+      if (resultSet.goToFirstRow()) {
+        const stats: UserStats = {
+          totalQuestions: resultSet.getLong(resultSet.getColumnIndex('total_questions')),
+          correctAnswers: resultSet.getLong(resultSet.getColumnIndex('correct_answers')),
+          accuracy: resultSet.getDouble(resultSet.getColumnIndex('accuracy')),
+          streakDays: resultSet.getLong(resultSet.getColumnIndex('streak_days')),
+          totalStudyTime: resultSet.getLong(resultSet.getColumnIndex('total_study_time')),
+          level: resultSet.getLong(resultSet.getColumnIndex('level')),
+          experience: resultSet.getLong(resultSet.getColumnIndex('experience'))
+        }
+        resultSet.close()
+        return stats
+      }
+      resultSet.close()
+      const defaultStats: UserStats = {
+        totalQuestions: 0,
+        correctAnswers: 0,
+        accuracy: 0,
+        streakDays: 0,
+        totalStudyTime: 0,
+        level: 1,
+        experience: 0
+      }
+      return defaultStats
+    } catch (error) {
+      console.error('获取用户统计失败:', error)
+      const errorStats: UserStats = {
+        totalQuestions: 0,
+        correctAnswers: 0,
+        accuracy: 0,
+        streakDays: 0,
+        totalStudyTime: 0,
+        level: 1,
+        experience: 0
+      }
+      return errorStats
+    }
+  }
+
+  // 记录答题
+  async recordAnswer(questionId: number, userAnswer: string, correctAnswer: string, 
+                    isCorrect: boolean, answerTime: number, questionType: string, 
+                    category: string, difficulty: string): Promise<void> {
+    if (!this.rdbStore) {
+      throw new Error('数据库未初始化')
+    }
+
+    try {
+      // 插入答题记录
+      await this.rdbStore.executeSql(`
+        INSERT INTO answer_records (question_id, user_answer, correct_answer, is_correct, answer_time, question_type, category, difficulty)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `, [questionId, userAnswer, correctAnswer, isCorrect ? 1 : 0, answerTime, questionType, category, difficulty])
+
+      // 更新用户统计
+      await this.updateUserStats(isCorrect)
+
+      // 如果答错，添加到错题本
+      if (!isCorrect) {
+        await this.addToWrongQuestions(questionId)
+      }
+
+      // 更新学习进度
+      await this.updateLearningProgress(category)
+
+    } catch (error) {
+      console.error('记录答题失败:', error)
+      throw new Error('记录答题失败')
+    }
+  }
+
+  // 更新用户统计
+  private async updateUserStats(isCorrect: boolean): Promise<void> {
+    if (!this.rdbStore) return
+
+    try {
+      const stats: UserStats = await this.getUserStats()
+      const newTotalQuestions: number = stats.totalQuestions + 1
+      const newCorrectAnswers: number = stats.correctAnswers + (isCorrect ? 1 : 0)
+      const newAccuracy: number = (newCorrectAnswers / newTotalQuestions) * 100
+
+      await this.rdbStore.executeSql(`
+        UPDATE user_stats SET 
+          total_questions = ?,
+          correct_answers = ?,
+          accuracy = ?,
+          updated_at = CURRENT_TIMESTAMP
+        WHERE id = 1
+      `, [newTotalQuestions, newCorrectAnswers, newAccuracy])
+
+    } catch (error) {
+      console.error('更新用户统计失败:', error)
+    }
+  }
+
+  // 添加到错题本
+  async addToWrongQuestions(questionId: number): Promise<void> {
+    if (!this.rdbStore) return
+
+    try {
+      // 检查是否已存在
+      const resultSet = await this.rdbStore.querySql(
+        'SELECT * FROM wrong_questions WHERE question_id = ?', [questionId]
+      )
+
+      if (resultSet.goToFirstRow()) {
+        // 更新错误次数
+        const wrongCount = resultSet.getLong(resultSet.getColumnIndex('wrong_count'))
+        await this.rdbStore.executeSql(`
+          UPDATE wrong_questions SET 
+            wrong_count = ?,
+            last_wrong_date = CURRENT_TIMESTAMP
+          WHERE question_id = ?
+        `, [wrongCount + 1, questionId])
+      } else {
+        // 插入新记录
+        await this.rdbStore.executeSql(`
+          INSERT INTO wrong_questions (question_id, wrong_count, last_wrong_date)
+          VALUES (?, 1, CURRENT_TIMESTAMP)
+        `, [questionId])
+      }
+      resultSet.close()
+
+    } catch (error) {
+      console.error('添加错题失败:', error)
+    }
+  }
+
+  // 更新学习进度
+  private async updateLearningProgress(category: string): Promise<void> {
+    if (!this.rdbStore) return
+
+    try {
+      // 检查是否已存在该分类的进度记录
+      const resultSet = await this.rdbStore.querySql(
+        'SELECT * FROM learning_progress WHERE category = ?', [category]
+      )
+
+      if (resultSet.goToFirstRow()) {
+        // 更新进度
+        const completedQuestions = resultSet.getLong(resultSet.getColumnIndex('completed_questions'))
+        await this.rdbStore.executeSql(`
+          UPDATE learning_progress SET 
+            completed_questions = ?,
+            last_study_date = CURRENT_TIMESTAMP,
+            updated_at = CURRENT_TIMESTAMP
+          WHERE category = ?
+        `, [completedQuestions + 1, category])
+      } else {
+        // 插入新记录
+        await this.rdbStore.executeSql(`
+          INSERT INTO learning_progress (category, completed_questions, total_questions, last_study_date)
+          VALUES (?, 1, 0, CURRENT_TIMESTAMP)
+        `, [category])
+      }
+      resultSet.close()
+
+    } catch (error) {
+      console.error('更新学习进度失败:', error)
+    }
+  }
+
+  // 添加收藏
+  async addToFavorites(questionId: number): Promise<void> {
+    if (!this.rdbStore) {
+      throw new Error('数据库未初始化')
+    }
+
+    try {
+      await this.rdbStore.executeSql(`
+        INSERT OR IGNORE INTO favorites (question_id) VALUES (?)
+      `, [questionId])
+    } catch (error) {
+      console.error('添加收藏失败:', error)
+      throw new Error('添加收藏失败')
+    }
+  }
+
+  // 移除收藏
+  async removeFromFavorites(questionId: number): Promise<void> {
+    if (!this.rdbStore) {
+      throw new Error('数据库未初始化')
+    }
+
+    try {
+      await this.rdbStore.executeSql(`
+        DELETE FROM favorites WHERE question_id = ?
+      `, [questionId])
+    } catch (error) {
+      console.error('移除收藏失败:', error)
+      throw new Error('移除收藏失败')
+    }
+  }
+
+  // 获取收藏列表
+  async getFavorites(): Promise<number[]> {
+    if (!this.rdbStore) {
+      throw new Error('数据库未初始化')
+    }
+
+    try {
+      const resultSet = await this.rdbStore.querySql('SELECT question_id FROM favorites ORDER BY created_at DESC')
+      const favorites: number[] = []
+      
+      while (resultSet.goToNextRow()) {
+        favorites.push(resultSet.getLong(0))
+      }
+      
+      resultSet.close()
+      return favorites
+    } catch (error) {
+      console.error('获取收藏列表失败:', error)
+      return []
+    }
+  }
+
+  // 检查是否已收藏
+  async isFavorite(questionId: number): Promise<boolean> {
+    if (!this.rdbStore) {
+      return false
+    }
+
+    try {
+      const resultSet = await this.rdbStore.querySql(
+        'SELECT COUNT(*) as count FROM favorites WHERE question_id = ?', [questionId]
+      )
+      
+      if (resultSet.goToFirstRow()) {
+        const count = resultSet.getLong(0)
+        resultSet.close()
+        return count > 0
+      }
+      
+      resultSet.close()
+      return false
+    } catch (error) {
+      console.error('检查收藏状态失败:', error)
+      return false
+    }
+  }
+
+  // 保存题目笔记
+  async saveQuestionNote(questionId: number, noteContent: string): Promise<void> {
+    if (!this.rdbStore) {
+      throw new Error('数据库未初始化')
+    }
+
+    try {
+      await this.rdbStore.executeSql(`
+        INSERT OR REPLACE INTO question_notes (question_id, note_content, updated_at)
+        VALUES (?, ?, CURRENT_TIMESTAMP)
+      `, [questionId, noteContent])
+    } catch (error) {
+      console.error('保存笔记失败:', error)
+      throw new Error('保存笔记失败')
+    }
+  }
+
+  // 获取题目笔记
+  async getQuestionNote(questionId: number): Promise<string> {
+    if (!this.rdbStore) {
+      return ''
+    }
+
+    try {
+      const resultSet = await this.rdbStore.querySql(
+        'SELECT note_content FROM question_notes WHERE question_id = ?', [questionId]
+      )
+      
+      if (resultSet.goToFirstRow()) {
+        const note = resultSet.getString(0)
+        resultSet.close()
+        return note
+      }
+      
+      resultSet.close()
+      return ''
+    } catch (error) {
+      console.error('获取笔记失败:', error)
+      return ''
+    }
+  }
+
+  // 记录考核结果
+  async recordExamResult(examId: string, examTitle: string, totalQuestions: number, 
+                        correctAnswers: number, score: number, timeSpent: number, 
+                        passed: boolean): Promise<void> {
+    if (!this.rdbStore) {
+      throw new Error('数据库未初始化')
+    }
+
+    try {
+      await this.rdbStore.executeSql(`
+        INSERT INTO exam_records (exam_id, exam_title, total_questions, correct_answers, score, time_spent, passed)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `, [examId, examTitle, totalQuestions, correctAnswers, score, timeSpent, passed ? 1 : 0])
+    } catch (error) {
+      console.error('记录考核结果失败:', error)
+      throw new Error('记录考核结果失败')
+    }
+  }
+
+  // 清除所有数据
+  async clearAllData(): Promise<void> {
+    if (!this.rdbStore) {
+      throw new Error('数据库未初始化')
+    }
+
+    try {
+      const tables = [
+        'answer_records', 'favorites', 'wrong_questions', 'exam_records',
+        'learning_progress', 'achievements', 'question_notes', 'daily_question_records'
+      ]
+
+      for (const table of tables) {
+        await this.rdbStore.executeSql(`DELETE FROM ${table}`)
+      }
+
+      // 重置用户统计
+      await this.rdbStore.executeSql(`
+        UPDATE user_stats SET 
+          total_questions = 0,
+          correct_answers = 0,
+          accuracy = 0.0,
+          streak_days = 0,
+          total_study_time = 0,
+          level = 1,
+          experience = 0,
+          updated_at = CURRENT_TIMESTAMP
+      `)
+
+    } catch (error) {
+      console.error('清除数据失败:', error)
+      throw new Error('清除数据失败')
+    }
+  }
+
+  // 获取收藏的题目
+  async getFavoriteQuestions(): Promise<FavoriteQuestion[]> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      const resultSet = await this.rdbStore.querySql(
+        'SELECT question_id, created_at FROM favorites ORDER BY created_at DESC'
+      )
+
+      const favoriteQuestions: FavoriteQuestion[] = []
+      if (resultSet.rowCount > 0) {
+        resultSet.goToFirstRow()
+        do {
+          const questionId = resultSet.getLong(0)
+          const favoriteTime = resultSet.getString(1)
+          
+          // 这里应该从题库中获取完整题目信息
+          // 暂时返回基本结构，实际应用中需要从cangjie.json加载
+          const favoriteOptions: Record<string, string> = {}
+          favoriteOptions.A = '选项A'
+          favoriteOptions.B = '选项B'
+          favoriteOptions.C = '选项C'
+          favoriteOptions.D = '选项D'
+          
+          const favoriteQuestion: FavoriteQuestion = {
+            questionId: questionId,
+            type: 'single',
+            category: '仓颉语言',
+            difficulty: '中等',
+            question: `题目 ${questionId}`,
+            options: favoriteOptions,
+            answer: ['A'],
+            explanation: '这是解释内容',
+            favoriteTime: favoriteTime
+          }
+          favoriteQuestions.push(favoriteQuestion)
+        } while (resultSet.goToNextRow())
+      }
+      resultSet.close()
+
+      return favoriteQuestions
+    } catch (error) {
+      console.error('获取收藏题目失败:', error)
+      return []
+    }
+  }
+
+  // 移除收藏
+  async removeFavorite(questionId: number): Promise<void> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(
+        'DELETE FROM favorites WHERE question_id = ?',
+        [questionId]
+      )
+    } catch (error) {
+      console.error('移除收藏失败:', error)
+      throw new Error('移除收藏失败')
+    }
+  }
+
+  // 获取错题
+  async getWrongQuestions(): Promise<WrongQuestion[]> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      const resultSet = await this.rdbStore.querySql(`
+        SELECT question_id, wrong_count, last_wrong_date, is_mastered 
+        FROM wrong_questions 
+        ORDER BY last_wrong_date DESC
+      `)
+
+      const wrongQuestions: WrongQuestion[] = []
+      if (resultSet.rowCount > 0) {
+        resultSet.goToFirstRow()
+        do {
+          const questionId = resultSet.getLong(0)
+          const wrongCount = resultSet.getLong(1)
+          const lastWrongDate = resultSet.getString(2)
+          const isMastered = resultSet.getLong(3) === 1
+          
+          // 这里应该从题库中获取完整题目信息
+          // 暂时返回基本结构，实际应用中需要从cangjie.json加载
+          const options: Record<string, string> = {}
+          options.A = '选项A'
+          options.B = '选项B'
+          options.C = '选项C'
+          options.D = '选项D'
+          
+          const wrongQuestion: WrongQuestion = {
+            questionId: questionId,
+            type: 'single',
+            category: '仓颉语言',
+            difficulty: '中等',
+            question: `错题 ${questionId}`,
+            options: options,
+            correctAnswer: 'A',
+            explanation: '这是解释内容',
+            userAnswer: 'B',
+            wrongCount: wrongCount,
+            lastWrongTime: lastWrongDate,
+            isResolved: isMastered
+          }
+          wrongQuestions.push(wrongQuestion)
+        } while (resultSet.goToNextRow())
+      }
+      resultSet.close()
+
+      return wrongQuestions
+    } catch (error) {
+      console.error('获取错题失败:', error)
+      return []
+    }
+  }
+
+  // 获取答题记录
+  async getAnswerRecords(): Promise<AnswerRecord[]> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      const resultSet = await this.rdbStore.querySql(`
+        SELECT question_id, user_answer, correct_answer, is_correct, 
+               answer_time, question_type, category, difficulty, created_at
+        FROM answer_records 
+        ORDER BY created_at DESC
+      `)
+
+      const records: AnswerRecord[] = []
+      if (resultSet.rowCount > 0) {
+        resultSet.goToFirstRow()
+        do {
+          const record: AnswerRecord = {
+            questionId: resultSet.getLong(0),
+            userAnswer: resultSet.getString(1),
+            correctAnswer: resultSet.getString(2),
+            isCorrect: resultSet.getLong(3) === 1,
+            answerTime: resultSet.getLong(4),
+            questionType: resultSet.getString(5),
+            category: resultSet.getString(6),
+            difficulty: resultSet.getString(7),
+            createdAt: resultSet.getString(8)
+          }
+          records.push(record)
+        } while (resultSet.goToNextRow())
+      }
+      resultSet.close()
+
+      return records
+    } catch (error) {
+      console.error('获取答题记录失败:', error)
+      return []
+    }
+  }
+}

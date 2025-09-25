@@ -1,23 +1,56 @@
+import { HomePage } from './HomePage'
+import { QuestionBankPage } from './QuestionBankPage'
+import { ExamPage } from './ExamPage'
+import { ProfilePage } from './ProfilePage'
+
 @Entry
 @Component
 struct Index {
-  @State message: string = 'Hello World';
+  @State currentTabIndex: number = 0
 
   build() {
-    RelativeContainer() {
-      Text(this.message)
-        .id('HelloWorld')
-        .fontSize($r('app.float.page_text_font_size'))
-        .fontWeight(FontWeight.Bold)
-        .alignRules({
-          center: { anchor: '__container__', align: VerticalAlign.Center },
-          middle: { anchor: '__container__', align: HorizontalAlign.Center }
-        })
-        .onClick(() => {
-          this.message = 'Welcome';
-        })
+    Tabs({ barPosition: BarPosition.End }) {
+      TabContent() {
+        HomePage()
+      }
+      .tabBar(this.TabBuilder(0, '首页', $r('app.media.ic_home')))
+
+      TabContent() {
+        QuestionBankPage()
+      }
+      .tabBar(this.TabBuilder(1, '题库', $r('app.media.ic_question_bank')))
+
+      TabContent() {
+        ExamPage()
+      }
+      .tabBar(this.TabBuilder(2, '考试', $r('app.media.ic_exam')))
+
+      TabContent() {
+        ProfilePage()
+      }
+      .tabBar(this.TabBuilder(3, '我的', $r('app.media.ic_profile')))
     }
-    .height('100%')
+    .onChange((index: number) => {
+      this.currentTabIndex = index
+    })
+    .backgroundColor('#F5F5F5')
+  }
+
+  @Builder TabBuilder(index: number, title: string, icon: Resource) {
+    Column() {
+      Image(icon)
+        .width(24)
+        .height(24)
+        .fillColor(this.currentTabIndex === index ? '#007AFF' : '#999999')
+      
+      Text(title)
+        .fontSize(12)
+        .fontColor(this.currentTabIndex === index ? '#007AFF' : '#999999')
+        .margin({ top: 4 })
+    }
     .width('100%')
+    .height(56)
+    .justifyContent(FlexAlign.Center)
+    .alignItems(HorizontalAlign.Center)
   }
 }

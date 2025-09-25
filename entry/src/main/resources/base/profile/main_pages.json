@@ -1,5 +1,15 @@
 {
   "src": [
-    "pages/Index"
+    "pages/Index",
+    "pages/HomePage",
+    "pages/QuestionBankPage",
+    "pages/ExamPage",
+    "pages/ProfilePage",
+    "pages/QuestionDetailPage",
+    "pages/DailyQuestionPage",
+    "pages/LearningPathPage",
+    "pages/FavoritesPage",
+    "pages/WrongQuestionsPage",
+    "pages/StatisticsPage"
   ]
 }

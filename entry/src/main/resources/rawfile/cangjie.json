@@ -1,0 +1,6067 @@
+[
+    {
+        "id": 1,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "在仓颉语言中，打印\"Hello World\"的正确语法是？",
+        "options": {
+            "A": "print(\"Hello World\")",
+            "B": "println(\"Hello World\")",
+            "C": "echo \"Hello World\"",
+            "D": "printf(\"Hello World\")"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 println 函数输出一行文本并换行。"
+    },
+    {
+        "id": 2,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中定义变量的关键字是什么？",
+        "options": {
+            "A": "var",
+            "B": "let",
+            "C": "val",
+            "D": "def"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 var 关键字定义可变变量，使用 val 定义不可变变量。"
+    },
+    {
+        "id": 3,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "以下哪个是仓颉语言中的单行注释符号？",
+        "options": {
+            "A": "//",
+            "B": "#",
+            "C": "--",
+            "D": "/* */"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 // 进行单行注释，使用 /* */ 进行多行注释。"
+    },
+    {
+        "id": 4,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中语句结束通常使用什么符号？",
+        "options": {
+            "A": "分号(;)",
+            "B": "换行符",
+            "C": "句号(.)",
+            "D": "不需要结束符号"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言通常使用换行符作为语句结束，分号是可选的。"
+    },
+    {
+        "id": 5,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言的源文件扩展名是什么？",
+        "options": {
+            "A": ".java",
+            "B": ".cj",
+            "C": ".cangjie",
+            "D": ".cjj"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言的源文件通常使用 .cj 作为文件扩展名。"
+    },
+    {
+        "id": 6,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "在仓颉语言中，如何定义常量？",
+        "options": {
+            "A": "const",
+            "B": "val",
+            "C": "final",
+            "D": "constant"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 val 关键字定义不可变的常量。"
+    },
+    {
+        "id": 7,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中导入模块的关键字是？",
+        "options": {
+            "A": "import",
+            "B": "include",
+            "C": "using",
+            "D": "require"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 import 关键字导入其他模块。"
+    },
+    {
+        "id": 8,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "以下哪个是仓颉语言的有效标识符？",
+        "options": {
+            "A": "123variable",
+            "B": "var-name",
+            "C": "variable_name",
+            "D": "var name"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言的标识符可以包含字母、数字和下划线，但不能以数字开头。"
+    },
+    {
+        "id": 9,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中表示空值的关键字是？",
+        "options": {
+            "A": "null",
+            "B": "None",
+            "C": "nil",
+            "D": "undefined"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 null 表示空值。"
+    },
+    {
+        "id": 10,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言的主函数签名正确的是？",
+        "options": {
+            "A": "func main()",
+            "B": "function main()",
+            "C": "def main():",
+            "D": "main()"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 function main() 作为程序入口点。"
+    },
+    {
+        "id": 11,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "简单",
+        "question": "仓颉语言中表示整数的基本类型是什么？",
+        "options": {
+            "A": "int",
+            "B": "integer",
+            "C": "number",
+            "D": "Int"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言中整数类型为 Int，采用首字母大写的命名约定。"
+    },
+    {
+        "id": 12,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "简单",
+        "question": "以下哪个是仓颉语言中的布尔值？",
+        "options": {
+            "A": "true/false",
+            "B": "True/False",
+            "C": "1/0",
+            "D": "yes/no"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用小写的 true 和 false 作为布尔值。"
+    },
+    {
+        "id": 13,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "简单",
+        "question": "仓颉语言中表示浮点数的类型是？",
+        "options": {
+            "A": "float",
+            "B": "double",
+            "C": "Float",
+            "D": "Decimal"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言使用 Float 表示浮点数，遵循首字母大写的命名规范。"
+    },
+    {
+        "id": 14,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "简单",
+        "question": "仓颉语言中字符串的类型是什么？",
+        "options": {
+            "A": "string",
+            "B": "String",
+            "C": "str",
+            "D": "Text"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 String 表示字符串类型。"
+    },
+    {
+        "id": 15,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "简单",
+        "question": "仓颉语言中字符的类型是什么？",
+        "options": {
+            "A": "char",
+            "B": "Char",
+            "C": "character",
+            "D": "Character"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Char 表示单个字符。"
+    },
+    {
+        "id": 16,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中数组的声明方式正确的是？",
+        "options": {
+            "A": "Array<Int>",
+            "B": "Int[]",
+            "C": "List<Int>",
+            "D": "Array[Int]"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Array<Type> 的语法声明数组。"
+    },
+    {
+        "id": 17,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中字典类型的声明方式是？",
+        "options": {
+            "A": "Dict<K,V>",
+            "B": "Map<K,V>",
+            "C": "Dictionary<K,V>",
+            "D": "HashMap<K,V>"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Map<K,V> 表示键值对集合。"
+    },
+    {
+        "id": 18,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中元组的声明方式正确的是？",
+        "options": {
+            "A": "(Int, String)",
+            "B": "Tuple<Int, String>",
+            "C": "Pair<Int, String>",
+            "D": "IntStringTuple"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用括号语法 (Type1, Type2) 表示元组。"
+    },
+    {
+        "id": 19,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中可选类型的表示方式是？",
+        "options": {
+            "A": "Optional<T>",
+            "B": "T?",
+            "C": "Maybe<T>",
+            "D": "Option<T>"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Type? 表示可选类型，表示值可能为 null。"
+    },
+    {
+        "id": 20,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中范围类型的表示方式是？",
+        "options": {
+            "A": "Range",
+            "B": "1..10",
+            "C": "Interval",
+            "D": "1 to 10"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 start..end 表示范围，包含起始和结束值。"
+    },
+    {
+        "id": 21,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "在仓颉语言中，如何定义无返回值的函数？",
+        "options": {
+            "A": "func name(): void",
+            "B": "function name(): Unit",
+            "C": "def name(): None",
+            "D": "fn name() -> ()"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 function 关键字定义函数，无返回值时返回 Unit 类型。"
+    },
+    {
+        "id": 22,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中支持哪种参数传递方式？",
+        "options": {
+            "A": "仅值传递",
+            "B": "仅引用传递",
+            "C": "值和引用传递",
+            "D": "指针传递"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言采用值传递方式，对于对象类型传递的是引用副本。"
+    },
+    {
+        "id": 23,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中定义默认参数值的方式是？",
+        "options": {
+            "A": "function foo(x = 5)",
+            "B": "function foo(x: Int = 5)",
+            "C": "function foo(x: Int := 5)",
+            "D": "function foo(5)"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 parameter: Type = value 的语法定义默认参数。"
+    },
+    {
+        "id": 24,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中可变参数的表示方式是？",
+        "options": {
+            "A": "params",
+            "B": "...",
+            "C": "varargs",
+            "D": "*"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言使用 varargs 关键字表示可变数量参数。"
+    },
+    {
+        "id": 25,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中匿名函数的定义方式是？",
+        "options": {
+            "A": "lambda x: x + 1",
+            "B": "function(x) { return x + 1 }",
+            "C": "x => x + 1",
+            "D": "(x) -> x + 1"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言使用 (parameters) -> expression 语法定义匿名函数。"
+    },
+    {
+        "id": 26,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中高阶函数的特性是指？",
+        "options": {
+            "A": "函数可以作为参数传递",
+            "B": "函数可以返回函数",
+            "C": "函数可以嵌套定义",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言支持函数作为参数、返回函数和嵌套函数等高阶函数特性。"
+    },
+    {
+        "id": 27,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中尾递归优化的作用是？",
+        "options": {
+            "A": "减少内存占用",
+            "B": "避免栈溢出",
+            "C": "提高执行速度",
+            "D": "简化代码"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "尾递归优化可以将递归调用转换为循环，避免栈溢出错误。"
+    },
+    {
+        "id": 28,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数柯里化的实现方式是？",
+        "options": {
+            "A": "自动柯里化",
+            "B": "使用curry关键字",
+            "C": "手动创建部分应用函数",
+            "D": "不支持柯里化"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言需要手动创建部分应用函数来实现柯里化效果。"
+    },
+    {
+        "id": 29,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数组合的操作符是？",
+        "options": {
+            "A": ">>",
+            "B": "|>",
+            "C": "∘",
+            "D": "andThen"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 >> 操作符进行函数组合，f >> g 表示先执行f再执行g。"
+    },
+    {
+        "id": 30,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中偏函数的定义方式是？",
+        "options": {
+            "A": "使用partial关键字",
+            "B": "使用_作为占位符",
+            "C": "自动部分应用",
+            "D": "不支持偏函数"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用下划线 _ 作为参数占位符来创建偏函数。"
+    },
+    {
+        "id": 31,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中定义类的关键字是什么？",
+        "options": {
+            "A": "class",
+            "B": "struct",
+            "C": "object",
+            "D": "type"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 class 关键字定义类，支持面向对象编程特性。"
+    },
+    {
+        "id": 32,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "以下关于仓颉语言继承的说法正确的是？",
+        "options": {
+            "A": "支持多继承",
+            "B": "仅支持单继承",
+            "C": "不支持继承",
+            "D": "通过接口实现继承"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言采用单继承模型，但可以通过接口实现多重继承的效果。"
+    },
+    {
+        "id": 33,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中接口的定义关键字是？",
+        "options": {
+            "A": "interface",
+            "B": "protocol",
+            "C": "trait",
+            "D": "abstract"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 interface 关键字定义接口。"
+    },
+    {
+        "id": 34,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中抽象类的定义方式是？",
+        "options": {
+            "A": "abstract class",
+            "B": "virtual class",
+            "C": "base class",
+            "D": "使用abstract关键字标记方法"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 abstract class 定义抽象类。"
+    },
+    {
+        "id": 35,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中访问修饰符不包括以下哪个？",
+        "options": {
+            "A": "public",
+            "B": "private",
+            "C": "protected",
+            "D": "internal"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言的访问修饰符包括 public、private 和 internal，没有 protected。"
+    },
+    {
+        "id": 36,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中属性的getter和setter如何定义？",
+        "options": {
+            "A": "自动生成",
+            "B": "使用get和set关键字",
+            "C": "使用property关键字",
+            "D": "需要手动实现"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言会自动为属性生成getter和setter方法。"
+    },
+    {
+        "id": 37,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中伴生对象的作用是？",
+        "options": {
+            "A": "实现单例模式",
+            "B": "存放静态成员",
+            "C": "实现工厂模式",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "伴生对象可以用于实现单例、存放静态成员和工厂方法等。"
+    },
+    {
+        "id": 38,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中数据类的定义关键字是？",
+        "options": {
+            "A": "data class",
+            "B": "record",
+            "C": "struct",
+            "D": "value class"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 data class 定义数据类，自动生成equals、hashCode等方法。"
+    },
+    {
+        "id": 39,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中密封类的作用是？",
+        "options": {
+            "A": "限制类继承",
+            "B": "实现模式匹配",
+            "C": "定义有限集合的子类",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "密封类用于限制继承、实现模式匹配和定义有限的子类集合。"
+    },
+    {
+        "id": 40,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中扩展函数的作用是？",
+        "options": {
+            "A": "为已有类添加新方法",
+            "B": "扩展现有函数的功能",
+            "C": "增加函数参数",
+            "D": "修改函数返回值"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "扩展函数允许为已有类添加新方法，而不需要继承或修改原始类。"
+    },
+    {
+        "id": 41,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中轻量级线程的创建关键字是什么？",
+        "options": {
+            "A": "async",
+            "B": "spawn",
+            "C": "go",
+            "D": "coroutine"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 spawn 关键字创建轻量级线程（协程）。"
+    },
+    {
+        "id": 42,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中通道的主要作用是？",
+        "options": {
+            "A": "协程间通信",
+            "B": "数据序列化",
+            "C": "网络传输",
+            "D": "文件读写"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "通道用于协程之间的安全通信和数据传递。"
+    },
+    {
+        "id": 43,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中select语句的作用是？",
+        "options": {
+            "A": "多路复用通道操作",
+            "B": "数据库查询",
+            "C": "条件选择",
+            "D": "模式匹配"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "select语句用于同时监听多个通道操作，选择第一个就绪的操作执行。"
+    },
+    {
+        "id": 44,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中原子操作的类型是？",
+        "options": {
+            "A": "Atomic",
+            "B": "Mutex",
+            "C": "Sync",
+            "D": "Lock"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言提供 Atomic 类型用于实现原子操作。"
+    },
+    {
+        "id": 45,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中异步函数的定义关键字是？",
+        "options": {
+            "A": "async",
+            "B": "await",
+            "C": "future",
+            "D": "promise"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 async 关键字定义异步函数。"
+    },
+    {
+        "id": 46,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言采用的内存管理方式是？",
+        "options": {
+            "A": "手动管理",
+            "B": "自动垃圾回收",
+            "C": "引用计数",
+            "D": "所有权系统"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用自动垃圾回收机制管理内存。"
+    },
+    {
+        "id": 47,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中弱引用的作用是？",
+        "options": {
+            "A": "避免循环引用",
+            "B": "提高访问速度",
+            "C": "减少内存占用",
+            "D": "强制对象回收"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "弱引用不会阻止垃圾回收器回收对象，常用于避免循环引用。"
+    },
+    {
+        "id": 48,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中内存屏障的作用是？",
+        "options": {
+            "A": "保证内存访问顺序",
+            "B": "提高内存分配速度",
+            "C": "减少内存碎片",
+            "D": "优化缓存使用"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "内存屏障用于保证多线程环境下的内存访问顺序一致性。"
+    },
+    {
+        "id": 49,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中数学函数库的导入方式是？",
+        "options": {
+            "A": "import math",
+            "B": "import Math",
+            "C": "using math",
+            "D": "include Math"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 import Math 导入数学函数库。"
+    },
+    {
+        "id": 50,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中文件操作的主要类是什么？",
+        "options": {
+            "A": "File",
+            "B": "FileSystem",
+            "C": "IO",
+            "D": "Stream"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 File 类进行文件操作。"
+    },
+    {
+        "id": 51,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中字符串分割的方法是什么？",
+        "options": {
+            "A": "split()",
+            "B": "divide()",
+            "C": "separate()",
+            "D": "partition()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 split() 方法分割字符串。"
+    },
+    {
+        "id": 52,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中获取当前时间的方法是什么？",
+        "options": {
+            "A": "Time.now()",
+            "B": "DateTime.current()",
+            "C": "System.currentTime()",
+            "D": "Clock.now()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Time.now() 获取当前时间。"
+    },
+    {
+        "id": 53,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中正则表达式的类是什么？",
+        "options": {
+            "A": "Regex",
+            "B": "Pattern",
+            "C": "RegExp",
+            "D": "Matcher"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Regex 类处理正则表达式。"
+    },
+    {
+        "id": 54,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中JSON序列化的方法是？",
+        "options": {
+            "A": "toJson()",
+            "B": "serialize()",
+            "C": "encode()",
+            "D": "stringify()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 toJson() 方法将对象序列化为JSON字符串。"
+    },
+    {
+        "id": 55,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中网络请求的库是什么？",
+        "options": {
+            "A": "HttpClient",
+            "B": "Net",
+            "C": "Web",
+            "D": "Request"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 HttpClient 类进行HTTP网络请求。"
+    },
+    {
+        "id": 56,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中数据库连接的主要类是什么？",
+        "options": {
+            "A": "Database",
+            "B": "DB",
+            "C": "Connection",
+            "D": "SQL"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Database 类管理数据库连接。"
+    },
+    {
+        "id": 57,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中日志记录的方法是？",
+        "options": {
+            "A": "Logger.log()",
+            "B": "Console.log()",
+            "C": "System.out()",
+            "D": "print()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Logger 类进行日志记录。"
+    },
+    {
+        "id": 58,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中泛型的主要作用是什么？",
+        "options": {
+            "A": "类型安全",
+            "B": "代码复用",
+            "C": "性能优化",
+            "D": "A和B"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "泛型提供类型安全和代码复用的好处。"
+    },
+    {
+        "id": 59,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中注解的定义方式是？",
+        "options": {
+            "A": "@annotation",
+            "B": "[Annotation]",
+            "C": "annotation",
+            "D": "#annotation"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 @ 符号定义注解。"
+    },
+    {
+        "id": 60,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中反射API的主要类是什么？",
+        "options": {
+            "A": "Reflect",
+            "B": "Mirror",
+            "C": "Class",
+            "D": "Type"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Mirror 类进行反射操作。"
+    },
+    {
+        "id": 61,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中条件语句的关键字是什么？",
+        "options": {
+            "A": "if",
+            "B": "when",
+            "C": "switch",
+            "D": "case"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 if 作为条件语句的关键字。"
+    },
+    {
+        "id": 62,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中循环语句不包括以下哪个？",
+        "options": {
+            "A": "for",
+            "B": "while",
+            "C": "do-while",
+            "D": "loop"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言支持 for、while 和 do-while 循环，没有 loop 关键字。"
+    },
+    {
+        "id": 63,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中异常处理的关键字是什么？",
+        "options": {
+            "A": "try-catch",
+            "B": "try-rescue",
+            "C": "try-except",
+            "D": "try-handle"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 try-catch 进行异常处理。"
+    },
+    {
+        "id": 64,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中模式匹配的关键字是什么？",
+        "options": {
+            "A": "match",
+            "B": "switch",
+            "C": "case",
+            "D": "pattern"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 match 关键字进行模式匹配。"
+    },
+    {
+        "id": 65,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中类型断言的操作符是？",
+        "options": {
+            "A": "as",
+            "B": "is",
+            "C": "instanceof",
+            "D": "typeof"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 as 操作符进行类型断言。"
+    },
+    {
+        "id": 66,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中枚举的定义关键字是？",
+        "options": {
+            "A": "enum",
+            "B": "Enum",
+            "C": "enumeration",
+            "D": "type"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 enum 关键字定义枚举类型。"
+    },
+    {
+        "id": 67,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中集合类型的表示方式是？",
+        "options": {
+            "A": "Set<T>",
+            "B": "Collection<T>",
+            "C": "HashSet<T>",
+            "D": "ListSet<T>"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Set<T> 表示集合类型。"
+    },
+    {
+        "id": 68,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中链表的表示方式是？",
+        "options": {
+            "A": "LinkedList<T>",
+            "B": "List<T>",
+            "C": "Seq<T>",
+            "D": "Chain<T>"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 List<T> 表示链表结构。"
+    },
+    {
+        "id": 69,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中内联函数的关键字是？",
+        "options": {
+            "A": "inline",
+            "B": "macro",
+            "C": "direct",
+            "D": "fast"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 inline 关键字定义内联函数。"
+    },
+    {
+        "id": 70,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中函数重载的支持情况是？",
+        "options": {
+            "A": "支持",
+            "B": "不支持",
+            "C": "部分支持",
+            "D": "仅支持运算符重载"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言支持函数重载，允许同名函数有不同参数列表。"
+    },
+    {
+        "id": 71,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中构造函数的名称是？",
+        "options": {
+            "A": "constructor",
+            "B": "init",
+            "C": "new",
+            "D": "与类名相同"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 init 作为构造函数名。"
+    },
+    {
+        "id": 72,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中析构函数的名称是？",
+        "options": {
+            "A": "destructor",
+            "B": "dispose",
+            "C": "finalize",
+            "D": "没有析构函数"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言使用自动垃圾回收，没有显式的析构函数。"
+    },
+    {
+        "id": 73,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中静态成员的关键字是？",
+        "options": {
+            "A": "static",
+            "B": "class",
+            "C": "shared",
+            "D": "global"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 static 关键字定义静态成员。"
+    },
+    {
+        "id": 74,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中互斥锁的类是什么？",
+        "options": {
+            "A": "Mutex",
+            "B": "Lock",
+            "C": "Sync",
+            "D": "Monitor"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Mutex 类实现互斥锁。"
+    },
+    {
+        "id": 75,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中信号量的类是什么？",
+        "options": {
+            "A": "Semaphore",
+            "B": "Signal",
+            "C": "Event",
+            "D": "Barrier"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Semaphore 类实现信号量。"
+    },
+    {
+        "id": 76,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中手动内存分配的方法是什么？",
+        "options": {
+            "A": "allocate()",
+            "B": "malloc()",
+            "C": "new",
+            "D": "不支持手动分配"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言完全依赖自动垃圾回收，不支持手动内存分配。"
+    },
+    {
+        "id": 77,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中内存池的作用是？",
+        "options": {
+            "A": "提高内存分配效率",
+            "B": "减少内存碎片",
+            "C": "优化缓存使用",
+            "D": "A和B"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "内存池可以提高内存分配效率并减少内存碎片。"
+    },
+    {
+        "id": 78,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中随机数生成的类是？",
+        "options": {
+            "A": "Random",
+            "B": "Math.random()",
+            "C": "Randomizer",
+            "D": "Rand"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Random 类生成随机数。"
+    },
+    {
+        "id": 79,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中压缩解压的库是什么？",
+        "options": {
+            "A": "Zip",
+            "B": "Compress",
+            "C": "Archive",
+            "D": "Package"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Zip 类进行压缩解压操作。"
+    },
+    {
+        "id": 80,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中加密解密的库是什么？",
+        "options": {
+            "A": "Crypto",
+            "B": "Encrypt",
+            "C": "Security",
+            "D": "Cipher"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Crypto 库进行加密解密操作。"
+    },
+    {
+        "id": 81,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中元编程的主要方式是？",
+        "options": {
+            "A": "宏",
+            "B": "注解处理器",
+            "C": "反射",
+            "D": "模板"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言主要通过注解处理器实现元编程。"
+    },
+    {
+        "id": 82,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中DSL（领域特定语言）的支持方式是？",
+        "options": {
+            "A": "扩展函数",
+            "B": "中缀表达式",
+            "C": "运算符重载",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言通过多种特性支持DSL创建。"
+    },
+    {
+        "id": 83,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中协变和逆变的支持情况是？",
+        "options": {
+            "A": "支持协变",
+            "B": "支持逆变",
+            "C": "都支持",
+            "D": "都不支持"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言通过声明处型变支持协变和逆变。"
+    },
+    {
+        "id": 84,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中运算符重载的限制是？",
+        "options": {
+            "A": "只能重载已有运算符",
+            "B": "不能创建新运算符",
+            "C": "不能改变优先级",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言的运算符重载有诸多限制以保证代码可读性。"
+    },
+    {
+        "id": 85,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中类型别名的定义关键字是？",
+        "options": {
+            "A": "type",
+            "B": "alias",
+            "C": "typedef",
+            "D": "using"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 type 关键字定义类型别名。"
+    },
+    {
+        "id": 86,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "困难",
+        "question": "仓颉语言中位字段的定义方式是？",
+        "options": {
+            "A": "bitfield",
+            "B": "flags",
+            "C": "使用普通枚举",
+            "D": "不支持位字段"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 flags 注解定义位字段枚举。"
+    },
+    {
+        "id": 87,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "困难",
+        "question": "仓颉语言中区间类型的特性是？",
+        "options": {
+            "A": "包含边界值",
+            "B": "排除边界值",
+            "C": "可自定义包含/排除",
+            "D": "只能是整数区间"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言的区间类型可以自定义包含或排除边界值。"
+    },
+    {
+        "id": 88,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数式接口的要求是？",
+        "options": {
+            "A": "只有一个抽象方法",
+            "B": "有@FunctionalInterface注解",
+            "C": "必须是接口",
+            "D": "以上都是"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "函数式接口只需要满足只有一个抽象方法的条件。"
+    },
+    {
+        "id": 89,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中方法引用的语法是？",
+        "options": {
+            "A": "::",
+            "B": ".",
+            "C": "->",
+            "D": "#"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 :: 语法进行方法引用。"
+    },
+    {
+        "id": 90,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中代理模式的实现方式是？",
+        "options": {
+            "A": "使用proxy关键字",
+            "B": "通过接口和委托",
+            "C": "使用@Delegate注解",
+            "D": "自动代理"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言通过接口和委托模式实现代理。"
+    },
+    {
+        "id": 91,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中建造者模式的简化方式是？",
+        "options": {
+            "A": "使用@Builder注解",
+            "B": "DSL语法",
+            "C": "命名参数",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言提供多种方式简化建造者模式的实现。"
+    },
+    {
+        "id": 92,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中Actor模型的主要类是？",
+        "options": {
+            "A": "Actor",
+            "B": "Agent",
+            "C": "Process",
+            "D": "Worker"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Actor 类实现Actor模型。"
+    },
+    {
+        "id": 93,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中事务内存的支持情况是？",
+        "options": {
+            "A": "完全支持",
+            "B": "部分支持",
+            "C": "实验性支持",
+            "D": "不支持"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言提供实验性的事务内存支持。"
+    },
+    {
+        "id": 94,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中内存泄漏的检测工具是？",
+        "options": {
+            "A": "内置分析器",
+            "B": "第三方工具",
+            "C": "日志分析",
+            "D": "没有专门工具"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言内置内存分析器用于检测内存泄漏。"
+    },
+    {
+        "id": 95,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中对象池的模式是？",
+        "options": {
+            "A": "享元模式",
+            "B": "对象池模式",
+            "C": "单例模式",
+            "D": "原型模式"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言通过对象池模式管理频繁创建销毁的对象。"
+    },
+    {
+        "id": 96,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中国际化支持的库是？",
+        "options": {
+            "A": "I18n",
+            "B": "Locale",
+            "C": "Globalize",
+            "D": "International"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 I18n 库支持国际化。"
+    },
+    {
+        "id": 97,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中测试框架的主要类是？",
+        "options": {
+            "A": "Test",
+            "B": "TestCase",
+            "C": "Spec",
+            "D": "Assert"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 TestCase 类作为测试框架的基础。"
+    },
+    {
+        "id": 98,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中性能剖析的API是？",
+        "options": {
+            "A": "Profiler",
+            "B": "Benchmark",
+            "C": "Performance",
+            "D": "Metric"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Profiler 类进行性能剖析。"
+    },
+    {
+        "id": 99,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中插件系统的架构基于？",
+        "options": {
+            "A": "OSGi",
+            "B": "SPI",
+            "C": "自定义架构",
+            "D": "微内核"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言的插件系统基于SPI（Service Provider Interface）架构。"
+    },
+    {
+        "id": 100,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中热代码替换的支持情况是？",
+        "options": {
+            "A": "完全支持",
+            "B": "开发环境支持",
+            "C": "部分支持",
+            "D": "不支持"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言在开发环境中支持热代码替换，便于快速迭代。"
+    },
+    {
+        "id": 101,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中声明常量的关键字是？",
+        "options": {
+            "A": "const",
+            "B": "val",
+            "C": "final",
+            "D": "constant"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 val 关键字声明不可变的常量。"
+    },
+    {
+        "id": 102,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中三元条件运算符的语法是？",
+        "options": {
+            "A": "a ? b : c",
+            "B": "if a then b else c",
+            "C": "a -> b : c",
+            "D": "不支持三元运算符"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言不支持三元运算符，使用 if-else 表达式代替。"
+    },
+    {
+        "id": 103,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中字符串连接的运算符是？",
+        "options": {
+            "A": "+",
+            "B": "&",
+            "C": "++",
+            "D": "concat"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 + 运算符进行字符串连接。"
+    },
+    {
+        "id": 104,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中数组长度的获取方法是？",
+        "options": {
+            "A": "length",
+            "B": "size",
+            "C": "count",
+            "D": "len"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 size 方法获取数组长度。"
+    },
+    {
+        "id": 105,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中范围运算符的语法是？",
+        "options": {
+            "A": "..",
+            "B": "...",
+            "C": "to",
+            "D": "range"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 .. 运算符创建范围。"
+    },
+    {
+        "id": 106,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中空安全运算符的语法是？",
+        "options": {
+            "A": "?.",
+            "B": "!!",
+            "C": "?:",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言提供 ?.、!! 和 ?: 等多种空安全运算符。"
+    },
+    {
+        "id": 107,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中 Elvis 运算符的作用是？",
+        "options": {
+            "A": "空值检查",
+            "B": "提供默认值",
+            "C": "类型转换",
+            "D": "条件判断"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "Elvis 运算符 ?: 用于在值为空时提供默认值。"
+    },
+    {
+        "id": 108,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中安全转换运算符的语法是？",
+        "options": {
+            "A": "as?",
+            "B": "as",
+            "C": "cast",
+            "D": "convert"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 as? 进行安全类型转换，转换失败返回 null。"
+    },
+    {
+        "id": 109,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中标签语法的用途是？",
+        "options": {
+            "A": "标记循环",
+            "B": "标记代码块",
+            "C": "配合 break/continue 使用",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "标签用于标记代码块，配合 break 和 continue 实现跳转。"
+    },
+    {
+        "id": 110,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中委托属性的关键字是？",
+        "options": {
+            "A": "by",
+            "B": "delegate",
+            "C": "with",
+            "D": "using"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 by 关键字实现委托属性。"
+    },
+    {
+        "id": 111,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "简单",
+        "question": "仓颉语言中字节类型的表示是？",
+        "options": {
+            "A": "byte",
+            "B": "Byte",
+            "C": "char",
+            "D": "int8"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Byte 表示字节类型。"
+    },
+    {
+        "id": 112,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "简单",
+        "question": "仓颉语言中短整型的表示是？",
+        "options": {
+            "A": "short",
+            "B": "Short",
+            "C": "int16",
+            "D": "smallint"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Short 表示短整型。"
+    },
+    {
+        "id": 113,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "简单",
+        "question": "仓颉语言中长整型的表示是？",
+        "options": {
+            "A": "long",
+            "B": "Long",
+            "C": "int64",
+            "D": "bigint"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Long 表示长整型。"
+    },
+    {
+        "id": 114,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "简单",
+        "question": "仓颉语言中双精度浮点型的表示是？",
+        "options": {
+            "A": "double",
+            "B": "Double",
+            "C": "float64",
+            "D": "decimal"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Double 表示双精度浮点型。"
+    },
+    {
+        "id": 115,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中任意类型的表示是？",
+        "options": {
+            "A": "any",
+            "B": "Any",
+            "C": "object",
+            "D": "Object"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Any 表示任意类型，是所有类型的超类。"
+    },
+    {
+        "id": 116,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中单位类型的表示是？",
+        "options": {
+            "A": "void",
+            "B": "Unit",
+            "C": "None",
+            "D": "Null"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Unit 表示没有有意义返回值的函数返回类型。"
+    },
+    {
+        "id": 117,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中 Nothing 类型的作用是？",
+        "options": {
+            "A": "表示函数从不返回",
+            "B": "表示空集合",
+            "C": "表示未初始化",
+            "D": "表示错误状态"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "Nothing 类型表示函数永远不会正常返回（总是抛出异常）。"
+    },
+    {
+        "id": 118,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中可空类型的表示是？",
+        "options": {
+            "A": "Nullable<T>",
+            "B": "T?",
+            "C": "Optional<T>",
+            "D": "Maybe<T>"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 T? 表示可空类型。"
+    },
+    {
+        "id": 119,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中数组的初始化语法是？",
+        "options": {
+            "A": "arrayOf(1, 2, 3)",
+            "B": "[1, 2, 3]",
+            "C": "Array(1, 2, 3)",
+            "D": "new Array(1, 2, 3)"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 arrayOf 函数初始化数组。"
+    },
+    {
+        "id": 120,
+        "type": "single",
+        "category": "数据类型",
+        "difficulty": "困难",
+        "question": "仓颉语言中只读列表的接口是？",
+        "options": {
+            "A": "List",
+            "B": "MutableList",
+            "C": "ReadOnlyList",
+            "D": "ImmutableList"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言中 List 接口表示只读列表，MutableList 表示可变列表。"
+    },
+    {
+        "id": 121,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "简单",
+        "question": "仓颉语言中函数定义的关键字是？",
+        "options": {
+            "A": "func",
+            "B": "function",
+            "C": "def",
+            "D": "fn"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 function 关键字定义函数。"
+    },
+    {
+        "id": 122,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "简单",
+        "question": "仓颉语言中返回值类型的声明位置是？",
+        "options": {
+            "A": "函数名前",
+            "B": "参数列表后",
+            "C": "函数体前",
+            "D": "可选的"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言在参数列表后使用冒号声明返回值类型。"
+    },
+    {
+        "id": 123,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "简单",
+        "question": "仓颉语言中单表达式函数的简化语法是？",
+        "options": {
+            "A": "function add(a, b) = a + b",
+            "B": "function add(a, b) => a + b",
+            "C": "function add(a, b): a + b",
+            "D": "function add(a, b) { a + b }"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 = 符号简化单表达式函数。"
+    },
+    {
+        "id": 124,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中命名参数的调用语法是？",
+        "options": {
+            "A": "function(param = value)",
+            "B": "function(param: value)",
+            "C": "function{param = value}",
+            "D": "function<param = value>"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 param = value 语法调用命名参数。"
+    },
+    {
+        "id": 125,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中扩展函数的定义语法是？",
+        "options": {
+            "A": "function Type.method()",
+            "B": "function Type::method()",
+            "C": "function method(this Type)",
+            "D": "Type.function method()"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言使用 function method(this Type) 语法定义扩展函数。"
+    },
+    {
+        "id": 126,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中中缀函数的标记是？",
+        "options": {
+            "A": "infix",
+            "B": "operator",
+            "C": "inline",
+            "D": "tailrec"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 infix 关键字标记中缀函数。"
+    },
+    {
+        "id": 127,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中局部函数的定义位置是？",
+        "options": {
+            "A": "其他函数内部",
+            "B": "类内部",
+            "C": "文件顶层",
+            "D": "以上都可以"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "局部函数定义在其他函数内部，只能在该函数内访问。"
+    },
+    {
+        "id": 128,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数类型的表示是？",
+        "options": {
+            "A": "(参数类型) -> 返回类型",
+            "B": "Function<参数类型, 返回类型>",
+            "C": "参数类型 => 返回类型",
+            "D": "func(参数类型): 返回类型"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 (参数类型) -> 返回类型 表示函数类型。"
+    },
+    {
+        "id": 129,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中带接收者的函数类型语法是？",
+        "options": {
+            "A": "接收者类型.(参数类型) -> 返回类型",
+            "B": "接收者类型 -> (参数类型) -> 返回类型",
+            "C": "(接收者类型, 参数类型) -> 返回类型",
+            "D": "接收者类型.函数类型"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 接收者类型.(参数类型) -> 返回类型 表示带接收者的函数类型。"
+    },
+    {
+        "id": 130,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中 SAM 转换的支持情况是？",
+        "options": {
+            "A": "支持",
+            "B": "不支持",
+            "C": "部分支持",
+            "D": "仅支持Java接口"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言支持SAM（Single Abstract Method）转换，允许将函数字面量转换为接口实例。"
+    },
+    {
+        "id": 131,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "简单",
+        "question": "仓颉语言中实例化对象的关键字是？",
+        "options": {
+            "A": "new",
+            "B": "create",
+            "C": "instance",
+            "D": "不需要关键字"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言直接使用类名加括号实例化对象，不需要 new 关键字。"
+    },
+    {
+        "id": 132,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "简单",
+        "question": "仓颉语言中访问当前对象的引用是？",
+        "options": {
+            "A": "this",
+            "B": "self",
+            "C": "me",
+            "D": "current"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 this 引用当前对象。"
+    },
+    {
+        "id": 133,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "简单",
+        "question": "仓颉语言中访问父类方法的引用是？",
+        "options": {
+            "A": "super",
+            "B": "base",
+            "C": "parent",
+            "D": "upper"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 super 引用父类的方法和属性。"
+    },
+    {
+        "id": 134,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中初始化块的关键字是？",
+        "options": {
+            "A": "init",
+            "B": "static",
+            "C": "block",
+            "D": "constructor"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 init 关键字定义初始化块。"
+    },
+    {
+        "id": 135,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中次级构造函数的定义关键字是？",
+        "options": {
+            "A": "constructor",
+            "B": "init",
+            "C": "secondary",
+            "D": "auxiliary"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 constructor 关键字定义次级构造函数。"
+    },
+    {
+        "id": 136,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中对象表达式的关键字是？",
+        "options": {
+            "A": "object",
+            "B": "anonymous",
+            "C": "new",
+            "D": "instance"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 object 关键字创建匿名对象（对象表达式）。"
+    },
+    {
+        "id": 137,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中对象声明的关键字是？",
+        "options": {
+            "A": "object",
+            "B": "singleton",
+            "C": "static",
+            "D": "global"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 object 关键字声明单例对象（对象声明）。"
+    },
+    {
+        "id": 138,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中内联类的关键字是？",
+        "options": {
+            "A": "inline class",
+            "B": "value class",
+            "C": "data class",
+            "D": "primitive class"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 inline class 定义内联类，用于类型安全包装基本类型。"
+    },
+    {
+        "id": 139,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中委托类的关键字是？",
+        "options": {
+            "A": "by",
+            "B": "delegate",
+            "C": "with",
+            "D": "using"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 by 关键字实现类委托。"
+    },
+    {
+        "id": 140,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中属性委托的常用类是？",
+        "options": {
+            "A": "Delegates",
+            "B": "Properties",
+            "C": "Attributes",
+            "D": "Values"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言标准库提供 Delegates 类包含常用的属性委托实现。"
+    },
+    {
+        "id": 141,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "简单",
+        "question": "仓颉语言中创建协程的作用域函数是？",
+        "options": {
+            "A": "coroutineScope",
+            "B": "asyncScope",
+            "C": "launchScope",
+            "D": "runBlocking"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 coroutineScope 函数创建协程作用域。"
+    },
+    {
+        "id": 142,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "简单",
+        "question": "仓颉语言中启动新协程的函数是？",
+        "options": {
+            "A": "launch",
+            "B": "async",
+            "C": "spawn",
+            "D": "start"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 launch 函数启动不返回结果的新协程。"
+    },
+    {
+        "id": 143,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "简单",
+        "question": "仓颉语言中启动异步计算的函数是？",
+        "options": {
+            "A": "async",
+            "B": "launch",
+            "C": "future",
+            "D": "promise"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 async 函数启动返回 Deferred 结果的异步计算。"
+    },
+    {
+        "id": 144,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中等待异步结果的关键字是？",
+        "options": {
+            "A": "await",
+            "B": "wait",
+            "C": "block",
+            "D": "get"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 await 关键字等待异步计算的结果。"
+    },
+    {
+        "id": 145,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中协程调度器的接口是？",
+        "options": {
+            "A": "Dispatcher",
+            "B": "Scheduler",
+            "C": "Executor",
+            "D": "CoroutineContext"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Dispatcher 接口管理协程的调度。"
+    },
+    {
+        "id": 146,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中通道的关闭方法是？",
+        "options": {
+            "A": "close()",
+            "B": "shutdown()",
+            "C": "end()",
+            "D": "finish()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 close() 方法关闭通道。"
+    },
+    {
+        "id": 147,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中 select 表达式的作用是？",
+        "options": {
+            "A": "多路复用多个挂起函数",
+            "B": "数据库查询",
+            "C": "条件选择",
+            "D": "模式匹配"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "select 表达式用于同时等待多个挂起操作，选择第一个可用的结果。"
+    },
+    {
+        "id": 148,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中流(Flow)的创建函数是？",
+        "options": {
+            "A": "flow",
+            "B": "stream",
+            "C": "sequence",
+            "D": "pipeline"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 flow 函数创建异步数据流。"
+    },
+    {
+        "id": 149,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中共享流的函数是？",
+        "options": {
+            "A": "shareIn",
+            "B": "broadcast",
+            "C": "publish",
+            "D": "multicast"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 shareIn 函数将冷流转换为热流（共享流）。"
+    },
+    {
+        "id": 150,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中状态流(StateFlow)的特点是？",
+        "options": {
+            "A": "有当前值",
+            "B": "可被多个收集器共享",
+            "C": "支持并发更新",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "StateFlow 是有当前值的、可共享的、支持并发更新的热数据流。"
+    },
+    {
+        "id": 151,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "简单",
+        "question": "仓颉语言中垃圾回收的主要算法是？",
+        "options": {
+            "A": "标记-清除",
+            "B": "引用计数",
+            "C": "分代收集",
+            "D": "增量回收"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言采用分代垃圾回收算法，根据不同代的对象采用不同的回收策略。"
+    },
+    {
+        "id": 152,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "简单",
+        "question": "仓颉语言中如何手动触发垃圾回收？",
+        "options": {
+            "A": "System.gc()",
+            "B": "Runtime.getRuntime().gc()",
+            "C": "GC.collect()",
+            "D": "不支持手动触发"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言不提供手动触发垃圾回收的接口，由运行时自动管理。"
+    },
+    {
+        "id": 153,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中弱引用的类名是？",
+        "options": {
+            "A": "WeakReference",
+            "B": "SoftReference",
+            "C": "PhantomReference",
+            "D": "Weak"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 WeakReference 类表示弱引用。"
+    },
+    {
+        "id": 154,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中对象生命周期的最后阶段是？",
+        "options": {
+            "A": "可达性分析",
+            "B": "终结阶段",
+            "C": "回收阶段",
+            "D": "清理阶段"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "对象在垃圾回收前会经历终结阶段（finalization），允许对象执行清理操作。"
+    },
+    {
+        "id": 155,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中内存泄漏的常见原因是？",
+        "options": {
+            "A": "静态集合类持有对象引用",
+            "B": "连接未关闭",
+            "C": "监听器未移除",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "静态集合、未关闭的连接和未移除的监听器都可能导致内存泄漏。"
+    },
+    {
+        "id": 156,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中如何检测内存泄漏？",
+        "options": {
+            "A": "使用内存分析工具",
+            "B": "查看日志",
+            "C": "代码审查",
+            "D": "性能测试"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "内存泄漏通常使用内存分析工具（如堆转储分析）来检测。"
+    },
+    {
+        "id": 157,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中软引用(SoftReference)的特点是？",
+        "options": {
+            "A": "只有弱引用指向的对象会被回收",
+            "B": "在内存不足时会被回收",
+            "C": "永远不会被回收",
+            "D": "必须手动释放"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "软引用指向的对象在内存不足时会被垃圾回收器回收。"
+    },
+    {
+        "id": 158,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中幻象引用(PhantomReference)的主要用途是？",
+        "options": {
+            "A": "对象复活",
+            "B": "跟踪对象被回收的时间",
+            "C": "缓存实现",
+            "D": "避免循环引用"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "幻象引用用于跟踪对象被垃圾回收的时间，通常用于执行清理操作。"
+    },
+    {
+        "id": 159,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中读取控制台输入的函数是？",
+        "options": {
+            "A": "readLine()",
+            "B": "Console.read()",
+            "C": "System.in.read()",
+            "D": "Scanner.next()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 readLine() 函数从控制台读取一行输入。"
+    },
+    {
+        "id": 160,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中数学常量π的表示是？",
+        "options": {
+            "A": "Math.PI",
+            "B": "Math.pi",
+            "C": "Math.Pi",
+            "D": "Math.PI_2"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Math.PI 表示数学常量π。"
+    },
+    {
+        "id": 161,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中生成随机数的类是？",
+        "options": {
+            "A": "Random",
+            "B": "Math.random()",
+            "C": "Randomizer",
+            "D": "Rand"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Random 类生成随机数。"
+    },
+    {
+        "id": 162,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中字符串格式化的函数是？",
+        "options": {
+            "A": "format()",
+            "B": "printf()",
+            "C": "String.format()",
+            "D": "Formatter.format()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 format() 函数格式化字符串。"
+    },
+    {
+        "id": 163,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中正则表达式匹配的函数是？",
+        "options": {
+            "A": "matches()",
+            "B": "match()",
+            "C": "find()",
+            "D": "search()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 matches() 函数进行正则表达式匹配。"
+    },
+    {
+        "id": 164,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中日期时间处理的类库是？",
+        "options": {
+            "A": "DateTime",
+            "B": "Calendar",
+            "C": "Time",
+            "D": "LocalDateTime"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 DateTime 类处理日期和时间。"
+    },
+    {
+        "id": 165,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中文件读写的类库是？",
+        "options": {
+            "A": "File",
+            "B": "Files",
+            "C": "FileSystem",
+            "D": "IO"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 File 类进行文件操作。"
+    },
+    {
+        "id": 166,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中网络编程的类库是？",
+        "options": {
+            "A": "Net",
+            "B": "Socket",
+            "C": "Network",
+            "D": "Web"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Socket 类进行网络编程。"
+    },
+    {
+        "id": 167,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中数据库连接的标准接口是？",
+        "options": {
+            "A": "Database",
+            "B": "Connection",
+            "C": "DataSource",
+            "D": "DB"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Connection 接口表示数据库连接。"
+    },
+    {
+        "id": 168,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中并发集合的包名是？",
+        "options": {
+            "A": "concurrent",
+            "B": "atomic",
+            "C": "sync",
+            "D": "thread"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言的并发集合位于 concurrent 包中。"
+    },
+    {
+        "id": 169,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "简单",
+        "question": "仓颉语言中注解的定义关键字是？",
+        "options": {
+            "A": "@annotation",
+            "B": "annotation",
+            "C": "@interface",
+            "D": "annotation class"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言使用 'annotation class' 定义注解。"
+    },
+    {
+        "id": 170,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "简单",
+        "question": "仓颉语言中泛型类型参数的通配符是？",
+        "options": {
+            "A": "?",
+            "B": "*",
+            "C": "T",
+            "D": "Any"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ? 作为泛型通配符。"
+    },
+    {
+        "id": 171,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中类型投影的关键字是？",
+        "options": {
+            "A": "out",
+            "B": "in",
+            "C": "projected",
+            "D": "variant"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 out 关键字进行协变类型投影。"
+    },
+    {
+        "id": 172,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中逆变类型投影的关键字是？",
+        "options": {
+            "A": "in",
+            "B": "out",
+            "C": "contra",
+            "D": "negative"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 in 关键字进行逆变类型投影。"
+    },
+    {
+        "id": 173,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中反射API的入口类是？",
+        "options": {
+            "A": "Class",
+            "B": "Type",
+            "C": "Reflect",
+            "D": "Mirror"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Class 类作为反射的入口。"
+    },
+    {
+        "id": 174,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中动态代理的接口是？",
+        "options": {
+            "A": "Proxy",
+            "B": "Delegate",
+            "C": "InvocationHandler",
+            "D": "DynamicProxy"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Proxy 接口创建动态代理。"
+    },
+    {
+        "id": 175,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中元注解的作用是？",
+        "options": {
+            "A": "注解其他注解",
+            "B": "元编程",
+            "C": "编译时处理",
+            "D": "运行时反射"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "元注解用于注解其他注解，定义注解的行为。"
+    },
+    {
+        "id": 176,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中编译时注解处理器的基类是？",
+        "options": {
+            "A": "AnnotationProcessor",
+            "B": "AbstractProcessor",
+            "C": "Processor",
+            "D": "CompileProcessor"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言中编译时注解处理器继承 AbstractProcessor 类。"
+    },
+    {
+        "id": 177,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中类型擦除的含义是？",
+        "options": {
+            "A": "泛型类型信息在运行时不可用",
+            "B": "删除未使用的类型",
+            "C": "优化类型存储",
+            "D": "类型安全检查"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "类型擦除指泛型类型信息在编译后会被擦除，运行时不可用。"
+    },
+    {
+        "id": 178,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中内联函数的作用是？",
+        "options": {
+            "A": "减少函数调用开销",
+            "B": "代码展开",
+            "C": "性能优化",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "内联函数通过将函数体插入调用处来减少调用开销，优化性能。"
+    },
+    {
+        "id": 179,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中不等于运算符是？",
+        "options": {
+            "A": "!=",
+            "B": "<>",
+            "C": "≠",
+            "D": "!=="
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 != 表示不等于。"
+    },
+    {
+        "id": 180,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中逻辑与运算符是？",
+        "options": {
+            "A": "&&",
+            "B": "and",
+            "C": "&",
+            "D": "AND"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 && 表示逻辑与。"
+    },
+    {
+        "id": 181,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中逻辑或运算符是？",
+        "options": {
+            "A": "||",
+            "B": "or",
+            "C": "|",
+            "D": "OR"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 || 表示逻辑或。"
+    },
+    {
+        "id": 182,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中逻辑非运算符是？",
+        "options": {
+            "A": "!",
+            "B": "not",
+            "C": "~",
+            "D": "NOT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ! 表示逻辑非。"
+    },
+    {
+        "id": 183,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中位与运算符是？",
+        "options": {
+            "A": "&",
+            "B": "and",
+            "C": "&&",
+            "D": "BITAND"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 & 表示位与运算。"
+    },
+    {
+        "id": 184,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中位或运算符是？",
+        "options": {
+            "A": "|",
+            "B": "or",
+            "C": "||",
+            "D": "BITOR"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 | 表示位或运算。"
+    },
+    {
+        "id": 185,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中位异或运算符是？",
+        "options": {
+            "A": "^",
+            "B": "xor",
+            "C": "^^",
+            "D": "BITXOR"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ^ 表示位异或运算。"
+    },
+    {
+        "id": 186,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中位取反运算符是？",
+        "options": {
+            "A": "~",
+            "B": "!",
+            "C": "not",
+            "D": "BITNOT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ~ 表示位取反运算。"
+    },
+    {
+        "id": 187,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中左移运算符是？",
+        "options": {
+            "A": "<<",
+            "B": ">>",
+            "C": ">>>",
+            "D": "LSHIFT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 << 表示左移运算。"
+    },
+    {
+        "id": 188,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中右移运算符是？",
+        "options": {
+            "A": ">>",
+            "B": "<<",
+            "C": ">>>",
+            "D": "RSHIFT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 >> 表示带符号右移运算。"
+    },
+    {
+        "id": 189,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中无符号右移运算符是？",
+        "options": {
+            "A": ">>>",
+            "B": ">>",
+            "C": "<<",
+            "D": "URSHIFT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 >>> 表示无符号右移运算。"
+    },
+    {
+        "id": 190,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中运算符的优先级最高的是？",
+        "options": {
+            "A": "括号",
+            "B": "乘除",
+            "C": "加减",
+            "D": "赋值"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "括号运算符的优先级最高，可以改变表达式的计算顺序。"
+    },
+    {
+        "id": 191,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "简单",
+        "question": "仓颉语言中函数返回值的指定关键字是？",
+        "options": {
+            "A": "return",
+            "B": "result",
+            "C": "yield",
+            "D": "back"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 return 关键字指定函数返回值。"
+    },
+    {
+        "id": 192,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "简单",
+        "question": "仓颉语言中函数参数的默认传递方式是？",
+        "options": {
+            "A": "值传递",
+            "B": "引用传递",
+            "C": "指针传递",
+            "D": "依类型而定"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言函数参数默认采用值传递方式。"
+    },
+    {
+        "id": 193,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中可变参数的关键字是？",
+        "options": {
+            "A": "varargs",
+            "B": "params",
+            "C": "args",
+            "D": "..."
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 varargs 关键字声明可变参数。"
+    },
+    {
+        "id": 194,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中高阶函数是指？",
+        "options": {
+            "A": "接受函数作为参数或返回函数的函数",
+            "B": "执行效率高的函数",
+            "C": "代码复杂的函数",
+            "D": "递归函数"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "高阶函数是接受函数作为参数或返回函数的函数。"
+    },
+    {
+        "id": 195,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中Lambda表达式的语法是？",
+        "options": {
+            "A": "{ 参数 -> 表达式 }",
+            "B": "(参数) -> 表达式",
+            "C": "参数 => 表达式",
+            "D": "函数(参数) = 表达式"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 { 参数 -> 表达式 } 语法定义Lambda表达式。"
+    },
+    {
+        "id": 196,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中尾递归优化的关键字是？",
+        "options": {
+            "A": "tailrec",
+            "B": "inline",
+            "C": "optimize",
+            "D": "recursive"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 tailrec 关键字标记尾递归函数以进行优化。"
+    },
+    {
+        "id": 197,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数组合的标准库函数是？",
+        "options": {
+            "A": "compose",
+            "B": "andThen",
+            "C": "pipe",
+            "D": "flow"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 compose 函数进行函数组合。"
+    },
+    {
+        "id": 198,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中部分应用函数的创建方法是？",
+        "options": {
+            "A": "使用下划线 _ 占位",
+            "B": "使用partial函数",
+            "C": "使用bind函数",
+            "D": "使用curry函数"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用下划线 _ 作为参数占位符创建部分应用函数。"
+    },
+    {
+        "id": 199,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数柯里化的实现方式是？",
+        "options": {
+            "A": "手动创建返回函数的函数",
+            "B": "使用curry关键字",
+            "C": "自动柯里化",
+            "D": "不支持柯里化"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言需要手动创建返回函数的函数来实现柯里化。"
+    },
+    {
+        "id": 200,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数记忆化(Memoization)的实现方式是？",
+        "options": {
+            "A": "使用缓存装饰器",
+            "B": "自动记忆",
+            "C": "使用memoize函数",
+            "D": "手动缓存"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言可以通过装饰器模式实现函数记忆化，缓存函数结果。"
+    },
+    {
+        "id": 201,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "简单",
+        "question": "仓颉语言中垃圾回收的主要算法是？",
+        "options": {
+            "A": "标记-清除",
+            "B": "引用计数",
+            "C": "分代收集",
+            "D": "增量回收"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言采用分代垃圾回收算法，根据不同代的对象采用不同的回收策略。"
+    },
+    {
+        "id": 202,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "简单",
+        "question": "仓颉语言中如何手动触发垃圾回收？",
+        "options": {
+            "A": "System.gc()",
+            "B": "Runtime.getRuntime().gc()",
+            "C": "GC.collect()",
+            "D": "不支持手动触发"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言不提供手动触发垃圾回收的接口，由运行时自动管理。"
+    },
+    {
+        "id": 203,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中弱引用的类名是？",
+        "options": {
+            "A": "WeakReference",
+            "B": "SoftReference",
+            "C": "PhantomReference",
+            "D": "Weak"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 WeakReference 类表示弱引用。"
+    },
+    {
+        "id": 204,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中对象生命周期的最后阶段是？",
+        "options": {
+            "A": "可达性分析",
+            "B": "终结阶段",
+            "C": "回收阶段",
+            "D": "清理阶段"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "对象在垃圾回收前会经历终结阶段（finalization），允许对象执行清理操作。"
+    },
+    {
+        "id": 205,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中内存泄漏的常见原因是？",
+        "options": {
+            "A": "静态集合类持有对象引用",
+            "B": "连接未关闭",
+            "C": "监听器未移除",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "静态集合、未关闭的连接和未移除的监听器都可能导致内存泄漏。"
+    },
+    {
+        "id": 206,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中如何检测内存泄漏？",
+        "options": {
+            "A": "使用内存分析工具",
+            "B": "查看日志",
+            "C": "代码审查",
+            "D": "性能测试"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "内存泄漏通常使用内存分析工具（如堆转储分析）来检测。"
+    },
+    {
+        "id": 207,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中软引用(SoftReference)的特点是？",
+        "options": {
+            "A": "只有弱引用指向的对象会被回收",
+            "B": "在内存不足时会被回收",
+            "C": "永远不会被回收",
+            "D": "必须手动释放"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "软引用指向的对象在内存不足时会被垃圾回收器回收。"
+    },
+    {
+        "id": 208,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中幻象引用(PhantomReference)的主要用途是？",
+        "options": {
+            "A": "对象复活",
+            "B": "跟踪对象被回收的时间",
+            "C": "缓存实现",
+            "D": "避免循环引用"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "幻象引用用于跟踪对象被垃圾回收的时间，通常用于执行清理操作。"
+    },
+    {
+        "id": 209,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中读取控制台输入的函数是？",
+        "options": {
+            "A": "readLine()",
+            "B": "Console.read()",
+            "C": "System.in.read()",
+            "D": "Scanner.next()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 readLine() 函数从控制台读取一行输入。"
+    },
+    {
+        "id": 210,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中数学常量π的表示是？",
+        "options": {
+            "A": "Math.PI",
+            "B": "Math.pi",
+            "C": "Math.Pi",
+            "D": "Math.PI_2"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Math.PI 表示数学常量π。"
+    },
+    {
+        "id": 211,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中集合操作的高阶函数不包括？",
+        "options": {
+            "A": "map",
+            "B": "filter",
+            "C": "reduce",
+            "D": "loop"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言提供 map、filter、reduce 等高阶函数，但没有 loop 函数。"
+    },
+    {
+        "id": 212,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中字符串格式化的函数是？",
+        "options": {
+            "A": "format()",
+            "B": "printf()",
+            "C": "String.format()",
+            "D": "Formatter.format()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 format() 函数格式化字符串。"
+    },
+    {
+        "id": 213,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中正则表达式匹配的函数是？",
+        "options": {
+            "A": "matches()",
+            "B": "match()",
+            "C": "find()",
+            "D": "search()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 matches() 函数进行正则表达式匹配。"
+    },
+    {
+        "id": 214,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中日期时间处理的类库是？",
+        "options": {
+            "A": "DateTime",
+            "B": "Calendar",
+            "C": "Time",
+            "D": "LocalDateTime"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 DateTime 类处理日期和时间。"
+    },
+    {
+        "id": 215,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中文件读写的类库是？",
+        "options": {
+            "A": "File",
+            "B": "Files",
+            "C": "FileSystem",
+            "D": "IO"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 File 类进行文件操作。"
+    },
+    {
+        "id": 216,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中网络编程的类库是？",
+        "options": {
+            "A": "Net",
+            "B": "Socket",
+            "C": "Network",
+            "D": "Web"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Socket 类进行网络编程。"
+    },
+    {
+        "id": 217,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中数据库连接的标准接口是？",
+        "options": {
+            "A": "Database",
+            "B": "Connection",
+            "C": "DataSource",
+            "D": "DB"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 Connection 接口表示数据库连接。"
+    },
+    {
+        "id": 218,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中并发集合的包名是？",
+        "options": {
+            "A": "concurrent",
+            "B": "atomic",
+            "C": "sync",
+            "D": "thread"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言的并发集合位于 concurrent 包中。"
+    },
+    {
+        "id": 219,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "简单",
+        "question": "仓颉语言中注解的定义关键字是？",
+        "options": {
+            "A": "@annotation",
+            "B": "annotation",
+            "C": "@interface",
+            "D": "annotation class"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言使用 'annotation class' 定义注解。"
+    },
+    {
+        "id": 220,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "简单",
+        "question": "仓颉语言中泛型类型参数的通配符是？",
+        "options": {
+            "A": "?",
+            "B": "*",
+            "C": "T",
+            "D": "Any"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ? 作为泛型通配符。"
+    },
+    {
+        "id": 221,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中类型投影的关键字是？",
+        "options": {
+            "A": "out",
+            "B": "in",
+            "C": "projected",
+            "D": "variant"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 out 关键字进行协变类型投影。"
+    },
+    {
+        "id": 222,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中逆变类型投影的关键字是？",
+        "options": {
+            "A": "in",
+            "B": "out",
+            "C": "contra",
+            "D": "negative"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 in 关键字进行逆变类型投影。"
+    },
+    {
+        "id": 223,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中反射API的入口类是？",
+        "options": {
+            "A": "Class",
+            "B": "Type",
+            "C": "Reflect",
+            "D": "Mirror"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Class 类作为反射的入口。"
+    },
+    {
+        "id": 224,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中动态代理的接口是？",
+        "options": {
+            "A": "Proxy",
+            "B": "Delegate",
+            "C": "InvocationHandler",
+            "D": "DynamicProxy"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Proxy 接口创建动态代理。"
+    },
+    {
+        "id": 225,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中元注解的作用是？",
+        "options": {
+            "A": "注解其他注解",
+            "B": "元编程",
+            "C": "编译时处理",
+            "D": "运行时反射"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "元注解用于注解其他注解，定义注解的行为。"
+    },
+    {
+        "id": 226,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中编译时注解处理器的基类是？",
+        "options": {
+            "A": "AnnotationProcessor",
+            "B": "AbstractProcessor",
+            "C": "Processor",
+            "D": "CompileProcessor"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言中编译时注解处理器继承 AbstractProcessor 类。"
+    },
+    {
+        "id": 227,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中类型擦除的含义是？",
+        "options": {
+            "A": "泛型类型信息在运行时不可用",
+            "B": "删除未使用的类型",
+            "C": "优化类型存储",
+            "D": "类型安全检查"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "类型擦除指泛型类型信息在编译后会被擦除，运行时不可用。"
+    },
+    {
+        "id": 228,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中内联函数的作用是？",
+        "options": {
+            "A": "减少函数调用开销",
+            "B": "代码展开",
+            "C": "性能优化",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "内联函数通过将函数体插入调用处来减少调用开销，优化性能。"
+    },
+    {
+        "id": 229,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中不等于运算符是？",
+        "options": {
+            "A": "!=",
+            "B": "<>",
+            "C": "≠",
+            "D": "!=="
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 != 表示不等于。"
+    },
+    {
+        "id": 230,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中逻辑与运算符是？",
+        "options": {
+            "A": "&&",
+            "B": "and",
+            "C": "&",
+            "D": "AND"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 && 表示逻辑与。"
+    },
+    {
+        "id": 231,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中逻辑或运算符是？",
+        "options": {
+            "A": "||",
+            "B": "or",
+            "C": "|",
+            "D": "OR"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 || 表示逻辑或。"
+    },
+    {
+        "id": 232,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中逻辑非运算符是？",
+        "options": {
+            "A": "!",
+            "B": "not",
+            "C": "~",
+            "D": "NOT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ! 表示逻辑非。"
+    },
+    {
+        "id": 233,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中位与运算符是？",
+        "options": {
+            "A": "&",
+            "B": "and",
+            "C": "&&",
+            "D": "BITAND"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 & 表示位与运算。"
+    },
+    {
+        "id": 234,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中位或运算符是？",
+        "options": {
+            "A": "|",
+            "B": "or",
+            "C": "||",
+            "D": "BITOR"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 | 表示位或运算。"
+    },
+    {
+        "id": 235,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中位异或运算符是？",
+        "options": {
+            "A": "^",
+            "B": "xor",
+            "C": "^^",
+            "D": "BITXOR"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ^ 表示位异或运算。"
+    },
+    {
+        "id": 236,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中位取反运算符是？",
+        "options": {
+            "A": "~",
+            "B": "!",
+            "C": "not",
+            "D": "BITNOT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ~ 表示位取反运算。"
+    },
+    {
+        "id": 237,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中左移运算符是？",
+        "options": {
+            "A": "<<",
+            "B": ">>",
+            "C": ">>>",
+            "D": "LSHIFT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 << 表示左移运算。"
+    },
+    {
+        "id": 238,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中右移运算符是？",
+        "options": {
+            "A": ">>",
+            "B": "<<",
+            "C": ">>>",
+            "D": "RSHIFT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 >> 表示带符号右移运算。"
+    },
+    {
+        "id": 239,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中无符号右移运算符是？",
+        "options": {
+            "A": ">>>",
+            "B": ">>",
+            "C": "<<",
+            "D": "URSHIFT"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 >>> 表示无符号右移运算。"
+    },
+    {
+        "id": 240,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中运算符的优先级最高的是？",
+        "options": {
+            "A": "括号",
+            "B": "乘除",
+            "C": "加减",
+            "D": "赋值"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "括号运算符的优先级最高，可以改变表达式的计算顺序。"
+    },
+    {
+        "id": 241,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "简单",
+        "question": "仓颉语言中函数返回值的指定关键字是？",
+        "options": {
+            "A": "return",
+            "B": "result",
+            "C": "yield",
+            "D": "back"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 return 关键字指定函数返回值。"
+    },
+    {
+        "id": 242,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "简单",
+        "question": "仓颉语言中函数参数的默认传递方式是？",
+        "options": {
+            "A": "值传递",
+            "B": "引用传递",
+            "C": "指针传递",
+            "D": "依类型而定"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言函数参数默认采用值传递方式。"
+    },
+    {
+        "id": 243,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中可变参数的关键字是？",
+        "options": {
+            "A": "varargs",
+            "B": "params",
+            "C": "args",
+            "D": "..."
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 varargs 关键字声明可变参数。"
+    },
+    {
+        "id": 244,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中高阶函数是指？",
+        "options": {
+            "A": "接受函数作为参数或返回函数的函数",
+            "B": "执行效率高的函数",
+            "C": "代码复杂的函数",
+            "D": "递归函数"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "高阶函数是接受函数作为参数或返回函数的函数。"
+    },
+    {
+        "id": 245,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "中等",
+        "question": "仓颉语言中Lambda表达式的语法是？",
+        "options": {
+            "A": "{ 参数 -> 表达式 }",
+            "B": "(参数) -> 表达式",
+            "C": "参数 => 表达式",
+            "D": "函数(参数) = 表达式"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 { 参数 -> 表达式 } 语法定义Lambda表达式。"
+    },
+    {
+        "id": 246,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中尾递归优化的关键字是？",
+        "options": {
+            "A": "tailrec",
+            "B": "inline",
+            "C": "optimize",
+            "D": "recursive"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 tailrec 关键字标记尾递归函数以进行优化。"
+    },
+    {
+        "id": 247,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数组合的标准库函数是？",
+        "options": {
+            "A": "compose",
+            "B": "andThen",
+            "C": "pipe",
+            "D": "flow"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 compose 函数进行函数组合。"
+    },
+    {
+        "id": 248,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中部分应用函数的创建方法是？",
+        "options": {
+            "A": "使用下划线 _ 占位",
+            "B": "使用partial函数",
+            "C": "使用bind函数",
+            "D": "使用curry函数"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用下划线 _ 作为参数占位符创建部分应用函数。"
+    },
+    {
+        "id": 249,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数柯里化的实现方式是？",
+        "options": {
+            "A": "手动创建返回函数的函数",
+            "B": "使用curry关键字",
+            "C": "自动柯里化",
+            "D": "不支持柯里化"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言需要手动创建返回函数的函数来实现柯里化。"
+    },
+    {
+        "id": 250,
+        "type": "single",
+        "category": "函数",
+        "difficulty": "困难",
+        "question": "仓颉语言中函数记忆化(Memoization)的实现方式是？",
+        "options": {
+            "A": "使用缓存装饰器",
+            "B": "自动记忆",
+            "C": "使用memoize函数",
+            "D": "手动缓存"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言可以通过装饰器模式实现函数记忆化，缓存函数结果。"
+    },
+    {
+        "id": 251,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "简单",
+        "question": "仓颉语言中类的实例化方式是什么？",
+        "options": {
+            "A": "new ClassName()",
+            "B": "ClassName()",
+            "C": "ClassName.new()",
+            "D": "create ClassName()"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言直接使用类名加括号实例化对象，不需要 new 关键字。"
+    },
+    {
+        "id": 252,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "简单",
+        "question": "仓颉语言中如何定义类的属性？",
+        "options": {
+            "A": "在类体内直接声明变量",
+            "B": "使用property关键字",
+            "C": "在构造函数中声明",
+            "D": "使用attr关键字"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言在类体内直接声明变量即可定义属性。"
+    },
+    {
+        "id": 253,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中接口的默认方法实现使用什么关键字？",
+        "options": {
+            "A": "default",
+            "B": "impl",
+            "C": "body",
+            "D": "不需要关键字"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 default 关键字为接口方法提供默认实现。"
+    },
+    {
+        "id": 254,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中密封类(sealed class)的作用是？",
+        "options": {
+            "A": "限制类的继承",
+            "B": "定义有限子类集合",
+            "C": "增强模式匹配安全性",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "密封类用于限制继承、定义有限子类集合并增强模式匹配的安全性。"
+    },
+    {
+        "id": 255,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中内部类访问外部类成员的引用是？",
+        "options": {
+            "A": "this@OuterClass",
+            "B": "outer.this",
+            "C": "OuterClass.this",
+            "D": "parent.this"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 this@OuterClass 语法访问外部类成员。"
+    },
+    {
+        "id": 256,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中委托模式(Delegation)的主要优点是？",
+        "options": {
+            "A": "代码复用",
+            "B": "组合优于继承",
+            "C": "运行时灵活性",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "委托模式支持代码复用、组合优于继承的原则和运行时灵活性。"
+    },
+    {
+        "id": 257,
+        "type": "single",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中属性委托的lazy函数的作用是？",
+        "options": {
+            "A": "延迟初始化",
+            "B": "缓存计算结果",
+            "C": "线程安全初始化",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "lazy函数用于延迟初始化、缓存计算结果并提供线程安全的初始化。"
+    },
+    {
+        "id": 258,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "简单",
+        "question": "仓颉语言中创建线程的方式是？",
+        "options": {
+            "A": "Thread()",
+            "B": "thread()函数",
+            "C": "new Thread()",
+            "D": "createThread()"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 thread() 函数快捷创建并启动线程。"
+    },
+    {
+        "id": 259,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "简单",
+        "question": "仓颉语言中同步代码块的关键字是？",
+        "options": {
+            "A": "synchronized",
+            "B": "lock",
+            "C": "sync",
+            "D": "monitor"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 synchronized 关键字实现同步代码块。"
+    },
+    {
+        "id": 260,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中读写锁的类是？",
+        "options": {
+            "A": "ReadWriteLock",
+            "B": "ReentrantReadWriteLock",
+            "C": "RWLock",
+            "D": "ReadWriteMutex"
+        },
+        "answer": [
+            "B"
+        ],
+        "explanation": "仓颉语言使用 ReentrantReadWriteLock 类实现读写锁。"
+    },
+    {
+        "id": 261,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中条件变量的类是？",
+        "options": {
+            "A": "Condition",
+            "B": "WaitNotify",
+            "C": "Signal",
+            "D": "Event"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Condition 类实现条件变量。"
+    },
+    {
+        "id": 262,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中线程池的创建函数是？",
+        "options": {
+            "A": "Executors.newFixedThreadPool()",
+            "B": "ThreadPool()",
+            "C": "new ThreadPoolExecutor()",
+            "D": "createThreadPool()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 Executors 工具类创建线程池。"
+    },
+    {
+        "id": 263,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中CompletableFuture的作用是？",
+        "options": {
+            "A": "异步编程",
+            "B": "组合多个异步操作",
+            "C": "异常处理",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "CompletableFuture用于异步编程、组合多个异步操作和异常处理。"
+    },
+    {
+        "id": 264,
+        "type": "single",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中StampedLock的特点是？",
+        "options": {
+            "A": "乐观读锁",
+            "B": "锁升级降级",
+            "C": "更高的性能",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "StampedLock支持乐观读锁、锁升级降级，通常比读写锁性能更高。"
+    },
+    {
+        "id": 265,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "简单",
+        "question": "仓颉语言中对象创建在内存的哪个区域？",
+        "options": {
+            "A": "堆",
+            "B": "栈",
+            "C": "方法区",
+            "D": "直接内存"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言中的对象实例创建在堆内存中。"
+    },
+    {
+        "id": 266,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "简单",
+        "question": "仓颉语言中局部变量存储在内存的哪个区域？",
+        "options": {
+            "A": "栈",
+            "B": "堆",
+            "C": "方法区",
+            "D": "寄存器"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "局部变量存储在栈内存中，随着方法调用结束而自动释放。"
+    },
+    {
+        "id": 267,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中内存溢出(OutOfMemoryError)的常见原因是？",
+        "options": {
+            "A": "内存泄漏",
+            "B": "堆大小设置过小",
+            "C": "创建过大对象",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "内存泄漏、堆大小设置过小和创建过大对象都可能导致内存溢出。"
+    },
+    {
+        "id": 268,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中栈溢出(StackOverflowError)的常见原因是？",
+        "options": {
+            "A": "无限递归",
+            "B": "方法调用层次过深",
+            "C": "局部变量过多",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "无限递归、方法调用层次过深和局部变量过多都可能导致栈溢出。"
+    },
+    {
+        "id": 269,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中逃逸分析的作用是？",
+        "options": {
+            "A": "优化对象分配",
+            "B": "栈上分配对象",
+            "C": "消除同步锁",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "逃逸分析可以优化对象分配、实现栈上分配和消除不必要的同步锁。"
+    },
+    {
+        "id": 270,
+        "type": "single",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中TLAB(Thread Local Allocation Buffer)的作用是？",
+        "options": {
+            "A": "提高对象分配效率",
+            "B": "减少线程竞争",
+            "C": "内存分配本地化",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "TLAB通过为每个线程分配独立的缓存区域来提高分配效率、减少竞争。"
+    },
+    {
+        "id": 271,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中集合排序的函数是？",
+        "options": {
+            "A": "sort()",
+            "B": "orderBy()",
+            "C": "sorted()",
+            "D": "arrange()"
+        },
+        "answer": [
+            "C"
+        ],
+        "explanation": "仓颉语言使用 sorted() 函数对集合进行排序。"
+    },
+    {
+        "id": 272,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "简单",
+        "question": "仓颉语言中查找集合元素的函数是？",
+        "options": {
+            "A": "find()",
+            "B": "search()",
+            "C": "locate()",
+            "D": "indexOf()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 find() 函数查找集合中满足条件的元素。"
+    },
+    {
+        "id": 273,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中分组集合元素的函数是？",
+        "options": {
+            "A": "groupBy()",
+            "B": "partition()",
+            "C": "categorize()",
+            "D": "split()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 groupBy() 函数按条件对集合元素进行分组。"
+    },
+    {
+        "id": 274,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中扁平化集合的函数是？",
+        "options": {
+            "A": "flatten()",
+            "B": "flatMap()",
+            "C": "merge()",
+            "D": "combine()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 flatten() 函数将嵌套集合扁平化为一维集合。"
+    },
+    {
+        "id": 275,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中压缩两个集合的函数是？",
+        "options": {
+            "A": "zip()",
+            "B": "combine()",
+            "C": "pair()",
+            "D": "merge()"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 zip() 函数将两个集合的元素配对组合。"
+    },
+    {
+        "id": 276,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中序列(Sequence)的特点是？",
+        "options": {
+            "A": "惰性求值",
+            "B": "中间操作不立即执行",
+            "C": "节省内存",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "序列支持惰性求值，中间操作延迟执行，可以节省内存提高性能。"
+    },
+    {
+        "id": 277,
+        "type": "single",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中范围(Range)的创建方式是？",
+        "options": {
+            "A": "1..10",
+            "B": "1 until 10",
+            "C": "1..<10",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言支持多种范围创建方式，包括闭区间、半开区间等。"
+    },
+    {
+        "id": 278,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "简单",
+        "question": "仓颉语言中类型别名的关键字是？",
+        "options": {
+            "A": "type",
+            "B": "alias",
+            "C": "typedef",
+            "D": "using"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 type 关键字定义类型别名。"
+    },
+    {
+        "id": 279,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "简单",
+        "question": "仓颉语言中交叉类型(Intersection Type)的表示是？",
+        "options": {
+            "A": "A & B",
+            "B": "A | B",
+            "C": "A and B",
+            "D": "A intersect B"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 A & B 表示交叉类型，要求同时满足A和B的类型。"
+    },
+    {
+        "id": 280,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中联合类型(Union Type)的表示是？",
+        "options": {
+            "A": "A | B",
+            "B": "A & B",
+            "C": "A or B",
+            "D": "A union B"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 A | B 表示联合类型，要求满足A或B的类型。"
+    },
+    {
+        "id": 281,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中条件类型的语法是？",
+        "options": {
+            "A": "T extends U ? X : Y",
+            "B": "if T extends U then X else Y",
+            "C": "T is U ? X : Y",
+            "D": "when T extends U then X else Y"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 T extends U ? X : Y 语法定义条件类型。"
+    },
+    {
+        "id": 282,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中映射类型(Mapped Type)的作用是？",
+        "options": {
+            "A": "基于旧类型创建新类型",
+            "B": "批量修改属性类型",
+            "C": "类型转换",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "映射类型用于基于现有类型创建新类型，可以批量修改属性类型。"
+    },
+    {
+        "id": 283,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中模板字符串的类型安全实现是？",
+        "options": {
+            "A": "标签模板函数",
+            "B": "字符串插值",
+            "C": "类型守卫",
+            "D": "模式匹配"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言通过标签模板函数实现类型安全的模板字符串。"
+    },
+    {
+        "id": 284,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中装饰器(Decorator)的语法是？",
+        "options": {
+            "A": "@decorator",
+            "B": "[decorator]",
+            "C": "decorator()",
+            "D": "decorate with"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 @decorator 语法应用装饰器。"
+    },
+    {
+        "id": 285,
+        "type": "single",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中元组解构的语法是？",
+        "options": {
+            "A": "val (a, b) = tuple",
+            "B": "let [a, b] = tuple",
+            "C": "const {a, b} = tuple",
+            "D": "unpack (a, b) from tuple"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 val (a, b) = tuple 语法进行元组解构。"
+    },
+    {
+        "id": 286,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中when表达式的作用是？",
+        "options": {
+            "A": "替代复杂的if-else链",
+            "B": "模式匹配",
+            "C": "多分支条件判断",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "when表达式用于替代复杂if-else链，支持模式匹配和多分支判断。"
+    },
+    {
+        "id": 287,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "简单",
+        "question": "仓颉语言中 Elvis 运算符的语法是？",
+        "options": {
+            "A": "?:",
+            "B": "??",
+            "C": "!!",
+            "D": "?."
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ?: 作为Elvis运算符，在值为空时提供默认值。"
+    },
+    {
+        "id": 288,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中安全调用运算符的语法是？",
+        "options": {
+            "A": "?.",
+            "B": "!!",
+            "C": "?:",
+            "D": "?->"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 ?. 进行安全调用，在对象为空时避免空指针异常。"
+    },
+    {
+        "id": 289,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中非空断言运算符的语法是？",
+        "options": {
+            "A": "!!",
+            "B": "?.",
+            "C": "?:",
+            "D": "!."
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 !! 进行非空断言，明确告诉编译器值不为空。"
+    },
+    {
+        "id": 290,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中类型检查运算符的语法是？",
+        "options": {
+            "A": "is",
+            "B": "instanceof",
+            "C": "typeof",
+            "D": "as"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言使用 is 运算符进行类型检查。"
+    },
+    {
+        "id": 291,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中智能类型转换的条件是？",
+        "options": {
+            "A": "使用is检查后",
+            "B": "在when分支中",
+            "C": "编译器能推断出类型",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "在is检查后、when分支中或编译器能推断类型时，仓颉语言会自动进行智能类型转换。"
+    },
+    {
+        "id": 292,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中带标签的break语句的作用是？",
+        "options": {
+            "A": "跳出指定循环",
+            "B": "跳出多层嵌套循环",
+            "C": "提高代码可读性",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "带标签的break可以跳出指定循环、处理多层嵌套循环并提高代码可读性。"
+    },
+    {
+        "id": 293,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中带标签的continue语句的作用是？",
+        "options": {
+            "A": "跳到指定循环的下一次迭代",
+            "B": "跳过当前迭代继续下一次",
+            "C": "处理复杂循环逻辑",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "带标签的continue用于跳到指定循环的下一次迭代，处理复杂循环逻辑。"
+    },
+    {
+        "id": 294,
+        "type": "single",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中return@label语法的用途是？",
+        "options": {
+            "A": "从带标签的lambda返回",
+            "B": "从嵌套函数返回",
+            "C": "指定返回位置",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "return@label用于从带标签的lambda、嵌套函数返回，指定具体的返回位置。"
+    },
+    {
+        "id": 295,
+        "type": "single",
+        "category": "综合应用",
+        "difficulty": "中等",
+        "question": "仓颉语言中实现单例模式的最佳方式是？",
+        "options": {
+            "A": "对象声明(object)",
+            "B": "双重检查锁",
+            "C": "静态内部类",
+            "D": "枚举"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言中对象声明是实现单例模式最简洁和安全的方式。"
+    },
+    {
+        "id": 296,
+        "type": "single",
+        "category": "综合应用",
+        "difficulty": "中等",
+        "question": "仓颉语言中构建器模式的最佳实现是？",
+        "options": {
+            "A": "使用命名参数和默认参数",
+            "B": "传统的构建器类",
+            "C": "DSL风格构建器",
+            "D": "以上都是"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言的命名参数和默认参数可以简化构建器模式的实现。"
+    },
+    {
+        "id": 297,
+        "type": "single",
+        "category": "综合应用",
+        "difficulty": "困难",
+        "question": "仓颉语言中实现观察者模式的最佳方式是？",
+        "options": {
+            "A": "使用委托属性",
+            "B": "使用标准库的Observable",
+            "C": "自定义事件系统",
+            "D": "使用响应式流"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言的委托属性可以优雅地实现观察者模式。"
+    },
+    {
+        "id": 298,
+        "type": "single",
+        "category": "综合应用",
+        "difficulty": "困难",
+        "question": "仓颉语言中策略模式的最佳实现是？",
+        "options": {
+            "A": "使用函数类型",
+            "B": "接口和实现类",
+            "C": "枚举策略",
+            "D": "注解处理器"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "仓颉语言的函数类型可以简洁地实现策略模式。"
+    },
+    {
+        "id": 299,
+        "type": "single",
+        "category": "综合应用",
+        "difficulty": "困难",
+        "question": "仓颉语言中实现依赖注入的方式是？",
+        "options": {
+            "A": "使用构造函数注入",
+            "B": "使用属性委托",
+            "C": "使用第三方框架",
+            "D": "以上都是"
+        },
+        "answer": [
+            "D"
+        ],
+        "explanation": "仓颉语言支持多种依赖注入方式，包括构造函数注入、属性委托和使用框架。"
+    },
+    {
+        "id": 300,
+        "type": "single",
+        "category": "综合应用",
+        "difficulty": "困难",
+        "question": "仓颉语言中性能优化的最佳实践不包括？",
+        "options": {
+            "A": "过度使用内联函数",
+            "B": "合理使用集合操作",
+            "C": "避免不必要的对象创建",
+            "D": "使用序列处理大数据集"
+        },
+        "answer": [
+            "A"
+        ],
+        "explanation": "过度使用内联函数可能导致代码膨胀，不是性能优化的最佳实践。"
+    },
+    {
+        "id": 301,
+        "type": "multiple",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是有效的变量声明方式？",
+        "options": {
+            "A": "var name = \"张三\"",
+            "B": "val age = 25",
+            "C": "const PI = 3.14",
+            "D": "let count = 100"
+        },
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "仓颉语言使用var声明可变变量，val声明不可变变量。const和let不是仓颉语言的关键字。"
+    },
+    {
+        "id": 302,
+        "type": "multiple",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些控制流语句支持多分支选择？",
+        "options": {
+            "A": "if-else",
+            "B": "when",
+            "C": "switch",
+            "D": "match"
+        },
+        "answer": [
+            "B",
+            "D"
+        ],
+        "explanation": "when表达式和match语句都支持多分支选择，if-else主要用于双分支，switch不是仓颉语言的关键字。"
+    },
+    {
+        "id": 303,
+        "type": "multiple",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些运算符具有短路特性？",
+        "options": {
+            "A": "&&",
+            "B": "||",
+            "C": "&",
+            "D": "|"
+        },
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "逻辑与(&&)和逻辑或(||)具有短路特性，位运算符(&和|)没有短路特性。"
+    },
+    {
+        "id": 304,
+        "type": "multiple",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是数值类型？",
+        "options": {
+            "A": "Int",
+            "B": "Float",
+            "C": "Double",
+            "D": "Decimal"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "Int、Float、Double都是数值类型，Decimal不是仓颉语言的基本数值类型。"
+    },
+    {
+        "id": 305,
+        "type": "multiple",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些集合类型是可变的？",
+        "options": {
+            "A": "MutableList",
+            "B": "MutableSet",
+            "C": "MutableMap",
+            "D": "Array"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "MutableList、MutableSet、MutableMap都是可变集合，Array在仓颉语言中大小固定但内容可变，但通常不被视为完全可变集合。"
+    },
+    {
+        "id": 306,
+        "type": "multiple",
+        "category": "数据类型",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些特性支持空安全？",
+        "options": {
+            "A": "可空类型(T?)",
+            "B": "安全调用运算符(?.)",
+            "C": "Elvis运算符(?:)",
+            "D": "非空断言(!!)"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "仓颉语言通过可空类型、安全调用、Elvis运算符和非空断言全面支持空安全。"
+    },
+    {
+        "id": 307,
+        "type": "multiple",
+        "category": "函数编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是高阶函数的特点？",
+        "options": {
+            "A": "接受函数作为参数",
+            "B": "返回函数作为结果",
+            "C": "可以赋值给变量",
+            "D": "支持函数组合"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "高阶函数可以接受函数参数、返回函数、赋值给变量，并支持函数组合。"
+    },
+    {
+        "id": 308,
+        "type": "multiple",
+        "category": "函数编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些函数可以用于集合处理？",
+        "options": {
+            "A": "map",
+            "B": "filter",
+            "C": "reduce",
+            "D": "forEach"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "map用于转换，filter用于过滤，reduce用于归约，forEach用于遍历，都是常用的集合处理函数。"
+    },
+    {
+        "id": 309,
+        "type": "multiple",
+        "category": "函数编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些特性支持函数式编程？",
+        "options": {
+            "A": "Lambda表达式",
+            "B": "高阶函数",
+            "C": "不可变集合",
+            "D": "尾递归优化"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "Lambda表达式、高阶函数、不可变集合和尾递归优化都是函数式编程的重要特性。"
+    },
+    {
+        "id": 310,
+        "type": "multiple",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是类的成员？",
+        "options": {
+            "A": "属性",
+            "B": "方法",
+            "C": "构造函数",
+            "D": "初始化块"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "类的成员包括属性、方法、构造函数和初始化块。"
+    },
+    {
+        "id": 311,
+        "type": "multiple",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些可以包含抽象方法？",
+        "options": {
+            "A": "抽象类",
+            "B": "接口",
+            "C": "数据类",
+            "D": "密封类"
+        },
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "抽象类和接口可以包含抽象方法，数据类和密封类不能包含抽象方法。"
+    },
+    {
+        "id": 312,
+        "type": "multiple",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些设计模式有语言层面的直接支持？",
+        "options": {
+            "A": "单例模式（对象声明）",
+            "B": "委托模式（by关键字）",
+            "C": "观察者模式（委托属性）",
+            "D": "工厂模式（伴生对象）"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "仓颉语言通过对象声明支持单例，by关键字支持委托，委托属性支持观察者，伴生对象支持工厂模式。"
+    },
+    {
+        "id": 313,
+        "type": "multiple",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是协程的构建器？",
+        "options": {
+            "A": "launch",
+            "B": "async",
+            "C": "runBlocking",
+            "D": "coroutineScope"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "launch、async和runBlocking都是协程构建器，coroutineScope是作用域函数不是构建器。"
+    },
+    {
+        "id": 314,
+        "type": "multiple",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些可以用于线程同步？",
+        "options": {
+            "A": "Mutex",
+            "B": "Semaphore",
+            "C": "Atomic变量",
+            "D": "Channel"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "Mutex、Semaphore和Atomic变量都用于线程同步，Channel主要用于协程间通信。"
+    },
+    {
+        "id": 315,
+        "type": "multiple",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是结构化并发的好处？",
+        "options": {
+            "A": "自动取消传播",
+            "B": "避免协程泄漏",
+            "C": "简化错误处理",
+            "D": "提高性能"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "结构化并发提供自动取消传播、避免协程泄漏和简化错误处理，但不直接提高性能。"
+    },
+    {
+        "id": 316,
+        "type": "multiple",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些会导致内存泄漏？",
+        "options": {
+            "A": "静态集合持有对象引用",
+            "B": "未关闭的资源（文件、连接）",
+            "C": "匿名内部类持有外部类引用",
+            "D": "循环引用"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "静态集合、未关闭资源和匿名内部类持有引用会导致内存泄漏，但垃圾回收可以处理循环引用。"
+    },
+    {
+        "id": 317,
+        "type": "multiple",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是垃圾回收的算法？",
+        "options": {
+            "A": "标记-清除",
+            "B": "复制算法",
+            "C": "标记-整理",
+            "D": "分代收集"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "标记-清除、复制算法、标记-整理都是基本垃圾回收算法，分代收集是综合策略。"
+    },
+    {
+        "id": 318,
+        "type": "multiple",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些可以优化内存使用？",
+        "options": {
+            "A": "使用对象池",
+            "B": "避免创建不必要的对象",
+            "C": "使用基本类型而非包装类",
+            "D": "使用懒加载"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "对象池、避免不必要对象、使用基本类型和懒加载都可以优化内存使用。"
+    },
+    {
+        "id": 319,
+        "type": "multiple",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是集合操作的高阶函数？",
+        "options": {
+            "A": "map",
+            "B": "filter",
+            "C": "fold",
+            "D": "groupBy"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "map用于转换，filter用于过滤，fold用于累积，groupBy用于分组，都是集合高阶函数。"
+    },
+    {
+        "id": 320,
+        "type": "multiple",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些用于文件操作？",
+        "options": {
+            "A": "File.readText()",
+            "B": "File.writeText()",
+            "C": "Files.copy()",
+            "D": "Paths.get()"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "File.readText()、File.writeText()和Files.copy()用于文件操作，Paths.get()用于路径操作。"
+    },
+    {
+        "id": 321,
+        "type": "multiple",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是序列(Sequence)的优势？",
+        "options": {
+            "A": "惰性求值",
+            "B": "中间操作不创建中间集合",
+            "C": "适合处理大数据集",
+            "D": "操作顺序影响性能"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "序列支持惰性求值、避免中间集合、适合大数据集，操作顺序确实影响性能但不是优势。"
+    },
+    {
+        "id": 322,
+        "type": "multiple",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是泛型的好处？",
+        "options": {
+            "A": "类型安全",
+            "B": "代码复用",
+            "C": "消除强制类型转换",
+            "D": "提高性能"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "泛型提供类型安全、代码复用和消除强制类型转换，但不直接提高性能。"
+    },
+    {
+        "id": 323,
+        "type": "multiple",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些注解可以用于元编程？",
+        "options": {
+            "A": "@Target",
+            "B": "@Retention",
+            "C": "@Repeatable",
+            "D": "@MustBeDocumented"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "这些元注解都用于定义注解的行为，支持元编程。"
+    },
+    {
+        "id": 324,
+        "type": "multiple",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些特性支持DSL创建？",
+        "options": {
+            "A": "扩展函数",
+            "B": "中缀调用",
+            "C": "运算符重载",
+            "D": "带接收者的Lambda"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "扩展函数、中缀调用、运算符重载和带接收者的Lambda都支持创建领域特定语言(DSL)。"
+    },
+    {
+        "id": 325,
+        "type": "multiple",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是有效的循环语句？",
+        "options": {
+            "A": "for",
+            "B": "while",
+            "C": "do-while",
+            "D": "loop"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "仓颉语言支持for、while和do-while循环，没有loop关键字。"
+    },
+    {
+        "id": 326,
+        "type": "multiple",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些运算符可以重载？",
+        "options": {
+            "A": "+",
+            "B": "==",
+            "C": "[]",
+            "D": "()"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "仓颉语言允许重载算术运算符、比较运算符、索引运算符和调用运算符等。"
+    },
+    {
+        "id": 327,
+        "type": "multiple",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是基本数据类型？",
+        "options": {
+            "A": "Int",
+            "B": "String",
+            "C": "Boolean",
+            "D": "Char"
+        },
+        "answer": [
+            "A",
+            "C",
+            "D"
+        ],
+        "explanation": "Int、Boolean、Char是基本数据类型，String是引用类型。"
+    },
+    {
+        "id": 328,
+        "type": "multiple",
+        "category": "数据类型",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些集合操作是终端操作？",
+        "options": {
+            "A": "toList()",
+            "B": "forEach()",
+            "C": "count()",
+            "D": "filter()"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "toList()、forEach()、count()是终端操作，filter()是中间操作。"
+    },
+    {
+        "id": 329,
+        "type": "multiple",
+        "category": "函数编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是函数引用的方式？",
+        "options": {
+            "A": "::函数名",
+            "B": "::类名.函数名",
+            "C": "对象::函数名",
+            "D": "类名::函数名"
+        },
+        "answer": [
+            "A",
+            "C",
+            "D"
+        ],
+        "explanation": "仓颉语言支持顶层函数引用、对象函数引用和类函数引用。"
+    },
+    {
+        "id": 330,
+        "type": "multiple",
+        "category": "函数编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些场景适合使用内联函数？",
+        "options": {
+            "A": "高阶函数参数",
+            "B": "性能敏感代码",
+            "C": "递归函数",
+            "D": "泛型函数"
+        },
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "内联函数适合高阶函数参数（避免函数对象创建）和性能敏感代码，但递归函数和泛型函数不适合内联。"
+    },
+    {
+        "id": 331,
+        "type": "multiple",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些类不能被继承？",
+        "options": {
+            "A": "final类",
+            "B": "密封类",
+            "C": "数据类",
+            "D": "枚举类"
+        },
+        "answer": [
+            "A",
+            "B",
+            "D"
+        ],
+        "explanation": "final类、密封类和枚举类不能被继承，数据类默认是final但可以标记为open。"
+    },
+    {
+        "id": 332,
+        "type": "multiple",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是属性委托的用途？",
+        "options": {
+            "A": "懒加载",
+            "B": "观察属性变化",
+            "C": "映射属性到Map",
+            "D": "提供默认值"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "属性委托可用于懒加载、观察变化和映射到Map，但不能直接提供默认值。"
+    },
+    {
+        "id": 333,
+        "type": "multiple",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是协程的调度器？",
+        "options": {
+            "A": "Dispatchers.IO",
+            "B": "Dispatchers.Main",
+            "C": "Dispatchers.Default",
+            "D": "Dispatchers.Unconfined"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "IO调度器用于IO操作，Main调度器用于UI线程，Default用于CPU密集型任务，Unconfined不限制线程。"
+    },
+    {
+        "id": 334,
+        "type": "multiple",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是通道的特点？",
+        "options": {
+            "A": "线程安全",
+            "B": "支持多个发送者和接收者",
+            "C": "可以缓冲",
+            "D": "支持选择表达式"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "通道是线程安全的，支持多发送者/接收者，可以设置缓冲区，并且可以与select表达式配合使用。"
+    },
+    {
+        "id": 335,
+        "type": "multiple",
+        "category": "内存管理",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是强引用的特点？",
+        "options": {
+            "A": "阻止垃圾回收",
+            "B": "最常见的引用类型",
+            "C": "可能导致内存泄漏",
+            "D": "在内存不足时被回收"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "强引用阻止垃圾回收，是最常见的引用类型，不当使用可能导致内存泄漏，但不会在内存不足时被回收（那是软引用）。"
+    },
+    {
+        "id": 336,
+        "type": "multiple",
+        "category": "内存管理",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些技术可以减少内存占用？",
+        "options": {
+            "A": "使用基本类型数组",
+            "B": "对象池",
+            "C": "避免装箱拆箱",
+            "D": "使用稀疏数组"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "基本类型数组减少对象头开销，对象池复用对象，避免装箱减少内存分配，稀疏数组节省空间。"
+    },
+    {
+        "id": 337,
+        "type": "multiple",
+        "category": "标准库使用",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是字符串模板的功能？",
+        "options": {
+            "A": "变量插值",
+            "B": "表达式计算",
+            "C": "格式化数字",
+            "D": "多行字符串"
+        },
+        "answer": [
+            "A",
+            "B",
+            "D"
+        ],
+        "explanation": "字符串模板支持变量插值、表达式计算和多行字符串，但格式化数字需要调用特定函数。"
+    },
+    {
+        "id": 338,
+        "type": "multiple",
+        "category": "标准库使用",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是序列(Sequence)的终端操作？",
+        "options": {
+            "A": "toList()",
+            "B": "first()",
+            "C": "map()",
+            "D": "filter()"
+        },
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "toList()和first()是序列的终端操作，map()和filter()是中间操作。"
+    },
+    {
+        "id": 339,
+        "type": "multiple",
+        "category": "高级特性",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是反射API的用途？",
+        "options": {
+            "A": "运行时获取类信息",
+            "B": "动态创建对象",
+            "C": "调用私有方法",
+            "D": "代码生成"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "反射用于运行时获取类信息、动态创建对象和调用方法，但代码生成通常使用注解处理器。"
+    },
+    {
+        "id": 340,
+        "type": "multiple",
+        "category": "高级特性",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是内联类的限制？",
+        "options": {
+            "A": "只能有一个属性",
+            "B": "不能继承其他类",
+            "C": "不能实现接口",
+            "D": "不能是泛型类"
+        },
+        "answer": [
+            "A",
+            "B"
+        ],
+        "explanation": "内联类只能有一个属性，不能继承其他类，但可以实现接口，也可以是泛型类。"
+    },
+    {
+        "id": 341,
+        "type": "multiple",
+        "category": "语法基础",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是有效的跳转语句？",
+        "options": {
+            "A": "break",
+            "B": "continue",
+            "C": "return",
+            "D": "goto"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "break用于跳出循环，continue用于跳过本次迭代，return用于返回，goto不是仓颉语言的关键字。"
+    },
+    {
+        "id": 342,
+        "type": "multiple",
+        "category": "语法基础",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些表达式可以用于空安全处理？",
+        "options": {
+            "A": "?.安全调用",
+            "B": "?:Elvis运算符",
+            "C": "!!非空断言",
+            "D": "as?安全转换"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "安全调用、Elvis运算符、非空断言和安全转换都是仓颉语言空安全处理的重要表达式。"
+    },
+    {
+        "id": 343,
+        "type": "multiple",
+        "category": "数据类型",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是函数类型的特点？",
+        "options": {
+            "A": "可以作为参数类型",
+            "B": "可以作为返回类型",
+            "C": "可以赋值给变量",
+            "D": "可以继承"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "函数类型可以作为参数类型、返回类型，可以赋值给变量，但不能被继承。"
+    },
+    {
+        "id": 344,
+        "type": "multiple",
+        "category": "数据类型",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是泛型型变的方式？",
+        "options": {
+            "A": "协变(out)",
+            "B": "逆变(in)",
+            "C": "不变",
+            "D": "型变投影"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "协变、逆变、不变和型变投影都是泛型型变的重要概念。"
+    },
+    {
+        "id": 345,
+        "type": "multiple",
+        "category": "函数编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是Lambda表达式的特性？",
+        "options": {
+            "A": "简洁的语法",
+            "B": "可以访问外部变量",
+            "C": "自动推断类型",
+            "D": "支持函数式接口"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "Lambda表达式语法简洁，可以访问外部变量，支持类型推断，并且可以转换为函数式接口。"
+    },
+    {
+        "id": 346,
+        "type": "multiple",
+        "category": "函数编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是尾递归优化的条件？",
+        "options": {
+            "A": "递归调用是最后操作",
+            "B": "使用tailrec关键字",
+            "C": "不能有额外的计算",
+            "D": "必须是单参数函数"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C"
+        ],
+        "explanation": "尾递归要求递归调用是最后操作，使用tailrec关键字标记，且不能有额外的计算，但不限制参数数量。"
+    },
+    {
+        "id": 347,
+        "type": "multiple",
+        "category": "面向对象",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是接口可以包含的成员？",
+        "options": {
+            "A": "抽象方法",
+            "B": "默认方法",
+            "C": "属性",
+            "D": "常量"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "接口可以包含抽象方法、默认方法、属性和常量。"
+    },
+    {
+        "id": 348,
+        "type": "multiple",
+        "category": "面向对象",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是委托模式的优点？",
+        "options": {
+            "A": "代码复用",
+            "B": "运行时灵活性",
+            "C": "解耦",
+            "D": "减少继承层次"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "委托模式支持代码复用、运行时灵活性、解耦和减少继承层次。"
+    },
+    {
+        "id": 349,
+        "type": "multiple",
+        "category": "并发编程",
+        "difficulty": "中等",
+        "question": "仓颉语言中哪些是异步编程的方式？",
+        "options": {
+            "A": "回调函数",
+            "B": "Future/Promise",
+            "C": "协程",
+            "D": "反应式流"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "回调函数、Future/Promise、协程和反应式流都是异步编程的常见方式。"
+    },
+    {
+        "id": 350,
+        "type": "multiple",
+        "category": "并发编程",
+        "difficulty": "困难",
+        "question": "仓颉语言中哪些是避免竞态条件的方法？",
+        "options": {
+            "A": "使用同步锁",
+            "B": "使用原子变量",
+            "C": "使用不可变对象",
+            "D": "使用线程局部变量"
+        },
+        "answer": [
+            "A",
+            "B",
+            "C",
+            "D"
+        ],
+        "explanation": "同步锁、原子变量、不可变对象和线程局部变量都可以帮助避免竞态条件。"
+    }
+]
