@@ -1,6 +1,6 @@
 import router from '@ohos.router'
 import { util } from '@kit.ArkTS'
-import { DatabaseManager } from '../../common/DatabaseManager'
+import { DatabaseManager } from '../common/DatabaseManager'
 
 interface QuestionOptions {
   A: string
@@ -45,10 +45,27 @@ export struct HomePage {
     experience: 0
   }
 
-  aboutToAppear() {
+  async aboutToAppear() {
     this.updateDateTime()
+    await this.initDatabase()
     this.loadDailyQuestion()
     this.loadUserStats()
+  }
+
+  onPageShow() {
+    // 页面显示时重新加载用户统计数据，确保数据实时更新
+    this.loadUserStats()
+  }
+
+  async initDatabase() {
+    try {
+      const context = getContext(this)
+      const dbManager = DatabaseManager.getInstance()
+      await dbManager.initDatabase(context)
+      console.info('数据库初始化成功')
+    } catch (error) {
+      console.error('数据库初始化失败:', error)
+    }
   }
 
   updateDateTime() {
@@ -156,11 +173,11 @@ export struct HomePage {
         this.FunctionIcon('题库', $r('app.media.ic_question_bank'), () => {
           router.pushUrl({ url: 'pages/QuestionBankPage' })
         })
-        this.FunctionIcon('考核', $r('app.media.ic_exam_center'), () => {
+        this.FunctionIcon('考核', $r('app.media.ic_exam'), () => {
           router.pushUrl({ url: 'pages/ExamPage' })
         })
         this.FunctionIcon('我的收藏', $r('app.media.ic_favorite'), () => {
-          router.pushUrl({ url: 'pages/FavoritePage' })
+          router.pushUrl({ url: 'pages/FavoritesPage' })
         })
         this.FunctionIcon('错题本', $r('app.media.ic_wrong_questions'), () => {
           router.pushUrl({ url: 'pages/WrongQuestionsPage' })
@@ -175,10 +192,27 @@ export struct HomePage {
         this.FunctionIcon('我的统计', $r('app.media.ic_statistics'), () => {
           router.pushUrl({ url: 'pages/StatisticsPage' })
         })
-        this.FunctionIcon('学习路线', $r('app.media.ic_learning_path'), () => {
+        this.FunctionIcon('学习路线', $r('app.media.icon_learning_path'), () => {
           router.pushUrl({ url: 'pages/LearningPathPage' })
         })
+        this.FunctionIcon('我的成就', $r('app.media.ic_achievement'), () => {
+          router.pushUrl({ url: 'pages/AchievementPage' })
+        })
+        this.FunctionIcon('我的目标', $r('app.media.icon_traget'), () => {
+          router.pushUrl({ url: 'pages/GoalsPage' })
+        })
+      }
+      .width('100%')
+      .justifyContent(FlexAlign.SpaceBetween)
+      .margin({ bottom: 24 })
+
+      // 第三行图标
+      Row() {
+        this.FunctionIcon('我的日记', $r('app.media.ic_diary'), () => {
+          router.pushUrl({ url: 'pages/DiaryPage' })
+        })
         // 空白占位
+        Column().width('20%')
         Column().width('20%')
         Column().width('20%')
       }
@@ -193,18 +227,25 @@ export struct HomePage {
       Stack() {
         Circle({ width: 60, height: 60 })
           .fill('#FFFFFF')
-          .shadow({ radius: 8, color: '#1A000000', offsetX: 0, offsetY: 2 })
-        
+          .shadow({
+            radius: 8,
+            color: '#00000010',
+            offsetX: 0,
+            offsetY: 2
+          })
+
         Image(icon)
           .width(32)
           .height(32)
           .fillColor('#007AFF')
       }
-      
+      .width(60)
+      .height(60).margin({bottom: 6})
+
       Text(title)
-        .fontSize(14)
+        .fontSize(12)
         .fontColor('#333333')
-        .margin({ top: 8 })
+        .textAlign(TextAlign.Center)
     }
     .width('20%')
     .alignItems(HorizontalAlign.Center)
@@ -224,6 +265,12 @@ export struct HomePage {
         Text('点击答题')
           .fontSize(14)
           .fontColor('#007AFF')
+          .onClick(() => {
+            router.pushUrl({
+              url: 'pages/DailyQuestionPage',
+              params: { question: this.dailyQuestion }
+            })
+          })
       }
       .width('100%')
       .margin({ bottom: 16 })
@@ -269,22 +316,95 @@ export struct HomePage {
 
   @Builder StatsSection() {
     Column() {
-      Text('我的数据')
-        .fontSize(18)
-        .fontWeight(FontWeight.Bold)
-        .fontColor('#333333')
-        .width('100%')
-        .textAlign(TextAlign.Start)
-        .margin({ bottom: 16 })
+      Row() {
+        Text('我的数据')
+          .fontSize(18)
+          .fontWeight(FontWeight.Bold)
+          .fontColor('#333333')
+          .layoutWeight(1)
+
+      }
+      .width('100%')
+      .alignItems(VerticalAlign.Center)
+      .margin({ bottom: 16 })
 
       Row() {
-        this.StatCard('已答题目', this.userStats.totalQuestions || 0, '#4CAF50')
-        this.StatCard('正确率', `${this.userStats.accuracy || 0}%`, '#2196F3')
-        this.StatCard('连续天数', this.userStats.streakDays || 0, '#FF9800')
+        this.StatCardTotalQuestion('已答题目', '#4CAF50')
+        this.StatCardAccuracy('正确率', '#2196F3')
+        this.StatCardStreakDay('连续天数', '#FF9800')
       }
       .width('100%')
       .justifyContent(FlexAlign.SpaceBetween)
     }
+  }
+
+  @Builder StatCardTotalQuestion(title: string, color: string) {
+    Column() {
+      Text((this.userStats.totalQuestions || 0).toString())
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(color)
+
+      Text(title)
+        .fontSize(14)
+        .fontColor('#666666')
+        .margin({ top: 4 })
+    }
+    .width('30%')
+    .height(80)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+    .justifyContent(FlexAlign.Center)
+    .shadow({ radius: 8, color: '#1A000000', offsetX: 0, offsetY: 2 })
+    .onClick(() => {
+      router.pushUrl({ url: 'pages/StatisticsPage' })
+    })
+  }
+
+  @Builder StatCardAccuracy(title: string, color: string) {
+    Column() {
+      Text((`${(this.userStats.accuracy || 0).toFixed(1)}%`))
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(color)
+
+      Text(title)
+        .fontSize(14)
+        .fontColor('#666666')
+        .margin({ top: 4 })
+    }
+    .width('30%')
+    .height(80)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+    .justifyContent(FlexAlign.Center)
+    .shadow({ radius: 8, color: '#1A000000', offsetX: 0, offsetY: 2 })
+    .onClick(() => {
+      router.pushUrl({ url: 'pages/StatisticsPage' })
+    })
+  }
+
+  @Builder StatCardStreakDay(title: string, color: string) {
+    Column() {
+      Text(( this.userStats.streakDays || 0).toString())
+        .fontSize(24)
+        .fontWeight(FontWeight.Bold)
+        .fontColor(color)
+
+      Text(title)
+        .fontSize(14)
+        .fontColor('#666666')
+        .margin({ top: 4 })
+    }
+    .width('30%')
+    .height(80)
+    .backgroundColor('#FFFFFF')
+    .borderRadius(12)
+    .justifyContent(FlexAlign.Center)
+    .shadow({ radius: 8, color: '#1A000000', offsetX: 0, offsetY: 2 })
+    .onClick(() => {
+      router.pushUrl({ url: 'pages/StatisticsPage' })
+    })
   }
 
   @Builder StatCard(title: string, value: string | number, color: string) {
@@ -305,5 +425,8 @@ export struct HomePage {
     .borderRadius(12)
     .justifyContent(FlexAlign.Center)
     .shadow({ radius: 8, color: '#1A000000', offsetX: 0, offsetY: 2 })
+    .onClick(() => {
+      router.pushUrl({ url: 'pages/StatisticsPage' })
+    })
   }
 }

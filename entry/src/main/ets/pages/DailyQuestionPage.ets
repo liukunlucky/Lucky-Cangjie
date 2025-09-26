@@ -1,5 +1,6 @@
 import router from '@ohos.router'
-import { DatabaseManager } from '../../common/DatabaseManager'
+import { DatabaseManager } from '../common/DatabaseManager'
+import { AchievementManager } from '../common/AchievementManager'
 
 interface QuestionOptions {
   A: string
@@ -437,6 +438,10 @@ struct DailyQuestionPage {
 
       // 记录每日一题完成状态
       // 这里可以添加每日一题特殊的记录逻辑
+      
+      // 触发成就更新
+      const achievementManager = AchievementManager.getInstance()
+      await achievementManager.onQuestionAnswered(this.isCorrect)
       
     } catch (error) {
       console.error('记录答题失败:', error)

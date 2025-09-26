@@ -1,5 +1,8 @@
 import relationalStore from '@ohos.data.relationalStore'
 import { Context } from '@ohos.abilityAccessCtrl'
+import { AchievementModel } from './models/AchievementModel'
+import { DiaryEntryModel } from './models/DiaryEntryModel'
+import { GoalModel } from './models/GoalModel'
 
 interface WrongQuestion {
   questionId: number
@@ -73,11 +76,24 @@ export class DatabaseManager {
       }
 
       this.rdbStore = await relationalStore.getRdbStore(context, config)
+      await this.rebuildAchievementsTable()
       await this.createTables()
       console.info('数据库初始化成功')
     } catch (error) {
       console.error('数据库初始化失败:', error)
       throw new Error('数据库初始化失败')
+    }
+  }
+
+  private async rebuildAchievementsTable(): Promise<void> {
+    if (!this.rdbStore) return
+
+    try {
+      // 删除旧的achievements表
+      await this.rdbStore.executeSql('DROP TABLE IF EXISTS achievements')
+      console.info('已删除旧的achievements表')
+    } catch (error) {
+      console.error('删除旧achievements表失败:', error)
     }
   }
 
@@ -173,10 +189,16 @@ export class DatabaseManager {
     const createAchievementsTable = `
       CREATE TABLE IF NOT EXISTS achievements (
         id INTEGER PRIMARY KEY AUTOINCREMENT,
-        achievement_id TEXT NOT NULL UNIQUE,
-        achievement_name TEXT NOT NULL,
+        title TEXT NOT NULL,
         description TEXT NOT NULL,
-        unlocked_at TEXT DEFAULT CURRENT_TIMESTAMP
+        icon TEXT NOT NULL,
+        is_unlocked INTEGER DEFAULT 0,
+        unlocked_date TEXT,
+        progress INTEGER DEFAULT 0,
+        max_progress INTEGER DEFAULT 1,
+        category TEXT NOT NULL,
+        rarity TEXT DEFAULT 'common',
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP
       )
     `
 
@@ -203,6 +225,40 @@ export class DatabaseManager {
       )
     `
 
+    // 目标表
+    const createGoalsTable = `
+      CREATE TABLE IF NOT EXISTS goals (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        title TEXT NOT NULL,
+        description TEXT,
+        category TEXT NOT NULL,
+        target_value INTEGER NOT NULL,
+        current_value INTEGER DEFAULT 0,
+        unit TEXT NOT NULL,
+        deadline TEXT,
+        is_completed INTEGER DEFAULT 0,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
+    // 日记表
+    const createDiaryTable = `
+      CREATE TABLE IF NOT EXISTS diary_entries (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        date TEXT NOT NULL,
+        title TEXT NOT NULL,
+        content TEXT NOT NULL,
+        mood TEXT NOT NULL,
+        study_time REAL DEFAULT 0,
+        questions_answered INTEGER DEFAULT 0,
+        achievements TEXT,
+        tags TEXT,
+        created_at TEXT DEFAULT CURRENT_TIMESTAMP,
+        updated_at TEXT DEFAULT CURRENT_TIMESTAMP
+      )
+    `
+
     try {
       await this.rdbStore.executeSql(createUserStatsTable)
       await this.rdbStore.executeSql(createAnswerRecordsTable)
@@ -213,6 +269,8 @@ export class DatabaseManager {
       await this.rdbStore.executeSql(createAchievementsTable)
       await this.rdbStore.executeSql(createQuestionNotesTable)
       await this.rdbStore.executeSql(createDailyQuestionTable)
+      await this.rdbStore.executeSql(createGoalsTable)
+      await this.rdbStore.executeSql(createDiaryTable)
 
       // 初始化用户统计数据
       await this.initUserStats()
@@ -751,4 +809,407 @@ export class DatabaseManager {
       return []
     }
   }
+
+  // ==================== 目标管理方法 ====================
+  
+  // 添加目标
+  async addGoal(goal: GoalModel): Promise<boolean> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(`
+        INSERT INTO goals (title, description, category, target_value, current_value, unit, deadline)
+        VALUES (?, ?, ?, ?, ?, ?, ?)
+      `, [goal.title, goal.description, goal.category, goal.targetValue, goal.currentValue, goal.unit, goal.deadline])
+
+      return true
+    } catch (error) {
+      console.error('添加目标失败:', error)
+      return false
+    }
+  }
+
+  // 获取所有目标
+  async getAllGoals(): Promise<GoalModel[]> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      const resultSet = await this.rdbStore.querySql(`
+        SELECT id, title, description, category, target_value, current_value, unit, deadline, is_completed, created_at
+        FROM goals 
+        ORDER BY created_at DESC
+      `)
+
+      const goals: GoalModel[] = []
+      if (resultSet.rowCount > 0) {
+        resultSet.goToFirstRow()
+        do {
+          const goal = new GoalModel()
+          goal.id = resultSet.getLong(0)
+          goal.title = resultSet.getString(1)
+          goal.description = resultSet.getString(2)
+          goal.category = resultSet.getString(3)
+          goal.targetValue = resultSet.getLong(4)
+          goal.currentValue = resultSet.getLong(5)
+          goal.unit = resultSet.getString(6)
+          goal.deadline = resultSet.getString(7)
+          goal.isCompleted = resultSet.getLong(8) === 1
+          goal.createdAt = resultSet.getString(9)
+          goals.push(goal)
+        } while (resultSet.goToNextRow())
+      }
+      resultSet.close()
+
+      return goals
+    } catch (error) {
+      console.error('获取目标列表失败:', error)
+      return []
+    }
+  }
+
+  // 更新目标进度
+  async updateGoalProgress(goalId: number, currentValue: number): Promise<boolean> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(`
+        UPDATE goals 
+        SET current_value = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+      `, [currentValue, goalId])
+
+      return true
+    } catch (error) {
+      console.error('更新目标进度失败:', error)
+      return false
+    }
+  }
+
+  // 完成目标
+  async completeGoal(goalId: number): Promise<boolean> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(`
+        UPDATE goals 
+        SET is_completed = 1, updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+      `, [goalId])
+
+      return true
+    } catch (error) {
+      console.error('完成目标失败:', error)
+      return false
+    }
+  }
+
+  // 删除目标
+  async deleteGoal(goalId: number): Promise<boolean> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(`
+        DELETE FROM goals WHERE id = ?
+      `, [goalId])
+
+      return true
+    } catch (error) {
+      console.error('删除目标失败:', error)
+      return false
+    }
+  }
+
+  // ==================== 日记管理方法 ====================
+  
+  // 添加日记
+  async addDiaryEntry(entry: DiaryEntryModel): Promise<boolean> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(`
+        INSERT INTO diary_entries (date, title, content, mood, study_time, questions_answered, achievements, tags)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
+      `, [entry.date, entry.title, entry.content, entry.mood, entry.studyTime, entry.questionsAnswered, 
+          JSON.stringify(entry.achievements), JSON.stringify(entry.tags)])
+
+      return true
+    } catch (error) {
+      console.error('添加日记失败:', error)
+      return false
+    }
+  }
+
+  // 获取所有日记
+  async getAllDiaryEntries(): Promise<DiaryEntryModel[]> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      const resultSet = await this.rdbStore.querySql(`
+        SELECT id, date, title, content, mood, study_time, questions_answered, achievements, tags, created_at
+        FROM diary_entries 
+        ORDER BY date DESC
+      `)
+
+      const entries: DiaryEntryModel[] = []
+      if (resultSet.rowCount > 0) {
+        resultSet.goToFirstRow()
+        do {
+          const entry = new DiaryEntryModel()
+          entry.id = resultSet.getLong(0)
+          entry.date = resultSet.getString(1)
+          entry.title = resultSet.getString(2)
+          entry.content = resultSet.getString(3)
+          entry.mood = resultSet.getString(4)
+          entry.studyTime = resultSet.getDouble(5)
+          entry.questionsAnswered = resultSet.getLong(6)
+          
+          const achievementsStr = resultSet.getString(7)
+          entry.achievements = achievementsStr ? JSON.parse(achievementsStr) : []
+          
+          const tagsStr = resultSet.getString(8)
+          entry.tags = tagsStr ? JSON.parse(tagsStr) : []
+          
+          entry.createdAt = resultSet.getString(9)
+          entries.push(entry)
+        } while (resultSet.goToNextRow())
+      }
+      resultSet.close()
+
+      return entries
+    } catch (error) {
+      console.error('获取日记列表失败:', error)
+      return []
+    }
+  }
+
+  // 根据日期获取日记
+  async getDiaryByDate(date: string): Promise<DiaryEntryModel | null> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      const resultSet = await this.rdbStore.querySql(`
+        SELECT id, date, title, content, mood, study_time, questions_answered, achievements, tags, created_at
+        FROM diary_entries 
+        WHERE date = ?
+      `, [date])
+
+      if (resultSet.rowCount > 0) {
+        resultSet.goToFirstRow()
+        const entry = new DiaryEntryModel()
+        entry.id = resultSet.getLong(0)
+        entry.date = resultSet.getString(1)
+        entry.title = resultSet.getString(2)
+        entry.content = resultSet.getString(3)
+        entry.mood = resultSet.getString(4)
+        entry.studyTime = resultSet.getDouble(5)
+        entry.questionsAnswered = resultSet.getLong(6)
+        
+        const achievementsStr = resultSet.getString(7)
+        entry.achievements = achievementsStr ? JSON.parse(achievementsStr) : []
+        
+        const tagsStr = resultSet.getString(8)
+        entry.tags = tagsStr ? JSON.parse(tagsStr) : []
+        
+        entry.createdAt = resultSet.getString(9)
+        resultSet.close()
+        return entry
+      }
+      
+      resultSet.close()
+      return null
+    } catch (error) {
+      console.error('根据日期获取日记失败:', error)
+      return null
+    }
+  }
+
+  // 更新日记
+  async updateDiaryEntry(entry: DiaryEntryModel): Promise<boolean> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(`
+        UPDATE diary_entries 
+        SET title = ?, content = ?, mood = ?, study_time = ?, questions_answered = ?, 
+            achievements = ?, tags = ?, updated_at = CURRENT_TIMESTAMP
+        WHERE id = ?
+      `, [entry.title, entry.content, entry.mood, entry.studyTime, entry.questionsAnswered,
+          JSON.stringify(entry.achievements), JSON.stringify(entry.tags), entry.id])
+
+      return true
+    } catch (error) {
+      console.error('更新日记失败:', error)
+      return false
+    }
+  }
+
+  // 删除日记
+  async deleteDiaryEntry(entryId: number): Promise<boolean> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(`
+        DELETE FROM diary_entries WHERE id = ?
+      `, [entryId])
+
+      return true
+    } catch (error) {
+      console.error('删除日记失败:', error)
+      return false
+    }
+  }
+
+  // 成就相关方法
+  async getAllAchievements(): Promise<AchievementModel[]> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      const resultSet = await this.rdbStore.querySql(`
+        SELECT * FROM achievements ORDER BY created_at DESC
+      `)
+
+      const achievements: AchievementModel[] = []
+      if (resultSet.rowCount > 0) {
+        for (let i = 0; i < resultSet.rowCount; i++) {
+          resultSet.goToRow(i)
+          const achievement = new AchievementModel()
+          achievement.id = resultSet.getLong(0).toString()
+          achievement.title = resultSet.getString(1)
+          achievement.description = resultSet.getString(2)
+          achievement.icon = resultSet.getString(3)
+          achievement.isUnlocked = resultSet.getLong(4) === 1
+          achievement.unlockedDate = resultSet.getString(5)
+          achievement.progress = resultSet.getLong(6)
+          achievement.maxProgress = resultSet.getLong(7)
+          achievement.category = resultSet.getString(8)
+          const rarityStr = resultSet.getString(9)
+          achievement.rarity = (rarityStr === 'common' || rarityStr === 'rare' || rarityStr === 'epic' || rarityStr === 'legendary') ? rarityStr : 'common'
+          achievement.createdAt = resultSet.getString(10)
+          achievements.push(achievement)
+        }
+      }
+      resultSet.close()
+      return achievements
+    } catch (error) {
+      console.error('获取成就列表失败:', error)
+      return []
+    }
+  }
+
+  async addAchievement(achievement: AchievementModel): Promise<boolean> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(`
+        INSERT INTO achievements (title, description, icon, is_unlocked, unlocked_date, 
+                                progress, max_progress, category, rarity, created_at)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+      `, [achievement.title, achievement.description, achievement.icon, 
+          achievement.isUnlocked ? 1 : 0, achievement.unlockedDate,
+          achievement.progress, achievement.maxProgress, achievement.category,
+          achievement.rarity, achievement.createdAt])
+
+      return true
+    } catch (error) {
+      console.error('添加成就失败:', error)
+      return false
+    }
+  }
+
+  async updateAchievement(achievement: AchievementModel): Promise<boolean> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      await this.rdbStore.executeSql(`
+        UPDATE achievements SET 
+          progress = ?, 
+          is_unlocked = ?, 
+          unlocked_date = ?
+        WHERE title = ?
+      `, [achievement.progress, achievement.isUnlocked ? 1 : 0, 
+          achievement.unlockedDate, achievement.title])
+
+      return true
+    } catch (error) {
+      console.error('更新成就失败:', error)
+      return false
+    }
+  }
+
+  // 获取考核记录
+  async getExamRecords(): Promise<ExamRecord[]> {
+    try {
+      if (!this.rdbStore) {
+        throw new Error('数据库未初始化')
+      }
+
+      const resultSet = await this.rdbStore.querySql(`
+        SELECT id, exam_id, exam_title, total_questions, correct_answers, 
+               score, time_spent, passed, created_at
+        FROM exam_records 
+        ORDER BY created_at DESC
+      `)
+
+      const records: ExamRecord[] = []
+      if (resultSet.rowCount > 0) {
+        for (let i = 0; i < resultSet.rowCount; i++) {
+          resultSet.goToRow(i)
+          const record: ExamRecord = {
+            id: resultSet.getLong(0),
+            examTitle: resultSet.getString(2),
+            score: resultSet.getLong(5),
+            totalQuestions: resultSet.getLong(3),
+            correctAnswers: resultSet.getLong(4),
+            examDate: resultSet.getString(8),
+            duration: resultSet.getLong(6),
+            passed: resultSet.getLong(7) === 1
+          }
+          records.push(record)
+        }
+      }
+      resultSet.close()
+      return records
+    } catch (error) {
+      console.error('获取考核记录失败:', error)
+      return []
+    }
+  }
+}
+
+// ExamRecord接口定义
+interface ExamRecord {
+  id: number
+  examTitle: string
+  score: number
+  totalQuestions: number
+  correctAnswers: number
+  examDate: string
+  duration: number
+  passed: boolean
 }

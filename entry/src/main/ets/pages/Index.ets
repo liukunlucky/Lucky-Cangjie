@@ -30,6 +30,10 @@ struct Index {
       }
       .tabBar(this.TabBuilder(3, '我的', $r('app.media.ic_profile')))
     }
+    .animationDuration(300)
+    .scrollable(false)
+    .barMode(BarMode.Fixed)
+    .barHeight(56)
     .onChange((index: number) => {
       this.currentTabIndex = index
     })

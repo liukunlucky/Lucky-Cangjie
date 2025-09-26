@@ -1,4 +1,5 @@
 import router from '@ohos.router'
+import { DatabaseManager } from '../common/DatabaseManager'
 
 interface ExamRecord {
   id: number
@@ -74,19 +75,28 @@ export struct ExamPage {
   ]
 
   @State userExamHistory: ExamRecord[] = []
+  @StorageLink('examDataRefreshTrigger') @Watch('onRefreshTriggerChange') refreshTrigger: number = 0;
+
+  private databaseManager: DatabaseManager = DatabaseManager.getInstance()
 
   aboutToAppear() {
     this.loadExamHistory()
   }
 
+  onRefreshTriggerChange() {
+    if (this.refreshTrigger > 0) {
+      this.loadExamHistory();
+      this.refreshTrigger = 0;
+    }
+  }
+
   async loadExamHistory() {
     // 从数据库加载用户考核历史
     try {
-      // 这里会从数据库获取用户的考核记录
-      // 暂时使用模拟数据
-      this.userExamHistory = []
+      this.userExamHistory = await this.databaseManager.getExamRecords()
     } catch (error) {
       console.error('加载考核历史失败:', error)
+      this.userExamHistory = []
     }
   }
 
@@ -279,6 +289,13 @@ export struct ExamPage {
           .fontColor(record.passed ? '#4CAF50' : '#F44336')
       }
       .alignItems(HorizontalAlign.End)
+
+      // 添加箭头图标提示可点击
+      Image($r('app.media.ic_arrow_right'))
+        .width(16)
+        .height(16)
+        .fillColor('#CCCCCC')
+        .margin({ left: 12 })
     }
     .width('100%')
     .padding(16)
@@ -286,6 +303,9 @@ export struct ExamPage {
     .borderRadius(12)
     .margin({ bottom: 12 })
     .shadow({ radius: 4, color: '#1A000000', offsetX: 0, offsetY: 2 })
+    .onClick(() => {
+      this.viewExamDetail(record)
+    })
   }
 
   startExam(exam: ExamConfig) {
@@ -306,6 +326,14 @@ export struct ExamPage {
         value: '取消',
         action: () => {}
       }
+    })
+  }
+
+  viewExamDetail(record: ExamRecord) {
+    // 跳转到考核记录详情页
+    router.pushUrl({
+      url: 'pages/ExamRecordDetailPage',
+      params: { examRecord: record }
     })
   }
 }

@@ -3,6 +3,46 @@
     {
       "name": "start_window_background",
       "value": "#FFFFFF"
+    },
+    {
+      "name": "brand_color",
+      "value": "#F34F40"
+    },
+    {
+      "name": "primary_text_color",
+      "value": "#2C3E50"
+    },
+    {
+      "name": "secondary_text_color",
+      "value": "#7F8C8D"
+    },
+    {
+      "name": "tertiary_text_color",
+      "value": "#BDC3C7"
+    },
+    {
+      "name": "divider_color",
+      "value": "#F1F2F6"
+    },
+    {
+      "name": "card_background_color",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "shadow_color",
+      "value": "#00000010"
+    },
+    {
+      "name": "surface_color",
+      "value": "#FFFFFF"
+    },
+    {
+      "name": "background_color",
+      "value": "#F8F9FA"
+    },
+    {
+      "name": "input_background_color",
+      "value": "#F8F9FA"
     }
   ]
 }

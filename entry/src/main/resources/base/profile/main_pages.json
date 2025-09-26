@@ -4,12 +4,17 @@
     "pages/HomePage",
     "pages/QuestionBankPage",
     "pages/ExamPage",
+    "pages/ExamQuestionPage",
+    "pages/ExamRecordDetailPage",
     "pages/ProfilePage",
     "pages/QuestionDetailPage",
     "pages/DailyQuestionPage",
     "pages/LearningPathPage",
     "pages/FavoritesPage",
     "pages/WrongQuestionsPage",
-    "pages/StatisticsPage"
+    "pages/StatisticsPage",
+    "pages/DiaryPage",
+    "pages/AchievementPage",
+    "pages/GoalsPage"
   ]
 }

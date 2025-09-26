@@ -1,10 +1,50 @@
 {
   "app": {
-    "signingConfigs": [],
+    "signingConfigs": [
+      {
+        "name": "default",
+        "type": "HarmonyOS",
+        "material": {
+          "certpath": "/Users/monkey/.ohos/config/default_Lucky_cangjie__13K0-8aOVPHNiwjXjp54ijymN_cxqQ1JDgoSrFwkAE=.cer",
+          "keyAlias": "debugKey",
+          "keyPassword": "0000001B40679C0CC7F38E74F0663FC005A92DA2E8A1C7F12664C0D385EC4FE76553A289CC82461DF02664",
+          "profile": "/Users/monkey/.ohos/config/default_Lucky_cangjie__13K0-8aOVPHNiwjXjp54ijymN_cxqQ1JDgoSrFwkAE=.p7b",
+          "signAlg": "SHA256withECDSA",
+          "storeFile": "/Users/monkey/.ohos/config/default_Lucky_cangjie__13K0-8aOVPHNiwjXjp54ijymN_cxqQ1JDgoSrFwkAE=.p12",
+          "storePassword": "0000001BB16AEA1437D368B711B35E314E7D5A692A4A45A3A1177FA5D809094ADE0E1D3300101E4180C924"
+        }
+      },
+      {
+        "name": "release",
+        "type": "HarmonyOS",
+        "material": {
+          "storeFile": "/Users/monkey/Documents/Harmony/发布相关/仓颉学习宝典/release.p12",
+          "storePassword": "00000019E8965CFE3455998B78E72BCCD6E7B7F502B3DC1ECC21104FCCEA6E1EA0F46379592A91D56C",
+          "keyAlias": "zl_reader",
+          "keyPassword": "00000019632FEF2AA94275918E1ACBFD4E25C53F089E1DA451433A69143D803F31BF323AA7082ED243",
+          "signAlg": "SHA256withECDSA",
+          "profile": "/Users/monkey/Documents/Harmony/发布相关/仓颉学习宝典/cangjie-profileRelease.p7b",
+          "certpath": "/Users/monkey/Documents/Harmony/发布相关/仓颉学习宝典/release.cer"
+        }
+      }
+    ],
     "products": [
       {
         "name": "default",
         "signingConfig": "default",
+        "targetSdkVersion": "5.0.5(17)",
+        "compatibleSdkVersion": "5.0.5(17)",
+        "runtimeOS": "HarmonyOS",
+        "buildOption": {
+          "strictMode": {
+            "caseSensitiveCheck": true,
+            "useNormalizedOHMUrl": true
+          }
+        }
+      },
+      {
+        "name": "release",
+        "signingConfig": "release",
         "targetSdkVersion": "5.0.5(17)",
         "compatibleSdkVersion": "5.0.5(17)",
         "runtimeOS": "HarmonyOS",
@@ -33,7 +73,8 @@
         {
           "name": "default",
           "applyToProducts": [
-            "default"
+            "default",
+            "release"
           ]
         }
       ]

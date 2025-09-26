@@ -1,5 +1,5 @@
 import router from '@ohos.router'
-import { DatabaseManager } from '../../common/DatabaseManager'
+import { DatabaseManager } from '../common/DatabaseManager'
 
 interface QuestionOptions {
   A: string

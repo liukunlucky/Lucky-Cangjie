@@ -1,6 +1,7 @@
 import router from '@ohos.router'
 import { promptAction } from '@kit.ArkUI'
-import { DatabaseManager } from '../../common/DatabaseManager'
+import { DatabaseManager } from '../common/DatabaseManager'
+import { AchievementManager } from '../common/AchievementManager'
 
 interface QuestionOptions {
   A: string
@@ -478,6 +479,10 @@ struct QuestionDetailPage {
           this.currentQuestion.category,
           this.currentQuestion.difficulty
         )
+        
+        // 触发成就更新
+        const achievementManager = AchievementManager.getInstance()
+        await achievementManager.onQuestionAnswered(this.isCorrect)
       } catch (error) {
         console.error('记录答题失败:', error)
       }
