@@ -2,6 +2,7 @@ import { AbilityConstant, ConfigurationConstant, UIAbility, Want } from '@kit.Ab
 import { hilog } from '@kit.PerformanceAnalysisKit';
 import { window } from '@kit.ArkUI';
 import { WindowAbility } from './WindowAbility';
+import { StudyTimeManager } from '../common/StudyTimeManager';
 
 const DOMAIN = 0x0000;
 
@@ -38,10 +39,16 @@ export default class EntryAbility extends UIAbility {
   onForeground(): void {
     // Ability has brought to foreground
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onForeground');
+    
+    // 应用进入前台时开始学习时长统计
+    StudyTimeManager.getInstance().startTracking();
   }
 
   onBackground(): void {
     // Ability has back to background
     hilog.info(DOMAIN, 'testTag', '%{public}s', 'Ability onBackground');
+    
+    // 应用进入后台时停止学习时长统计
+    StudyTimeManager.getInstance().stopTracking();
   }
 }

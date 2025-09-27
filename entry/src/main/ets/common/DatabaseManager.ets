@@ -3,6 +3,30 @@ import { Context } from '@ohos.abilityAccessCtrl'
 import { AchievementModel } from './models/AchievementModel'
 import { DiaryEntryModel } from './models/DiaryEntryModel'
 import { GoalModel } from './models/GoalModel'
+import util from '@ohos.util'
+
+interface Question {
+  id: number
+  type: string
+  category: string
+  difficulty: string
+  question: string
+  options: Record<string, string>
+  answer: string[]
+  explanation: string
+}
+
+interface FavoriteRecord {
+  id: number
+  time: string
+}
+
+interface WrongRecord {
+  id: number
+  wrongCount: number
+  lastWrongDate: string
+  isMastered: boolean
+}
 
 interface WrongQuestion {
   questionId: number
@@ -17,6 +41,15 @@ interface WrongQuestion {
   wrongCount: number
   lastWrongTime: string
   isResolved: boolean
+}
+
+interface TestRecord {
+  questionId: number;
+  userAnswer: string;
+  correctAnswer: string;
+  isCorrect: boolean;
+  category: string;
+  difficulty: string;
 }
 
 interface AnswerRecord {
@@ -310,6 +343,8 @@ export class DatabaseManager {
 
     try {
       const resultSet = await this.rdbStore.querySql('SELECT * FROM user_stats LIMIT 1')
+      console.info('getUserStats - 查询结果行数:', resultSet.rowCount)
+      
       if (resultSet.goToFirstRow()) {
         const stats: UserStats = {
           totalQuestions: resultSet.getLong(resultSet.getColumnIndex('total_questions')),
@@ -321,6 +356,7 @@ export class DatabaseManager {
           experience: resultSet.getLong(resultSet.getColumnIndex('experience'))
         }
         resultSet.close()
+        console.info('getUserStats - 返回统计数据:', JSON.stringify(stats))
         return stats
       }
       resultSet.close()
@@ -333,6 +369,7 @@ export class DatabaseManager {
         level: 1,
         experience: 0
       }
+      console.info('getUserStats - 返回默认统计数据:', JSON.stringify(defaultStats))
       return defaultStats
     } catch (error) {
       console.error('获取用户统计失败:', error)
@@ -358,6 +395,8 @@ export class DatabaseManager {
     }
 
     try {
+      console.info(`记录答题: 题目${questionId}, 是否正确: ${isCorrect}`)
+      
       // 插入答题记录
       await this.rdbStore.executeSql(`
         INSERT INTO answer_records (question_id, user_answer, correct_answer, is_correct, answer_time, question_type, category, difficulty)
@@ -365,7 +404,9 @@ export class DatabaseManager {
       `, [questionId, userAnswer, correctAnswer, isCorrect ? 1 : 0, answerTime, questionType, category, difficulty])
 
       // 更新用户统计
+      console.info('开始更新用户统计数据')
       await this.updateUserStats(isCorrect)
+      console.info('用户统计数据更新完成')
 
       // 如果答错，添加到错题本
       if (!isCorrect) {
@@ -387,21 +428,107 @@ export class DatabaseManager {
 
     try {
       const stats: UserStats = await this.getUserStats()
+      console.info(`更新前统计: 总题数=${stats.totalQuestions}, 正确数=${stats.correctAnswers}, 连续天数=${stats.streakDays}`)
+      
       const newTotalQuestions: number = stats.totalQuestions + 1
       const newCorrectAnswers: number = stats.correctAnswers + (isCorrect ? 1 : 0)
       const newAccuracy: number = (newCorrectAnswers / newTotalQuestions) * 100
+
+      // 计算连续天数
+      const newStreakDays = await this.calculateStreakDays()
+      
+      console.info(`更新后统计: 总题数=${newTotalQuestions}, 正确数=${newCorrectAnswers}, 准确率=${newAccuracy}%, 连续天数=${newStreakDays}`)
 
       await this.rdbStore.executeSql(`
         UPDATE user_stats SET 
           total_questions = ?,
           correct_answers = ?,
           accuracy = ?,
+          streak_days = ?,
           updated_at = CURRENT_TIMESTAMP
         WHERE id = 1
-      `, [newTotalQuestions, newCorrectAnswers, newAccuracy])
+      `, [newTotalQuestions, newCorrectAnswers, newAccuracy, newStreakDays])
+
+      console.info('用户统计数据库更新成功')
 
     } catch (error) {
       console.error('更新用户统计失败:', error)
+    }
+  }
+
+  // 计算连续学习天数
+  private async calculateStreakDays(): Promise<number> {
+    if (!this.rdbStore) return 0
+
+    try {
+      // 获取所有答题记录，按日期分组
+      const resultSet = await this.rdbStore.querySql(`
+        SELECT DISTINCT DATE(created_at) as answer_date
+        FROM answer_records 
+        ORDER BY answer_date DESC
+      `)
+
+      const answerDates: string[] = []
+      while (resultSet.goToNextRow()) {
+        const dateStr = resultSet.getString(resultSet.getColumnIndex('answer_date'))
+        answerDates.push(dateStr)
+      }
+      resultSet.close()
+
+      if (answerDates.length === 0) {
+        return 0
+      }
+
+      console.info(`[DatabaseManager] 所有答题日期:`, answerDates)
+
+      // 计算连续天数
+      let streakDays = 0
+      const today = new Date()
+      const todayStr = today.toISOString().split('T')[0] // YYYY-MM-DD格式
+
+      // 从今天开始检查连续天数
+      let currentDate = new Date(today)
+      
+      // 无限循环检查连续天数，直到找到没有答题的日期
+      while (true) {
+        const checkDateStr = currentDate.toISOString().split('T')[0]
+        console.info(`[DatabaseManager] 检查日期: ${checkDateStr}`)
+        
+        if (answerDates.includes(checkDateStr)) {
+          streakDays++
+          console.info(`[DatabaseManager] 找到答题日期: ${checkDateStr}, 连续天数: ${streakDays}`)
+          // 往前推一天
+          currentDate.setDate(currentDate.getDate() - 1)
+        } else {
+          console.info(`[DatabaseManager] 未找到答题日期: ${checkDateStr}, 停止计算`)
+          break
+        }
+      }
+
+      console.info(`[DatabaseManager] 最终计算连续天数: ${streakDays}天`)
+      return streakDays
+
+    } catch (error) {
+      console.error('计算连续天数失败:', error)
+      return 0
+    }
+  }
+
+  // 更新学习时长
+  async updateStudyTime(totalStudyTime: number): Promise<void> {
+    if (!this.rdbStore) return
+
+    try {
+      await this.rdbStore.executeSql(`
+        UPDATE user_stats SET 
+          total_study_time = ?,
+          updated_at = CURRENT_TIMESTAMP
+        WHERE id = 1
+      `, [totalStudyTime])
+
+      console.info(`[DatabaseManager] 学习时长更新成功: ${totalStudyTime}分钟`)
+    } catch (error) {
+      console.error('[DatabaseManager] 更新学习时长失败:', error)
     }
   }
 
@@ -654,40 +781,57 @@ export class DatabaseManager {
         throw new Error('数据库未初始化')
       }
 
+      // 获取收藏的题目ID列表
       const resultSet = await this.rdbStore.querySql(
         'SELECT question_id, created_at FROM favorites ORDER BY created_at DESC'
       )
 
-      const favoriteQuestions: FavoriteQuestion[] = []
+      const favoriteIds: FavoriteRecord[] = []
       if (resultSet.rowCount > 0) {
         resultSet.goToFirstRow()
         do {
-          const questionId = resultSet.getLong(0)
-          const favoriteTime = resultSet.getString(1)
-          
-          // 这里应该从题库中获取完整题目信息
-          // 暂时返回基本结构，实际应用中需要从cangjie.json加载
-          const favoriteOptions: Record<string, string> = {}
-          favoriteOptions.A = '选项A'
-          favoriteOptions.B = '选项B'
-          favoriteOptions.C = '选项C'
-          favoriteOptions.D = '选项D'
-          
-          const favoriteQuestion: FavoriteQuestion = {
-            questionId: questionId,
-            type: 'single',
-            category: '仓颉语言',
-            difficulty: '中等',
-            question: `题目 ${questionId}`,
-            options: favoriteOptions,
-            answer: ['A'],
-            explanation: '这是解释内容',
-            favoriteTime: favoriteTime
-          }
-          favoriteQuestions.push(favoriteQuestion)
+          favoriteIds.push({
+            id: resultSet.getLong(0),
+            time: resultSet.getString(1)
+          })
         } while (resultSet.goToNextRow())
       }
       resultSet.close()
+
+      if (favoriteIds.length === 0) {
+        return []
+      }
+
+      // 从题库文件中加载题目详情
+      const favoriteQuestions: FavoriteQuestion[] = []
+      try {
+        const context = getContext(this)
+        const fileData = await context.resourceManager.getRawFileContent('cangjie.json')
+        const decoder = new util.TextDecoder('utf-8')
+        const jsonStr = decoder.decodeWithStream(new Uint8Array(fileData.buffer))
+        const allQuestions: Question[] = JSON.parse(jsonStr)
+
+        // 匹配收藏的题目
+        for (const favoriteId of favoriteIds) {
+          const question = allQuestions.find(q => q.id === favoriteId.id)
+          if (question) {
+            const favoriteQuestion: FavoriteQuestion = {
+              questionId: question.id,
+              type: question.type,
+              category: question.category,
+              difficulty: question.difficulty,
+              question: question.question,
+              options: question.options,
+              answer: question.answer,
+              explanation: question.explanation,
+              favoriteTime: favoriteId.time
+            }
+            favoriteQuestions.push(favoriteQuestion)
+          }
+        }
+      } catch (error) {
+        console.error('加载题库文件失败:', error)
+      }
 
       return favoriteQuestions
     } catch (error) {
@@ -720,47 +864,80 @@ export class DatabaseManager {
         throw new Error('数据库未初始化')
       }
 
+      // 获取错题记录
       const resultSet = await this.rdbStore.querySql(`
         SELECT question_id, wrong_count, last_wrong_date, is_mastered 
         FROM wrong_questions 
         ORDER BY last_wrong_date DESC
       `)
 
-      const wrongQuestions: WrongQuestion[] = []
+      const wrongRecords: WrongRecord[] = []
       if (resultSet.rowCount > 0) {
         resultSet.goToFirstRow()
         do {
-          const questionId = resultSet.getLong(0)
-          const wrongCount = resultSet.getLong(1)
-          const lastWrongDate = resultSet.getString(2)
-          const isMastered = resultSet.getLong(3) === 1
-          
-          // 这里应该从题库中获取完整题目信息
-          // 暂时返回基本结构，实际应用中需要从cangjie.json加载
-          const options: Record<string, string> = {}
-          options.A = '选项A'
-          options.B = '选项B'
-          options.C = '选项C'
-          options.D = '选项D'
-          
-          const wrongQuestion: WrongQuestion = {
-            questionId: questionId,
-            type: 'single',
-            category: '仓颉语言',
-            difficulty: '中等',
-            question: `错题 ${questionId}`,
-            options: options,
-            correctAnswer: 'A',
-            explanation: '这是解释内容',
-            userAnswer: 'B',
-            wrongCount: wrongCount,
-            lastWrongTime: lastWrongDate,
-            isResolved: isMastered
-          }
-          wrongQuestions.push(wrongQuestion)
+          wrongRecords.push({
+            id: resultSet.getLong(0),
+            wrongCount: resultSet.getLong(1),
+            lastWrongDate: resultSet.getString(2),
+            isMastered: resultSet.getLong(3) === 1
+          })
         } while (resultSet.goToNextRow())
       }
       resultSet.close()
+
+      if (wrongRecords.length === 0) {
+        return []
+      }
+
+      // 从题库文件中加载题目详情
+      const wrongQuestions: WrongQuestion[] = []
+      try {
+        const context = getContext(this)
+        const fileData = await context.resourceManager.getRawFileContent('cangjie.json')
+        const decoder = new util.TextDecoder('utf-8')
+        const jsonStr = decoder.decodeWithStream(new Uint8Array(fileData.buffer))
+        const allQuestions: Question[] = JSON.parse(jsonStr)
+
+        // 匹配错题
+        for (const wrongRecord of wrongRecords) {
+          const question = allQuestions.find(q => q.id === wrongRecord.id)
+          if (question) {
+            // 获取用户的错误答案（从答题记录中查询最近一次的错误答案）
+            let userAnswer = ''
+            try {
+              const answerResultSet = await this.rdbStore.querySql(
+                'SELECT user_answer FROM answer_records WHERE question_id = ? AND is_correct = 0 ORDER BY created_at DESC LIMIT 1',
+                [wrongRecord.id]
+              )
+              if (answerResultSet.rowCount > 0) {
+                answerResultSet.goToFirstRow()
+                userAnswer = answerResultSet.getString(0)
+              }
+              answerResultSet.close()
+            } catch (error) {
+              console.error('获取用户答案失败:', error)
+            }
+
+            const wrongQuestion: WrongQuestion = {
+              questionId: question.id,
+              type: question.type,
+              category: question.category,
+              difficulty: question.difficulty,
+              question: question.question,
+              options: question.options,
+              correctAnswer: question.answer.join(','),
+              explanation: question.explanation,
+              userAnswer: userAnswer,
+              wrongCount: wrongRecord.wrongCount,
+              lastWrongTime: wrongRecord.lastWrongDate,
+              isResolved: wrongRecord.isMastered
+            }
+            wrongQuestions.push(wrongQuestion)
+          }
+        }
+      } catch (error) {
+        console.error('加载题库文件失败:', error)
+      }
 
       return wrongQuestions
     } catch (error) {
@@ -769,10 +946,69 @@ export class DatabaseManager {
     }
   }
 
+  // 检查数据库表状态
+  async checkDatabaseStatus(): Promise<void> {
+    if (!this.rdbStore) {
+      console.error('[DatabaseManager] 数据库未初始化')
+      return
+    }
+
+    try {
+      // 检查answer_records表的记录数量
+      const answerRecordsResult = await this.rdbStore.querySql('SELECT COUNT(*) as count FROM answer_records')
+      if (answerRecordsResult.goToFirstRow()) {
+        const answerRecordsCount = answerRecordsResult.getLong(0)
+        console.info(`[DatabaseManager] answer_records表中有 ${answerRecordsCount} 条记录`)
+      }
+      answerRecordsResult.close()
+
+      // 检查user_stats表的数据
+      const userStatsResult = await this.rdbStore.querySql('SELECT * FROM user_stats LIMIT 1')
+      if (userStatsResult.goToFirstRow()) {
+        const totalQuestions = userStatsResult.getLong(userStatsResult.getColumnIndex('total_questions'))
+        const correctAnswers = userStatsResult.getLong(userStatsResult.getColumnIndex('correct_answers'))
+        console.info(`[DatabaseManager] user_stats: 总题数=${totalQuestions}, 正确数=${correctAnswers}`)
+      }
+      userStatsResult.close()
+
+      // 检查最近的几条答题记录
+      const recentRecordsResult = await this.rdbStore.querySql(`
+        SELECT question_id, category, difficulty, is_correct, created_at 
+        FROM answer_records 
+        ORDER BY created_at DESC 
+        LIMIT 5
+      `)
+      
+      console.info(`[DatabaseManager] 最近的答题记录:`)
+      if (recentRecordsResult.rowCount > 0) {
+        recentRecordsResult.goToFirstRow()
+        let index = 1
+        do {
+          const questionId = recentRecordsResult.getLong(0)
+          const category = recentRecordsResult.getString(1)
+          const difficulty = recentRecordsResult.getString(2)
+          const isCorrect = recentRecordsResult.getLong(3) === 1
+          const createdAt = recentRecordsResult.getString(4)
+          console.info(`[DatabaseManager] ${index}. 题目${questionId}, 分类:${category}, 难度:${difficulty}, 正确:${isCorrect}, 时间:${createdAt}`)
+          index++
+        } while (recentRecordsResult.goToNextRow())
+      } else {
+        console.info(`[DatabaseManager] 没有找到任何答题记录`)
+      }
+      recentRecordsResult.close()
+
+    } catch (error) {
+      console.error('[DatabaseManager] 检查数据库状态失败:', error)
+    }
+  }
+
   // 获取答题记录
   async getAnswerRecords(): Promise<AnswerRecord[]> {
     try {
+      console.info('[DatabaseManager] 开始获取答题记录...')
+      
       if (!this.rdbStore) {
+        console.error('[DatabaseManager] 数据库未初始化')
         throw new Error('数据库未初始化')
       }
 
@@ -782,6 +1018,8 @@ export class DatabaseManager {
         FROM answer_records 
         ORDER BY created_at DESC
       `)
+
+      console.info(`[DatabaseManager] 查询到 ${resultSet.rowCount} 条答题记录`)
 
       const records: AnswerRecord[] = []
       if (resultSet.rowCount > 0) {
@@ -799,13 +1037,19 @@ export class DatabaseManager {
             createdAt: resultSet.getString(8)
           }
           records.push(record)
+          
+          // 打印前3条记录的详细信息
+          if (records.length <= 3) {
+            console.info(`[DatabaseManager] 记录${records.length}: questionId=${record.questionId}, category=${record.category}, difficulty=${record.difficulty}, isCorrect=${record.isCorrect}`)
+          }
         } while (resultSet.goToNextRow())
       }
       resultSet.close()
 
+      console.info(`[DatabaseManager] 返回 ${records.length} 条答题记录`)
       return records
     } catch (error) {
-      console.error('获取答题记录失败:', error)
+      console.error('[DatabaseManager] 获取答题记录失败:', error)
       return []
     }
   }
@@ -1197,6 +1441,45 @@ export class DatabaseManager {
       return records
     } catch (error) {
       console.error('获取考核记录失败:', error)
+      return []
+    }
+  }
+
+  // 获取指定分类的正确答案数量
+  async getCorrectAnswersByCategory(category: string): Promise<number> {
+    if (!this.rdbStore) return 0
+
+    try {
+      const resultSet = await this.rdbStore.querySql(
+        'SELECT COUNT(*) FROM answer_records WHERE category = ? AND is_correct = 1',
+        [category]
+      )
+
+      let count = 0
+      if (resultSet.goToFirstRow()) {
+        count = resultSet.getLong(0)
+      }
+      resultSet.close()
+      return count
+    } catch (error) {
+      console.error('获取分类正确答案数量失败:', error)
+      return 0
+    }
+  }
+
+  // 获取所有题目
+  async getAllQuestions(): Promise<Question[]> {
+    try {
+      const context = getContext(this)
+      const fileData = await context.resourceManager.getRawFileContent('cangjie.json')
+      const decoder = new util.TextDecoder('utf-8')
+      const jsonStr = decoder.decodeWithStream(new Uint8Array(fileData.buffer))
+      const allQuestions: Question[] = JSON.parse(jsonStr)
+      
+      console.info(`[DatabaseManager] 从题库文件加载了 ${allQuestions.length} 道题目`)
+      return allQuestions
+    } catch (error) {
+      console.error('[DatabaseManager] 加载题库文件失败:', error)
       return []
     }
   }

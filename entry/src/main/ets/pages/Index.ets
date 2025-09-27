@@ -36,6 +36,10 @@ struct Index {
     .barHeight(56)
     .onChange((index: number) => {
       this.currentTabIndex = index
+      if (index == 0) {
+        // 当首页tab显示时，刷新收藏状态
+        AppStorage.setOrCreate('refreshHome', Date.now());
+      }
     })
     .backgroundColor('#F5F5F5')
   }

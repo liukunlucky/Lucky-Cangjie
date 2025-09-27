@@ -8,7 +8,7 @@ interface QuestionOptions {
   D: string
 }
 
-interface WrongQuestion {
+interface Question {
   id: number
   type: string
   category: string
@@ -17,18 +17,9 @@ interface WrongQuestion {
   options: QuestionOptions
   answer: string[]
   explanation: string
-  userAnswer: string[]
-  wrongCount: number
-  lastWrongTime: number
-  isResolved: boolean
 }
 
-interface DifficultyColorStyle {
-  bg: string
-  text: string
-}
-
-interface DatabaseWrongQuestion {
+interface WrongQuestion {
   questionId: number
   type: string
   category: string
@@ -42,6 +33,13 @@ interface DatabaseWrongQuestion {
   lastWrongTime: string
   isResolved: boolean
 }
+
+interface DifficultyColorStyle {
+  bg: string
+  text: string
+}
+
+
 
 @Entry
 @Component
@@ -66,31 +64,7 @@ struct WrongQuestionsPage {
     try {
       this.isLoading = true
       const dbManager = DatabaseManager.getInstance()
-      const wrongAnswers: DatabaseWrongQuestion[] = await dbManager.getWrongQuestions() as DatabaseWrongQuestion[]
-      
-      this.wrongQuestions = wrongAnswers.map((wrong: DatabaseWrongQuestion) => {
-        const options: QuestionOptions = {
-          A: wrong.options.A || '',
-          B: wrong.options.B || '',
-          C: wrong.options.C || '',
-          D: wrong.options.D || ''
-        }
-        const wrongQuestion: WrongQuestion = {
-          id: wrong.questionId,
-          type: wrong.type,
-          category: wrong.category,
-          difficulty: wrong.difficulty,
-          question: wrong.question,
-          options: options,
-          answer: [wrong.correctAnswer],
-          explanation: wrong.explanation,
-          userAnswer: [wrong.userAnswer],
-          wrongCount: wrong.wrongCount,
-          lastWrongTime: new Date(wrong.lastWrongTime).getTime(),
-          isResolved: wrong.isResolved
-        }
-        return wrongQuestion
-      })
+      this.wrongQuestions = await dbManager.getWrongQuestions()
 
       // 提取分类
       const categorySet = new Set(this.wrongQuestions.map(q => q.category))
@@ -121,7 +95,7 @@ struct WrongQuestionsPage {
     // 排序
     switch (this.sortBy) {
       case 'time':
-        filtered.sort((a, b) => b.lastWrongTime - a.lastWrongTime)
+        filtered.sort((a, b) => new Date(b.lastWrongTime).getTime() - new Date(a.lastWrongTime).getTime())
         break
       case 'count':
         filtered.sort((a, b) => b.wrongCount - a.wrongCount)
@@ -500,7 +474,7 @@ struct WrongQuestionsPage {
             .fontColor('#666666')
             .width(70)
           
-          Text(question.answer.join(', '))
+          Text(question.correctAnswer)
             .fontSize(12)
             .fontColor('#4CAF50')
             .fontWeight(FontWeight.Medium)
@@ -515,7 +489,7 @@ struct WrongQuestionsPage {
             .fontColor('#666666')
             .width(70)
           
-          Text(question.userAnswer.join(', ') || '未选择')
+          Text(question.userAnswer || '未选择')
             .fontSize(12)
             .fontColor('#F44336')
             .fontWeight(FontWeight.Medium)
@@ -542,10 +516,30 @@ struct WrongQuestionsPage {
     .borderRadius(12)
     .margin({ bottom: 8 })
     .onClick(() => {
+      // 转换WrongQuestion为Question格式
+      const questionOptions: QuestionOptions = {
+        A: question.options.A || '',
+        B: question.options.B || '',
+        C: question.options.C || '',
+        D: question.options.D || ''
+      }
+      const questionData: Question = {
+        id: question.questionId,
+        type: question.type,
+        category: question.category,
+        difficulty: question.difficulty,
+        question: question.question,
+        options: questionOptions,
+        answer: question.correctAnswer.split(','),
+        explanation: question.explanation
+      }
+      
       router.pushUrl({
         url: 'pages/QuestionDetailPage',
         params: {
-          question: question,
+          question: questionData,
+          questionList: [questionData],
+          currentIndex: 0,
           fromWrongQuestions: true
         }
       })
@@ -579,7 +573,7 @@ struct WrongQuestionsPage {
     }
   }
 
-  formatDate(timestamp: number): string {
+  formatDate(timestamp: string | number): string {
     const date = new Date(timestamp)
     const now = new Date()
     const diffTime = now.getTime() - date.getTime()

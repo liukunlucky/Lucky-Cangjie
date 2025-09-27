@@ -35,7 +35,8 @@ struct AchievementPage {
       this.updateStats()
     } catch (error) {
       console.error('加载成就失败:', error)
-      this.loadDefaultAchievements()
+      // 如果加载失败，设置空数组而不是使用演示数据
+      this.achievements = []
       this.updateStats()
     }
   }

@@ -41,6 +41,11 @@ export struct QuestionBankPage {
   @State isLoading: boolean = true
 
   aboutToAppear() {
+    // 处理路由参数
+    const params = router.getParams() as Record<string, string>
+    if (params && params.category) {
+      this.selectedCategory = params.category
+    }
     this.loadQuestions()
   }
 
@@ -53,10 +58,18 @@ export struct QuestionBankPage {
       this.questions = JSON.parse(jsonStr)
       this.filteredQuestions = this.questions
       
+      console.info(`题库页面 - 加载了 ${this.questions.length} 个题目`)
+      console.info(`题库页面 - 当前选择的分类: ${this.selectedCategory}`)
+      
       // 提取所有分类
       const categorySet = new Set(['全部'])
       this.questions.forEach(q => categorySet.add(q.category))
       this.categories = Array.from(categorySet)
+      
+      console.info(`题库页面 - 所有分类: ${JSON.stringify(this.categories)}`)
+      
+      // 应用过滤
+      this.filterQuestions()
       
       this.isLoading = false
     } catch (error) {
@@ -67,10 +80,12 @@ export struct QuestionBankPage {
 
   filterQuestions() {
     let filtered = this.questions
+    console.info(`题库页面 - 过滤前题目数量: ${filtered.length}`)
 
     // 按分类筛选
     if (this.selectedCategory !== '全部') {
       filtered = filtered.filter(q => q.category === this.selectedCategory)
+      console.info(`题库页面 - 按分类 "${this.selectedCategory}" 过滤后题目数量: ${filtered.length}`)
     }
 
     // 按搜索文本筛选
@@ -81,9 +96,11 @@ export struct QuestionBankPage {
         q.category.toLowerCase().includes(searchLower) ||
         q.difficulty.toLowerCase().includes(searchLower)
       )
+      console.info(`题库页面 - 按搜索文本 "${this.searchText}" 过滤后题目数量: ${filtered.length}`)
     }
 
     this.filteredQuestions = filtered
+    console.info(`题库页面 - 最终过滤后题目数量: ${this.filteredQuestions.length}`)
   }
 
   build() {
@@ -93,6 +110,9 @@ export struct QuestionBankPage {
       
       // 分类筛选
       this.CategoryFilterSection()
+      
+      // 题目总数提示
+      this.QuestionCountSection()
       
       // 题目列表
       if (this.isLoading) {
@@ -151,7 +171,19 @@ export struct QuestionBankPage {
     }
     .scrollable(ScrollDirection.Horizontal)
     .scrollBar(BarState.Off)
-    .margin({ bottom: 16 })
+    .margin({ bottom: 8 })
+  }
+
+  @Builder QuestionCountSection() {
+    Row() {
+      Text(`共 ${this.filteredQuestions.length} 题`)
+        .fontSize(14)
+        .fontColor('#666666')
+        .fontWeight(FontWeight.Medium)
+    }
+    .width('100%')
+    .padding({ left: 16, right: 16, bottom: 12 })
+    .justifyContent(FlexAlign.Start)
   }
 
   @Builder LoadingSection() {

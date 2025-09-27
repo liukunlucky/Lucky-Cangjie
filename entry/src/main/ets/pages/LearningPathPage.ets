@@ -1,5 +1,15 @@
 import router from '@ohos.router'
 import { DatabaseManager } from '../common/DatabaseManager'
+import { util } from '@kit.ArkTS'
+import promptAction from '@ohos.promptAction'
+
+interface Question {
+  id: number
+  question: string
+  category: string
+  difficulty: string
+  type: string
+}
 
 interface LearningModule {
   id: string
@@ -40,6 +50,7 @@ struct LearningPathPage {
 
   aboutToAppear() {
     this.initializeLearningPath()
+    this.loadQuestionCounts()
     this.loadUserProgress()
   }
 
@@ -49,7 +60,7 @@ struct LearningPathPage {
         id: 'basic_syntax',
         title: '基础语法',
         description: '学习仓颉语言的基本语法结构，包括变量、数据类型、运算符等',
-        category: '基础语法',
+        category: '语法基础',
         totalQuestions: 0,
         completedQuestions: 0,
         isUnlocked: true
@@ -58,7 +69,7 @@ struct LearningPathPage {
         id: 'control_flow',
         title: '控制流程',
         description: '掌握条件语句、循环语句等控制流程的使用',
-        category: '控制结构',
+        category: '数据类型',
         totalQuestions: 0,
         completedQuestions: 0,
         isUnlocked: false,
@@ -78,7 +89,7 @@ struct LearningPathPage {
         id: 'classes',
         title: '类与对象',
         description: '理解面向对象编程的核心概念',
-        category: '类',
+        category: '面向对象',
         totalQuestions: 0,
         completedQuestions: 0,
         isUnlocked: false,
@@ -88,7 +99,7 @@ struct LearningPathPage {
         id: 'generics',
         title: '泛型',
         description: '掌握泛型编程的使用方法',
-        category: '泛型',
+        category: '并发编程',
         totalQuestions: 0,
         completedQuestions: 0,
         isUnlocked: false,
@@ -107,11 +118,56 @@ struct LearningPathPage {
     ]
   }
 
+  async loadQuestionCounts() {
+    try {
+      const context = getContext(this)
+      const fileData = await context.resourceManager.getRawFileContent('cangjie.json')
+      const decoder = new util.TextDecoder('utf-8')
+      const jsonStr = decoder.decodeWithStream(new Uint8Array(fileData.buffer))
+      const questions: Question[] = JSON.parse(jsonStr)
+      
+      console.info(`学习路线页面 - 加载了 ${questions.length} 个题目`)
+      
+      // 统计每个分类的题目数量
+       const categoryCounts: Record<string, number> = {}
+       questions.forEach((question: Question) => {
+         const category = question.category
+         categoryCounts[category] = (categoryCounts[category] || 0) + 1
+       })
+      
+      console.info(`学习路线页面 - 分类统计: ${JSON.stringify(categoryCounts)}`)
+      
+      // 更新模块的题目数量
+      this.learningModules.forEach(module => {
+        const count = categoryCounts[module.category] || 0
+        module.totalQuestions = count
+        console.info(`学习路线页面 - 模块 "${module.title}" (分类: ${module.category}) 题目数量: ${count}`)
+      })
+      // 触发状态更新
+      this.learningModules = [...this.learningModules]
+    } catch (error) {
+      console.error('加载题目数量失败:', error)
+    }
+  }
+
   async loadUserProgress() {
     try {
       const dbManager = DatabaseManager.getInstance()
-      // 加载用户学习进度
-      // 这里可以添加从数据库加载进度的逻辑
+      
+      // 加载每个模块的用户进度
+      for (const module of this.learningModules) {
+        try {
+          // 获取该分类下用户答对的题目数量
+          const correctAnswers = await dbManager.getCorrectAnswersByCategory(module.category)
+          module.completedQuestions = correctAnswers
+        } catch (error) {
+          console.error(`加载模块 ${module.title} 进度失败:`, error)
+          module.completedQuestions = 0
+        }
+      }
+      
+      // 触发状态更新
+      this.learningModules = [...this.learningModules]
       
       // 更新模块解锁状态和完成情况
       this.updateModuleStatus()
@@ -134,6 +190,9 @@ struct LearningPathPage {
         module.isUnlocked = prerequisiteCompleted
       }
     }
+    
+    // 触发状态更新
+    this.learningModules = [...this.learningModules]
   }
 
   build() {
@@ -348,6 +407,12 @@ struct LearningPathPage {
     .onClick(() => {
       if (module.isUnlocked) {
         this.enterModule(module)
+      } else {
+        // 显示toast提示
+        promptAction.showToast({
+          message: '请先完成前置模块的学习',
+          duration: 2000
+        })
       }
     })
     .opacity(module.isUnlocked ? 1.0 : 0.6)

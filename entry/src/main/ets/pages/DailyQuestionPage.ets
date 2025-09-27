@@ -47,6 +47,10 @@ struct DailyQuestionPage {
     this.checkTodayCompletion()
   }
 
+  aboutToDisappear(): void {
+    AppStorage.setOrCreate('refreshHome', Date.now());
+  }
+
   async checkTodayCompletion() {
     // 检查今天是否已经完成每日一题
     try {

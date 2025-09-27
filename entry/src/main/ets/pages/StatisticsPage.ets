@@ -2,10 +2,15 @@ import router from '@ohos.router'
 import { DatabaseManager } from '../common/DatabaseManager'
 
 interface AnswerRecord {
-  answerTime: number
+  questionId: number
+  userAnswer: string
+  correctAnswer: string
   isCorrect: boolean
+  answerTime: number
+  questionType: string
   category: string
   difficulty: string
+  createdAt: string
 }
 
 interface UserStats {
@@ -120,6 +125,8 @@ struct StatisticsPage {
       
       // 加载基础统计数据
       const statsData = await dbManager.getUserStats()
+      console.info('[StatisticsPage] 加载的用户统计数据:', JSON.stringify(statsData))
+      
       const userStats: UserStats = {
         totalQuestions: statsData.totalQuestions,
         correctAnswers: statsData.correctAnswers,
@@ -129,7 +136,13 @@ struct StatisticsPage {
         level: statsData.level,
         experience: statsData.experience
       }
+      console.info('[StatisticsPage] 处理后的用户统计:', JSON.stringify(userStats))
+      
       const answerRecords: AnswerRecord[] = await dbManager.getAnswerRecords()
+      console.info('[StatisticsPage] 加载的答题记录数量:', answerRecords.length)
+      if (answerRecords.length > 0) {
+        console.info('[StatisticsPage] 前3条答题记录:', JSON.stringify(answerRecords.slice(0, 3)))
+      }
       
       this.calculateStatistics(userStats, answerRecords)
       this.isLoading = false
@@ -159,8 +172,26 @@ struct StatisticsPage {
   }
 
   calculateCategoryStats(answerRecords: AnswerRecord[]) {
+    // 定义所有可能的分类
+    const allCategories = [
+      '基础知识',
+      '语法基础', 
+      '函数编程',
+      '面向对象',
+      '数据结构',
+      '高级特性',
+      '并发编程',
+      '性能优化'
+    ]
+    
     const categoryMap = new Map<string, CategoryMapStat>()
     
+    // 初始化所有分类，确保都显示
+    allCategories.forEach(category => {
+      categoryMap.set(category, { total: 0, correct: 0 })
+    })
+    
+    // 统计答题记录
     answerRecords.forEach(record => {
       const category = record.category || '未分类'
       if (!categoryMap.has(category)) {
@@ -184,7 +215,13 @@ struct StatisticsPage {
         accuracy: stat.total > 0 ? Math.round((stat.correct / stat.total) * 100) : 0
       }
       return categoryStat
-    }).sort((a, b) => b.total - a.total)
+    }).sort((a, b) => {
+      // 先按答题数量排序，再按分类名称排序
+      if (b.total !== a.total) {
+        return b.total - a.total
+      }
+      return a.category.localeCompare(b.category)
+    })
   }
 
   calculateDifficultyStats(answerRecords: AnswerRecord[]) {
@@ -239,6 +276,9 @@ struct StatisticsPage {
   }
 
   calculateTimeStats(answerRecords: AnswerRecord[]) {
+    console.info('[StatisticsPage] 开始计算时间统计, 记录数量:', answerRecords.length)
+    console.info('[StatisticsPage] 选择的时间范围:', this.selectedTimeRange)
+    
     // 计算每日统计
     const dailyMap = new Map<string, DailyMapStat>()
     const now = new Date()
@@ -246,9 +286,14 @@ struct StatisticsPage {
     // 获取指定时间范围内的记录
     const daysToShow = this.getDaysFromRange(this.selectedTimeRange)
     const startDate = new Date(now.getTime() - (daysToShow - 1) * 24 * 60 * 60 * 1000)
+    console.info('[StatisticsPage] 开始日期:', startDate.toLocaleDateString('zh-CN'))
+    console.info('[StatisticsPage] 结束日期:', now.toLocaleDateString('zh-CN'))
     
-    answerRecords.forEach(record => {
-      const recordDate = new Date(record.answerTime)
+    answerRecords.forEach((record, index) => {
+      // 使用createdAt字段而不是answerTime（answerTime是答题用时，不是时间戳）
+      const recordDate = new Date(record.createdAt)
+      console.info(`[StatisticsPage] 记录${index}: createdAt=${record.createdAt}, 转换后日期=${recordDate.toLocaleDateString('zh-CN')}`)
+      
       if (recordDate >= startDate) {
         const dateStr = recordDate.toLocaleDateString('zh-CN')
         if (!dailyMap.has(dateStr)) {
@@ -260,8 +305,11 @@ struct StatisticsPage {
         if (record.isCorrect) {
           stat.correct++
         }
+        console.info(`[StatisticsPage] 添加到日期 ${dateStr}: 题数=${stat.questions}, 正确=${stat.correct}`)
       }
     })
+
+    console.info('[StatisticsPage] 每日统计Map:', Array.from(dailyMap.entries()))
 
     this.statisticsData.dailyStats = Array.from(dailyMap.entries()).map((entry) => {
       const date = entry[0]
@@ -274,6 +322,8 @@ struct StatisticsPage {
       }
       return dailyStat
     }).sort((a, b) => new Date(a.date).getTime() - new Date(b.date).getTime())
+    
+    console.info('[StatisticsPage] 最终每日统计:', JSON.stringify(this.statisticsData.dailyStats))
   }
 
   getDaysFromRange(range: string): number {
@@ -666,7 +716,7 @@ struct StatisticsPage {
             .height(32)
             .fillColor('#FF9800')
           
-          Text(`${Math.floor(this.statisticsData.studyTime / 60)}分钟`)
+          Text(`${this.statisticsData.studyTime}分钟`)
             .fontSize(16)
             .fontWeight(FontWeight.Bold)
             .fontColor('#333333')

@@ -38,71 +38,112 @@ export class AchievementManager {
       const userStats = await this.databaseManager.getUserStats()
       const examRecords = await this.databaseManager.getExamRecords()
       const achievements = await this.databaseManager.getAllAchievements()
+      
+      console.info('成就检查 - 用户统计:', JSON.stringify(userStats))
+      console.info('成就检查 - 考试记录数量:', examRecords.length)
+      console.info('成就检查 - 成就数量:', achievements.length)
 
       for (const achievement of achievements) {
-        if (achievement.isUnlocked) continue
+        console.info(`检查成就 ${achievement.id}: 标题=${achievement.title}, 已解锁=${achievement.isUnlocked}, 进度=${achievement.progress}/${achievement.maxProgress}`)
+        
+        if (achievement.isUnlocked) {
+          console.info(`成就 ${achievement.id} 已解锁，跳过检查`)
+          continue
+        }
 
         let shouldUpdate = false
         let newProgress = achievement.progress
 
-        switch (achievement.id) {
-          case 'first_question':
+        console.info(`开始检查成就逻辑，成就ID: "${achievement.id}", 标题: "${achievement.title}"`)
+        
+        switch (achievement.title) {
+          case '初学者':
+            console.info(`检查成就 ${achievement.title}: totalQuestions=${userStats.totalQuestions}, 当前进度=${achievement.progress}, 已解锁=${achievement.isUnlocked}`)
             if (userStats.totalQuestions > 0) {
               newProgress = 1
               shouldUpdate = true
+              console.info(`成就 ${achievement.title} 应该解锁`)
             }
             break
 
-          case 'answer_10':
+          case '小试牛刀':
+            console.info(`检查成就 ${achievement.title}: correctAnswers=${userStats.correctAnswers}, 当前进度=${achievement.progress}`)
             newProgress = Math.min(userStats.correctAnswers, 10)
             shouldUpdate = newProgress !== achievement.progress
+            if (shouldUpdate) {
+              console.info(`成就 ${achievement.title} 进度更新: ${achievement.progress} -> ${newProgress}`)
+            }
             break
 
-          case 'answer_50':
+          case '勤学苦练':
+            console.info(`检查成就 ${achievement.title}: correctAnswers=${userStats.correctAnswers}, 当前进度=${achievement.progress}`)
             newProgress = Math.min(userStats.correctAnswers, 50)
             shouldUpdate = newProgress !== achievement.progress
+            if (shouldUpdate) {
+              console.info(`成就 ${achievement.title} 进度更新: ${achievement.progress} -> ${newProgress}`)
+            }
             break
 
-          case 'answer_100':
+          case '学霸':
+            console.info(`检查成就 ${achievement.title}: correctAnswers=${userStats.correctAnswers}, 当前进度=${achievement.progress}`)
             newProgress = Math.min(userStats.correctAnswers, 100)
             shouldUpdate = newProgress !== achievement.progress
+            if (shouldUpdate) {
+              console.info(`成就 ${achievement.title} 进度更新: ${achievement.progress} -> ${newProgress}`)
+            }
             break
 
-          case 'first_exam':
+          case '考核新手':
+            console.info(`检查成就 ${achievement.title}: examRecords=${examRecords.length}, 当前进度=${achievement.progress}`)
             if (examRecords.length > 0) {
               newProgress = 1
               shouldUpdate = true
+              console.info(`成就 ${achievement.title} 应该解锁`)
             }
             break
 
-          case 'exam_perfect':
+          case '完美答卷':
             const perfectExams = examRecords.filter(exam => exam.score === 100)
+            console.info(`检查成就 ${achievement.title}: perfectExams=${perfectExams.length}, 当前进度=${achievement.progress}`)
             if (perfectExams.length > 0) {
               newProgress = 1
               shouldUpdate = true
+              console.info(`成就 ${achievement.title} 应该解锁`)
             }
             break
 
-          case 'exam_pass_5':
+          case '考核达人':
             const passedExams = examRecords.filter(exam => exam.passed)
+            console.info(`检查成就 ${achievement.title}: passedExams=${passedExams.length}, 当前进度=${achievement.progress}`)
             newProgress = Math.min(passedExams.length, 5)
             shouldUpdate = newProgress !== achievement.progress
+            if (shouldUpdate) {
+              console.info(`成就 ${achievement.title} 进度更新: ${achievement.progress} -> ${newProgress}`)
+            }
             break
 
-          case 'high_accuracy':
+          case '精准射手':
+            console.info(`检查成就 ${achievement.title}: accuracy=${userStats.accuracy}%, totalQuestions=${userStats.totalQuestions}, 当前进度=${achievement.progress}`)
             if (userStats.accuracy >= 90 && userStats.totalQuestions >= 20) {
               newProgress = 1
               shouldUpdate = true
+              console.info(`成就 ${achievement.title} 应该解锁`)
             }
+            break
+            
+          default:
+            console.info(`未知成就: ${achievement.title}`)
             break
         }
 
         if (shouldUpdate) {
+          console.info(`更新成就 ${achievement.id}: 旧进度=${achievement.progress}, 新进度=${newProgress}`)
           achievement.updateProgress(newProgress)
           await this.databaseManager.updateAchievement(achievement)
+          console.info(`成就 ${achievement.id} 更新后: 进度=${achievement.progress}, 已解锁=${achievement.isUnlocked}`)
           
           if (achievement.isUnlocked) {
-            console.info(`成就解锁: ${achievement.title}`)
+            console.info(`🎉 成就解锁: ${achievement.title}`)
             // 这里可以添加成就解锁的通知逻辑
           }
         }

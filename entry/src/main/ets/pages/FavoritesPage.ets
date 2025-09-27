@@ -8,7 +8,7 @@ interface QuestionOptions {
   D: string
 }
 
-interface FavoriteQuestion {
+interface Question {
   id: number
   type: string
   category: string
@@ -17,7 +17,18 @@ interface FavoriteQuestion {
   options: QuestionOptions
   answer: string[]
   explanation: string
-  favoriteTime: number
+}
+
+interface FavoriteQuestion {
+  questionId: number
+  type: string
+  category: string
+  difficulty: string
+  question: string
+  options: Record<string, string>
+  answer: string[]
+  explanation: string
+  favoriteTime: string
 }
 
 interface DifficultyColorStyle {
@@ -60,22 +71,16 @@ struct FavoritesPage {
       const favorites: DatabaseFavoriteQuestion[] = await dbManager.getFavoriteQuestions() as DatabaseFavoriteQuestion[]
       
       this.favoriteQuestions = favorites.map((fav: DatabaseFavoriteQuestion) => {
-        const options: QuestionOptions = {
-          A: fav.options.A || '',
-          B: fav.options.B || '',
-          C: fav.options.C || '',
-          D: fav.options.D || ''
-        }
         const favoriteQuestion: FavoriteQuestion = {
-          id: fav.questionId,
+          questionId: fav.questionId,
           type: fav.type,
           category: fav.category,
           difficulty: fav.difficulty,
           question: fav.question,
-          options: options,
+          options: fav.options,
           answer: fav.answer,
           explanation: fav.explanation,
-          favoriteTime: Date.parse(fav.favoriteTime)
+          favoriteTime: fav.favoriteTime
         }
         return favoriteQuestion
       })
@@ -355,7 +360,7 @@ struct FavoritesPage {
             .height(24)
             .fillColor('#FF6B6B')
             .onClick(() => {
-              this.removeFavorite(question.id)
+              this.removeFavorite(question.questionId)
             })
         }
         .margin({ left: 12 })
@@ -376,10 +381,30 @@ struct FavoritesPage {
     .borderRadius(12)
     .margin({ bottom: 8 })
     .onClick(() => {
+      // 转换FavoriteQuestion为Question格式
+      const questionOptions: QuestionOptions = {
+        A: question.options.A || '',
+        B: question.options.B || '',
+        C: question.options.C || '',
+        D: question.options.D || ''
+      }
+      const questionData: Question = {
+        id: question.questionId,
+        type: question.type,
+        category: question.category,
+        difficulty: question.difficulty,
+        question: question.question,
+        options: questionOptions,
+        answer: question.answer,
+        explanation: question.explanation
+      }
+      
       router.pushUrl({
         url: 'pages/QuestionDetailPage',
         params: {
-          question: question,
+          question: questionData,
+          questionList: [questionData],
+          currentIndex: 0,
           fromFavorites: true
         }
       })
@@ -412,7 +437,7 @@ struct FavoritesPage {
     }
   }
 
-  formatDate(timestamp: number): string {
+  formatDate(timestamp: string | number): string {
     const date = new Date(timestamp)
     const now = new Date()
     const diffTime = now.getTime() - date.getTime()
@@ -435,7 +460,7 @@ struct FavoritesPage {
       await dbManager.removeFavorite(questionId)
       
       // 更新本地数据
-      this.favoriteQuestions = this.favoriteQuestions.filter(q => q.id !== questionId)
+      this.favoriteQuestions = this.favoriteQuestions.filter(q => q.questionId !== questionId)
       this.applyFilters()
       
       // 显示提示

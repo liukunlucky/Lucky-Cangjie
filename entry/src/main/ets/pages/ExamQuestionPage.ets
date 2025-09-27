@@ -59,42 +59,82 @@ struct ExamQuestionPage {
   }
 
   async loadExamQuestions() {
-    // 这里应该从数据库加载题目，暂时使用模拟数据
-    this.questions = [
-      {
-        id: 1,
-        question: '仓颉语言是由哪家公司开发的？',
-        options: {
-          A: '华为',
-          B: '阿里巴巴',
-          C: '腾讯',
-          D: '百度'
-        },
-        answer: 'A',
-        explanation: '仓颉语言是由华为公司开发的编程语言。',
-        category: '基础知识',
-        difficulty: '简单'
-      },
-      {
-        id: 2,
-        question: '仓颉语言的主要特点是什么？',
-        options: {
-          A: '面向对象',
-          B: '函数式编程',
-          C: '类型安全',
-          D: '以上都是'
-        },
-        answer: 'D',
-        explanation: '仓颉语言具有面向对象、函数式编程和类型安全等特点。',
-        category: '基础知识',
-        difficulty: '中等'
+    // 根据考试类型加载对应的题目
+    const allQuestions = await this.databaseManager.getAllQuestions()
+    const examType = this.examConfig?.id || 'basic'
+    
+    // 将Question类型转换为ExamQuestion类型
+    const convertedQuestions: ExamQuestion[] = allQuestions.map((q): ExamQuestion => {
+      const options: QuestionOptions = {
+        A: q.options['A'] || '',
+        B: q.options['B'] || '',
+        C: q.options['C'] || '',
+        D: q.options['D'] || ''
       }
-    ]
+      
+      const examQuestion: ExamQuestion = {
+        id: q.id,
+        question: q.question,
+        options: options,
+        answer: Array.isArray(q.answer) ? q.answer[0] : q.answer,
+        explanation: q.explanation,
+        category: q.category,
+        difficulty: q.difficulty
+      }
+      
+      return examQuestion
+    })
+    
+    // 根据考试类型筛选题目
+    let filteredQuestions: ExamQuestion[] = []
+    
+    switch (examType) {
+      case 'basic':
+        filteredQuestions = convertedQuestions.filter(q => 
+          q.category === '语法基础' || q.category === '数据类型'
+        )
+        break
+      case 'intermediate':
+        filteredQuestions = convertedQuestions.filter(q => 
+          q.category === '函数' || q.category === '面向对象' || q.category === '函数编程'
+        )
+        break
+      case 'advanced':
+        filteredQuestions = convertedQuestions.filter(q => 
+          q.category === '高级特性' || q.category === '并发编程' || q.category === '内存管理'
+        )
+        break
+      case 'comprehensive':
+        filteredQuestions = convertedQuestions
+        break
+      default:
+        filteredQuestions = convertedQuestions.filter(q => q.category === '语法基础')
+    }
+    
+    // 随机选择指定数量的题目
+    const questionCount = this.examConfig?.questionCount || 20
+    this.questions = this.shuffleArray(filteredQuestions).slice(0, questionCount)
     
     // 初始化用户答案数组
     this.userAnswers = new Array(this.questions.length).fill('')
     this.isExamStarted = true
     this.startTimer()
+  }
+
+
+
+  private shuffleArray<T>(array: T[]): T[] {
+    const shuffled: T[] = []
+    for (let i = 0; i < array.length; i++) {
+      shuffled.push(array[i])
+    }
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      const temp = shuffled[i]
+      shuffled[i] = shuffled[j]
+      shuffled[j] = temp
+    }
+    return shuffled
   }
 
   startTimer() {
@@ -342,7 +382,7 @@ struct ExamQuestionPage {
       Row() {
         Button('上一题')
           .enabled(this.currentQuestionIndex > 0)
-          .backgroundColor(this.currentQuestionIndex > 0 ? '#007AFF' : '#CCCCCC')
+          .backgroundColor(this.currentQuestionIndex > 0 ? '#007AFF' : '#CC007AFF')
           .fontColor('#FFFFFF')
           .borderRadius(8)
           .padding({ left: 20, right: 20, top: 12, bottom: 12 })

@@ -46,6 +46,7 @@ struct QuestionDetailPage {
   @State questionNote: string = ''
   @State showResult: boolean = false
   @State answerStartTime: number = 0
+  @State refreshKey: number = 0
 
   aboutToAppear() {
     const params = router.getParams() as RouterParams
@@ -199,7 +200,7 @@ struct QuestionDetailPage {
         Column() {
           ForEach(Object.keys(this.currentQuestion.options), (key: string) => {
             this.OptionItem(key, this.getOptionValue(key))
-          })
+          }, (key: string) => `${this.refreshKey}_${key}`)
         }
         .width('100%')
       }
@@ -374,7 +375,7 @@ struct QuestionDetailPage {
       Button('上一题')
         .width('30%')
         .height(44)
-        .backgroundColor(this.currentIndex > 0 ? '#007AFF' : '#CCCCCC')
+        .backgroundColor(this.currentIndex > 0 ? '#007AFF' : '#CC007AFF')
         .borderRadius(8)
         .fontColor('#FFFFFF')
         .fontSize(16)
@@ -388,7 +389,7 @@ struct QuestionDetailPage {
         Button('提交答案')
           .layoutWeight(1)
           .height(44)
-          .backgroundColor(this.selectedAnswers.length > 0 ? '#4CAF50' : '#CCCCCC')
+          .backgroundColor(this.selectedAnswers.length > 0 ? '#4CAF50' : '#CC4CAF50')
           .borderRadius(8)
           .fontColor('#FFFFFF')
           .fontSize(16)
@@ -415,7 +416,7 @@ struct QuestionDetailPage {
       Button('下一题')
         .width('30%')
         .height(44)
-        .backgroundColor(this.currentIndex < this.questionList.length - 1 ? '#007AFF' : '#CCCCCC')
+        .backgroundColor(this.currentIndex < this.questionList.length - 1 ? '#007AFF' : '#CC007AFF')
         .borderRadius(8)
         .fontColor('#FFFFFF')
         .fontSize(16)
@@ -494,6 +495,8 @@ struct QuestionDetailPage {
     this.isAnswered = false
     this.showResult = false
     this.answerStartTime = Date.now()
+    // 强制刷新UI状态
+    this.refreshKey++
   }
 
   goToPreviousQuestion() {
