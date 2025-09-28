@@ -280,8 +280,7 @@ struct WrongQuestionsPage {
     .width('100%')
     .padding(16)
     .backgroundColor('#FFFFFF')
-    .borderRadius(12)
-    .margin(16)
+    .margin({top: 16})
   }
 
   @Builder FilterSection() {
@@ -296,6 +295,7 @@ struct WrongQuestionsPage {
         
         TextInput({ placeholder: '搜索错题内容...', text: this.searchText })
           .layoutWeight(1)
+          .placeholderColor('#D5DBDB')
           .backgroundColor('transparent')
           .border({ width: 0 })
           .onChange((value: string) => {
@@ -331,14 +331,14 @@ struct WrongQuestionsPage {
               this.applyFilters()
             })
           })
-          
+
           // 分隔线
           Column()
             .width(1)
             .height(20)
             .backgroundColor('#E0E0E0')
             .margin({ left: 8, right: 8 })
-          
+
           // 分类筛选
           ForEach(this.categories, (category: string) => {
             this.FilterChip(category, this.selectedCategory === category, () => {
@@ -346,14 +346,14 @@ struct WrongQuestionsPage {
               this.applyFilters()
             })
           })
-          
+
           // 分隔线
           Column()
             .width(1)
             .height(20)
             .backgroundColor('#E0E0E0')
             .margin({ left: 8, right: 8 })
-          
+
           // 难度筛选
           ForEach(this.difficulties, (difficulty: string) => {
             this.FilterChip(difficulty, this.selectedDifficulty === difficulty, () => {
@@ -366,6 +366,7 @@ struct WrongQuestionsPage {
       }
       .scrollable(ScrollDirection.Horizontal)
       .scrollBar(BarState.Off)
+      .visibility(Visibility.None)
     }
     .width('100%')
     .padding(16)

@@ -376,68 +376,125 @@ export struct HomePage {
 
   @Builder FunctionIconsSection() {
     Column() {
-      // 第一行图标
-      Row() {
-        this.FunctionIcon('知识库', $r('app.media.icon_article'), () => {
-          router.pushUrl({ url: 'pages/ArticlePage' })
-        })
-        this.FunctionIcon('视频课程', $r('app.media.icon_video'), () => {
-          router.pushUrl({ url: 'pages/VideoCoursePage' })
-        })
-        this.FunctionIcon('示例代码', $r('app.media.icon_code'), () => {
-          router.pushUrl({ url: 'pages/SampleCodePage' })
-        })
-        this.FunctionIcon('学习路线', $r('app.media.icon_learning_path'), () => {
-          router.pushUrl({ url: 'pages/LearningPathPage' })
-        })
-      }
-      .width('100%')
-      .justifyContent(FlexAlign.SpaceBetween)
-      .margin({ bottom: 24 })
+      Column() {
+        // 笔试专区标题
+        Row() {
+          Text('功能专区')
+            .fontSize(18)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#333333')
+        }
+        .width('100%')
+        .justifyContent(FlexAlign.Start)
+        .padding(4)
+        // 第一行图标
+        Row() {
+          this.FunctionIcon('知识库', $r('app.media.icon_article'), () => {
+            router.pushUrl({ url: 'pages/ArticlePage' })
+          })
+          this.FunctionIcon('视频课程', $r('app.media.icon_video'), () => {
+            router.pushUrl({ url: 'pages/VideoCoursePage' })
+          })
+          this.FunctionIcon('示例代码', $r('app.media.icon_code'), () => {
+            router.pushUrl({ url: 'pages/SampleCodePage' })
+          })
+          this.FunctionIcon('学习路线', $r('app.media.icon_learning_path'), () => {
+            router.pushUrl({ url: 'pages/LearningPathPage' })
+          })
+        }
+        .width('100%')
+        .justifyContent(FlexAlign.SpaceBetween)
+        .margin({ bottom: 24 })
 
-      // 第二行图标
-      Row() {
-        this.FunctionIcon('我的收藏', $r('app.media.ic_favorite'), () => {
-          router.pushUrl({ url: 'pages/FavoritesPage' })
-        })
-        this.FunctionIcon('我的错题', $r('app.media.ic_wrong_questions'), () => {
-          router.pushUrl({ url: 'pages/WrongQuestionsPage' })
-        })
-        this.FunctionIcon('我的统计', $r('app.media.ic_statistics'), () => {
-          router.pushUrl({ url: 'pages/StatisticsPage' })
-        })
+        // 第二行图标
+        Row() {
+          this.FunctionIcon('我的收藏', $r('app.media.ic_favorite'), () => {
+            router.pushUrl({ url: 'pages/FavoritesPage' })
+          })
+          this.FunctionIcon('我的错题', $r('app.media.ic_wrong_questions'), () => {
+            router.pushUrl({ url: 'pages/WrongQuestionsPage' })
+          })
+          this.FunctionIcon('我的统计', $r('app.media.ic_statistics'), () => {
+            router.pushUrl({ url: 'pages/StatisticsPage' })
+          })
 
-        this.FunctionIcon('我的成就', $r('app.media.ic_achievement'), () => {
-          router.pushUrl({ url: 'pages/AchievementPage' })
-        })
-      }
-      .width('100%')
-      .justifyContent(FlexAlign.SpaceBetween)
-      .margin({ bottom: 24 })
+          this.FunctionIcon('我的成就', $r('app.media.ic_achievement'), () => {
+            router.pushUrl({ url: 'pages/AchievementPage' })
+          })
+        }
+        .width('100%')
+        .justifyContent(FlexAlign.SpaceBetween)
+        .margin({ bottom: 24 })
 
-      // 第三行图标
-      Row() {
-        this.FunctionIcon('我的目标', $r('app.media.icon_traget'), () => {
-          router.pushUrl({ url: 'pages/GoalsPage' })
-        })
-        this.FunctionIcon('我的日记', $r('app.media.ic_diary'), () => {
-          router.pushUrl({ url: 'pages/DiaryPage' })
-        })
-        // 空白占位
-        Column().width('20%')
-        Column().width('20%')
+        // 第三行图标
+        Row() {
+          this.FunctionIcon('我的目标', $r('app.media.icon_traget'), () => {
+            router.pushUrl({ url: 'pages/GoalsPage' })
+          })
+          this.FunctionIcon('我的日记', $r('app.media.ic_diary'), () => {
+            router.pushUrl({ url: 'pages/DiaryPage' })
+          })
+          // 空白占位
+          this.FunctionIcon('我的offer', $r('app.media.icon_fun_offer'), () => {
+            router.pushUrl({ url: 'pages/MyOfferPage' })
+          })
+          this.FunctionIcon('offer对比', $r('app.media.icon_vs'), () => {
+            router.pushUrl({ url: 'pages/OfferComparisonPage' })
+          })
+        }
+        .width('100%')
+        .justifyContent(FlexAlign.SpaceBetween)
       }
-      .width('100%')
-      .justifyContent(FlexAlign.SpaceBetween)
+      .padding(8)
+      .margin({ bottom: 32 })
+      .backgroundColor(Color.White)
+      .borderRadius(12)
+
+      Column() {
+        // 工具专区标题
+        Row() {
+          Text('工具专区')
+            .fontSize(18)
+            .fontWeight(FontWeight.Bold)
+            .fontColor('#333333')
+        }
+        .width('100%')
+        .justifyContent(FlexAlign.Start)
+        .padding(4)
+        
+        // 程序员常用工具
+        Row() {
+          this.FunctionIcon('JSON工具', $r('app.media.icon_json'), () => {
+            router.pushUrl({ url: 'pages/JsonFormatterPage' })
+          })
+          this.FunctionIcon('Base64', $r('app.media.icon_base64'), () => {
+            router.pushUrl({ url: 'pages/Base64ToolPage' })
+          })
+          this.FunctionIcon('URL编码', $r('app.media.icon_url'), () => {
+            router.pushUrl({ url: 'pages/UrlToolPage' })
+          })
+          this.FunctionIcon('时间戳', $r('app.media.icon_timestamp'), () => {
+            router.pushUrl({ url: 'pages/TimestampToolPage' })
+          })
+        }
+        .width('100%')
+        .justifyContent(FlexAlign.SpaceBetween)
+        .margin({ bottom: 24 })
+
+      }
+      .padding(8)
+      .margin({ bottom: 32 })
+      .backgroundColor(Color.White)
+      .borderRadius(12)
     }
-    .margin({ bottom: 32 })
+
   }
 
   @Builder FunctionIcon(title: string, icon: Resource, onClick: () => void) {
     Column() {
       Stack() {
         Circle({ width: 60, height: 60 })
-          .fill('#FFFFFF')
+          .fill('#F5F5F5')
           .shadow({
             radius: 8,
             color: '#00000010',

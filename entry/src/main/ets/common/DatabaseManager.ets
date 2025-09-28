@@ -4,6 +4,7 @@ import { AchievementModel } from './models/AchievementModel'
 import { DiaryEntryModel } from './models/DiaryEntryModel'
 import { GoalModel } from './models/GoalModel'
 import util from '@ohos.util'
+import { JobType, OfferModel, OfferStatus, WorkMode } from '../model/OfferModel'
 
 interface Question {
   id: number
@@ -84,6 +85,25 @@ interface UserStats {
   totalStudyTime: number;
   level: number;
   experience: number;
+}
+
+export interface OfferStatistics {
+  total: number;
+  pending: number;
+  accepted: number;
+  rejected: number;
+  expired: number;
+  avgSalary: number;
+  maxSalary: number;
+}
+
+export interface GroupedOffers {
+  urgent: OfferModel[];      // 紧急处理
+  received: OfferModel[];    // 已收到
+  pending: OfferModel[];     // 待定
+  accepted: OfferModel[];    // 已接受
+  rejected: OfferModel[];    // 已拒绝
+  expired: OfferModel[];     // 已过期
 }
 
 export class DatabaseManager {
@@ -292,6 +312,34 @@ export class DatabaseManager {
       )
     `
 
+    // 创建Offer表
+    const createOffersTable = `
+      CREATE TABLE IF NOT EXISTS offers (
+        id INTEGER PRIMARY KEY AUTOINCREMENT,
+        company TEXT NOT NULL,
+        position TEXT NOT NULL,
+        base_salary REAL NOT NULL,
+        bonus REAL DEFAULT 0,
+        stock_options REAL DEFAULT 0,
+        other_benefits TEXT,
+        work_type INTEGER NOT NULL,
+        work_mode INTEGER NOT NULL,
+        work_location TEXT,
+        offer_date TEXT NOT NULL,
+        response_deadline TEXT,
+        start_date TEXT,
+        hr_contact TEXT,
+        hr_name TEXT,
+        hr_phone TEXT,
+        hr_email TEXT,
+        notes TEXT,
+        satisfaction_score INTEGER DEFAULT 0,
+        status INTEGER NOT NULL,
+        created_at TEXT NOT NULL,
+        updated_at TEXT NOT NULL
+      )
+    `;
+
     try {
       await this.rdbStore.executeSql(createUserStatsTable)
       await this.rdbStore.executeSql(createAnswerRecordsTable)
@@ -304,6 +352,8 @@ export class DatabaseManager {
       await this.rdbStore.executeSql(createDailyQuestionTable)
       await this.rdbStore.executeSql(createGoalsTable)
       await this.rdbStore.executeSql(createDiaryTable)
+      await this.rdbStore.executeSql(createOffersTable)
+
 
       // 初始化用户统计数据
       await this.initUserStats()
@@ -1482,6 +1532,291 @@ export class DatabaseManager {
       console.error('[DatabaseManager] 加载题库文件失败:', error)
       return []
     }
+  }
+  // 插入Offer
+  async insertOffer(offer: OfferModel): Promise<number> {
+    if (!this.rdbStore) return 0
+
+    const sql = `
+      INSERT INTO offers (
+        company, position, base_salary, bonus, stock_options, other_benefits,
+        work_type, work_mode, work_location, offer_date, response_deadline,
+        start_date, hr_contact, hr_name, hr_phone, hr_email, notes, satisfaction_score,
+        status, created_at, updated_at
+      ) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
+    `;
+
+    const now = new Date().toISOString();
+    await this.rdbStore.executeSql(sql, [
+      offer.company,
+      offer.position,
+      offer.baseSalary,
+      offer.bonus,
+      offer.stockOptions,
+      offer.benefits,
+      offer.jobType,
+      offer.workMode,
+      offer.location || '',
+      offer.offerDate,
+      offer.responseDate || '',
+      offer.startDate || '',
+      offer.hrContact || '',
+      offer.hrName || '',
+      '', // hr_phone - 暂时为空字符串，因为OfferModel中没有此字段
+      '', // hr_email - 暂时为空字符串，因为OfferModel中没有此字段
+      offer.notes || '',
+      offer.satisfactionScore,
+      offer.status,
+      now,
+      now
+    ]);
+
+    return 1;
+  }
+
+  // 更新Offer
+  async updateOffer(offer: OfferModel): Promise<boolean> {
+    if (!this.rdbStore) return false
+
+    const sql = `
+      UPDATE offers SET
+        company = ?, position = ?, base_salary = ?, bonus = ?, stock_options = ?,
+        other_benefits = ?, work_type = ?, work_mode = ?, work_location = ?,
+        offer_date = ?, response_deadline = ?, start_date = ?, hr_contact = ?,
+        hr_name = ?, hr_phone = ?, hr_email = ?, notes = ?, satisfaction_score = ?,
+        status = ?, updated_at = ?
+      WHERE id = ?
+    `;
+
+    await this.rdbStore.executeSql(sql, [
+      offer.company,
+      offer.position,
+      offer.baseSalary,
+      offer.bonus,
+      offer.stockOptions,
+      offer.benefits,
+      offer.jobType,
+      offer.workMode,
+      offer.location || '',
+      offer.offerDate,
+      offer.responseDate || '',
+      offer.startDate || '',
+      offer.hrContact || '',
+      offer.hrName || '',
+      '', // hr_phone - 暂时为空字符串，因为OfferModel中没有此字段
+      '', // hr_email - 暂时为空字符串，因为OfferModel中没有此字段
+      offer.notes || '',
+      offer.satisfactionScore,
+      offer.status,
+      new Date().toISOString(),
+      offer.id
+    ]);
+
+    return true;
+  }
+
+  // 删除Offer
+  async deleteOffer(id: number): Promise<boolean> {
+    if (!this.rdbStore) return false
+
+    const sql = 'DELETE FROM offers WHERE id = ?';
+    await this.rdbStore.executeSql(sql, [id]);
+    return true;
+  }
+
+  // 根据ID获取Offer
+  async getOfferById(id: number): Promise<OfferModel | null> {
+    if (!this.rdbStore) return null
+
+    const sql = 'SELECT * FROM offers WHERE id = ?';
+    const result = await this.rdbStore.querySql(sql, [id]);
+
+    if (result.rowCount === 0) {
+      return null;
+    }
+
+    result.goToRow(0);
+    return this.mapResultToModel(result);
+  }
+
+  // 获取所有Offer
+  async getAllOffers(): Promise<OfferModel[]> {
+    if (!this.rdbStore) return []
+
+    const sql = 'SELECT * FROM offers ORDER BY offer_date DESC, created_at DESC';
+    const result = await this.rdbStore.querySql(sql);
+
+    const offers: OfferModel[] = [];
+    for (let i = 0; i < result.rowCount; i++) {
+      result.goToRow(i);
+      offers.push(this.mapResultToModel(result));
+    }
+
+    return offers;
+  }
+
+  // 根据状态筛选Offer
+  async getOffersByStatus(status: OfferStatus): Promise<OfferModel[]> {
+    if (!this.rdbStore) return []
+
+    const sql = 'SELECT * FROM offers WHERE status = ? ORDER BY offer_date DESC';
+    const result = await this.rdbStore.querySql(sql, [status]);
+
+    const offers: OfferModel[] = [];
+    for (let i = 0; i < result.rowCount; i++) {
+      result.goToRow(i);
+      offers.push(this.mapResultToModel(result));
+    }
+
+    return offers;
+  }
+
+  // 根据工作类型筛选Offer
+  async getOffersByWorkType(workType: JobType): Promise<OfferModel[]> {
+    if (!this.rdbStore) return []
+
+    const sql = 'SELECT * FROM offers WHERE work_type = ? ORDER BY offer_date DESC';
+    const result = await this.rdbStore.querySql(sql, [workType]);
+
+    const offers: OfferModel[] = [];
+    for (let i = 0; i < result.rowCount; i++) {
+      result.goToRow(i);
+      offers.push(this.mapResultToModel(result));
+    }
+
+    return offers;
+  }
+
+  // 搜索Offer
+  async searchOffers(keyword: string): Promise<OfferModel[]> {
+    if (!this.rdbStore) return []
+
+    const sql = `
+      SELECT * FROM offers
+      WHERE company LIKE ? OR position LIKE ? OR notes LIKE ?
+      ORDER BY offer_date DESC
+    `;
+    const searchTerm = `%${keyword}%`;
+    const result = await this.rdbStore.querySql(sql, [searchTerm, searchTerm, searchTerm]);
+
+    const offers: OfferModel[] = [];
+    for (let i = 0; i < result.rowCount; i++) {
+      result.goToRow(i);
+      offers.push(this.mapResultToModel(result));
+    }
+
+    return offers;
+  }
+
+  // 获取即将过期的Offer
+  async getExpiringOffers(days: number = 7): Promise<OfferModel[]> {
+    if (!this.rdbStore) return []
+
+    const futureDate = new Date();
+    futureDate.setDate(futureDate.getDate() + days);
+    const futureDateStr = futureDate.toISOString().split('T')[0];
+
+    const sql = `
+      SELECT * FROM offers
+      WHERE status = ? AND response_deadline <= ? AND response_deadline != ''
+      ORDER BY response_deadline ASC
+    `;
+    const result = await this.rdbStore.querySql(sql, [OfferStatus.PENDING, futureDateStr]);
+
+    const offers: OfferModel[] = [];
+    for (let i = 0; i < result.rowCount; i++) {
+      result.goToRow(i);
+      offers.push(this.mapResultToModel(result));
+    }
+
+    return offers;
+  }
+
+  // 获取Offer统计数据
+  async getOfferStats(): Promise<OfferStatistics> {
+    if (!this.rdbStore) {
+      throw new Error('数据库为初始化！！')
+    }
+
+    const totalResult = await this.rdbStore.querySql('SELECT COUNT(*) as count FROM offers');
+    totalResult.goToRow(0);
+    const total = totalResult.getLong(totalResult.getColumnIndex('count'));
+
+    const pendingResult = await this.rdbStore.querySql('SELECT COUNT(*) as count FROM offers WHERE status = ?', [OfferStatus.PENDING]);
+    pendingResult.goToRow(0);
+    const pending = pendingResult.getLong(pendingResult.getColumnIndex('count'));
+
+    const acceptedResult = await this.rdbStore.querySql('SELECT COUNT(*) as count FROM offers WHERE status = ?', [OfferStatus.ACCEPTED]);
+    acceptedResult.goToRow(0);
+    const accepted = acceptedResult.getLong(acceptedResult.getColumnIndex('count'));
+
+    const rejectedResult = await this.rdbStore.querySql('SELECT COUNT(*) as count FROM offers WHERE status = ?', [OfferStatus.REJECTED]);
+    rejectedResult.goToRow(0);
+    const rejected = rejectedResult.getLong(rejectedResult.getColumnIndex('count'));
+
+    const expiredResult = await this.rdbStore.querySql('SELECT COUNT(*) as count FROM offers WHERE status = ?', [OfferStatus.EXPIRED]);
+    expiredResult.goToRow(0);
+    const expired = expiredResult.getLong(expiredResult.getColumnIndex('count'));
+
+    const salaryResult = await this.rdbStore.querySql('SELECT AVG(base_salary + bonus) as avg_salary, MAX(base_salary + bonus) as max_salary FROM offers');
+    salaryResult.goToRow(0);
+    const avgSalary = salaryResult.getDouble(salaryResult.getColumnIndex('avg_salary'));
+    const maxSalary = salaryResult.getDouble(salaryResult.getColumnIndex('max_salary'));
+
+    return {
+      total: Number(total),
+      pending: Number(pending),
+      accepted: Number(accepted),
+      rejected: Number(rejected),
+      expired: Number(expired),
+      avgSalary: Number(avgSalary) || 0,
+      maxSalary: Number(maxSalary) || 0
+    };
+  }
+
+  // 按薪资排序获取Offer
+  async getOffersSortedBySalary(ascending: boolean = false): Promise<OfferModel[]> {
+    if (!this.rdbStore) return []
+
+    const order = ascending ? 'ASC' : 'DESC';
+    const sql = `SELECT * FROM offers ORDER BY (base_salary + bonus) ${order}`;
+    const result = await this.rdbStore.querySql(sql);
+
+    const offers: OfferModel[] = [];
+    for (let i = 0; i < result.rowCount; i++) {
+      result.goToRow(i);
+      offers.push(this.mapResultToModel(result));
+    }
+
+    return offers;
+  }
+
+  private mapResultToModel(result: relationalStore.ResultSet): OfferModel {
+    const offer = new OfferModel();
+
+    offer.id = result.getLong(result.getColumnIndex('id'));
+    offer.company = result.getString(result.getColumnIndex('company'));
+    offer.position = result.getString(result.getColumnIndex('position'));
+    offer.baseSalary = result.getDouble(result.getColumnIndex('base_salary'));
+    offer.bonus = result.getDouble(result.getColumnIndex('bonus'));
+    offer.stockOptions = result.getString(result.getColumnIndex('stock_options'));
+
+    const benefitsStr = result.getString(result.getColumnIndex('other_benefits'));
+    offer.benefits = benefitsStr ? benefitsStr : '';
+
+    offer.jobType = result.getString(result.getColumnIndex('work_type')) as JobType;
+    offer.workMode = result.getString(result.getColumnIndex('work_mode')) as WorkMode;
+    offer.location = result.getString(result.getColumnIndex('work_location'));
+    offer.offerDate = result.getString(result.getColumnIndex('offer_date'));
+    offer.responseDate = result.getString(result.getColumnIndex('response_deadline'));
+    offer.startDate = result.getString(result.getColumnIndex('start_date'));
+    offer.hrContact = result.getString(result.getColumnIndex('hr_contact'));
+    offer.hrName = result.getString(result.getColumnIndex('hr_name'));
+    offer.notes = result.getString(result.getColumnIndex('notes'));
+    offer.satisfactionScore = result.getLong(result.getColumnIndex('satisfaction_score'));
+    offer.status = result.getString(result.getColumnIndex('status')) as OfferStatus;
+
+    return offer;
   }
 }
 
